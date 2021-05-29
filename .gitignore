@@ -1,0 +1,7 @@
+# ignore node_modules
+node_modules
+package-lock.json
+session-store.db
+sql/users.sql
+.vscode
+.env
