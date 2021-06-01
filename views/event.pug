@@ -7,7 +7,7 @@ block main
   p= event.info 
 
   section 
-    form(action=`/event/${event.id}` method="post")
+    form(action=`/event/${event.id}/1` method="post")
       dt 
         label(for="username") Your name
       dd 
@@ -19,8 +19,8 @@ block main
               required)
       dt 
         label I'll be...
-      button(name="there" value=true) THERE
-      button(name="there" value=false) SQUARE
+      button THERE
+      button(formaction=`/event/${event.id}/0`) SQUARE
 
   section 
   h2 Going

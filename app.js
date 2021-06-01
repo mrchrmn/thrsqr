@@ -99,7 +99,8 @@ app.post("/event/new",
       .trim()
       .isLength({ max: 150 })
       .withMessage("Info cannot be longer than 150 characters.")
-  ], catchError(
+  ], 
+  catchError(
     async (req, res) => {
       let store = res.locals.store;
       let eventId = await store.generateId("events");
@@ -129,7 +130,7 @@ app.get("/event/:eventId", catchError(
         event,
         participants,
         username: res.locals.username,
-        userId: res.locals.userId
+        participantId: res.locals.participant
       });
     }
   }
@@ -137,7 +138,7 @@ app.get("/event/:eventId", catchError(
 
 
 // 
-app.post("/event/:eventId", 
+app.post("/event/:eventId/:there", 
   [
     body("username")
       .trim()
@@ -145,23 +146,25 @@ app.post("/event/:eventId",
       .withMessage("You need to provide a name.")
       .isLength({ max: 50 })
       .withMessage("Name cannot be longer than 50 characters.")
-  ], catchError(
+  ], 
+  catchError(
     async (req, res) => {
       let store = res.locals.store;
+      let participantId = res.locals.participantId;
       let eventId = req.params.eventId;
       let username = req.body.username;
-      let there = req.body.there;
+      let there = !!Number(req.params.there);
 
-      let updated = await store.updateParticipants(eventId, username, there, req.locals.userId);
-
-      if(!updated) {
-        throw new Error("Could not update event.");
-      } else {
-        req.session.userId = updated.userId;
-        req.session.username = username;
-        req.flash("success", "Event updated.");
-        res.redirect(`/event/${eventId}`);
+      if (!participantId) {
+        participantId = await store.newParticipant(username);
       }
+
+      await store.updateEventsParticipants(eventId, username, there, participantId);
+
+      req.session.participantId = participantId;
+      req.session.username = username;
+      req.flash("success", "Event updated.");
+      res.redirect(`/event/${eventId}`);
     }
   )
 );
