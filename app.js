@@ -56,11 +56,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Initial username for testing purposes 
-// app.use((req, _res, next) => {
-//   req.session.username = "Marc H.";
-//   next();
-// });
 
 // Extract session datastore
 app.use((req, res, next) => {
