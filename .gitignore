@@ -3,5 +3,6 @@ node_modules
 package-lock.json
 session-store.db
 sql/users.sql
+sql/sampledata.sql
 .vscode
 .env

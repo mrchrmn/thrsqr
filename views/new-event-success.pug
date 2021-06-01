@@ -1,0 +1,10 @@
+extends layout 
+
+block main 
+  h1= eventTitle 
+  h2 Share this link to your event.
+
+  p
+    a(href=`/event/${eventId}`)= `${origin}/event/${eventId}`
+  h2 
+    a(href=`/event/${eventId}`) Go to event.

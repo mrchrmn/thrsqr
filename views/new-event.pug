@@ -1,0 +1,46 @@
+extends layout 
+
+block main 
+  h1 Set up a new event
+  form(action="/event/new" method="post")
+    dl 
+      dt 
+        label(for="eventTitle") The event is called...
+      dd 
+        input(type="text" 
+              id="eventTitle" 
+              name="eventTitle"
+              placeholder="New event title"
+              required)    
+      dt 
+        label(for="eventDayOfWeek") and takes place every...
+      dd 
+        select(name="eventDayOfWeek" required)
+          option(value=1) Monday 
+          option(value=2) Tuesday 
+          option(value=3) Wednesday
+          option(value=4) Thursday
+          option(value=5) Friday 
+          option(value=6) Saturday 
+          option(value=0) Sunday 
+      dt 
+        label(for="eventTime") Time:
+      dd 
+        input(type="time" 
+              id="eventTime" 
+              name="eventTime" 
+              required)
+        input(type="hidden"
+              id="eventTimeZone"
+              name="eventTimeZone"
+              value=Intl.DateTimeFormat().resolvedOptions().timeZone)
+      dt 
+        label(for="eventInfo") Additional info, eg. place (optional):
+      dd 
+        textarea(rows=3 
+                 maxlength=150
+                 id="eventInfo" 
+                 name="eventInfo"
+                 placeholder="Additional Info")
+
+    input(type="submit" value="create event")
