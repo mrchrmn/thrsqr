@@ -56,10 +56,17 @@ app.use((req, res, next) => {
   next();
 });
 
+// Initial username for testing purposes 
+// app.use((req, _res, next) => {
+//   req.session.username = "Marc H.";
+//   next();
+// });
+
 // Extract session datastore
 app.use((req, res, next) => {
   res.locals.admin = req.session.admin;
   res.locals.username = req.session.username;
+  res.locals.participantId = req.session.participantId;
   res.locals.flash = req.session.flash;
   delete req.session.flash;
   next();
@@ -78,7 +85,7 @@ app.get("/event/new", (_req, res) => {
 });
 
 
-// Registered new event
+// Successfully registered new event
 app.post("/event/new",
   [
     body("eventTitle")
@@ -95,7 +102,7 @@ app.post("/event/new",
   ], catchError(
     async (req, res) => {
       let store = res.locals.store;
-      let eventId = await store.generateEventId();
+      let eventId = await store.generateId("events");
       let eventDetails = { ...req.body, eventId };
 
       let created = await store.newEvent(eventDetails);
@@ -111,22 +118,54 @@ app.post("/event/new",
 app.get("/event/:eventId", catchError(
   async (req, res) => {
     let store = res.locals.store;
-    let username = res.locals.username;
     let eventId = req.params.eventId;
     let event = await store.getEvent(eventId);
 
     if (!event) {
-      throw new Error("Requested event does not found.");
+      throw new Error("Requested event not found.");
     } else {
       let participants = await store.getParticipants(eventId);
       res.render("event", {
         event,
         participants,
-        username
+        username: res.locals.username,
+        userId: res.locals.userId
       });
     }
   }
 ));
+
+
+// 
+app.post("/event/:eventId", 
+  [
+    body("username")
+      .trim()
+      .isLength({ min: 1})
+      .withMessage("You need to provide a name.")
+      .isLength({ max: 50 })
+      .withMessage("Name cannot be longer than 50 characters.")
+  ], catchError(
+    async (req, res) => {
+      let store = res.locals.store;
+      let eventId = req.params.eventId;
+      let username = req.body.username;
+      let there = req.body.there;
+
+      let updated = await store.updateParticipants(eventId, username, there, req.locals.userId);
+
+      if(!updated) {
+        throw new Error("Could not update event.");
+      } else {
+        req.session.userId = updated.userId;
+        req.session.username = username;
+        req.flash("success", "Event updated.");
+        res.redirect(`/event/${eventId}`);
+      }
+    }
+  )
+);
+
 
 // Error handler
 app.use((err, _req, res, _next) => {

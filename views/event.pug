@@ -1,0 +1,35 @@
+extends layout 
+
+block main 
+  - var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  h1= event.title
+  h2= `Every ${week[event.dayofweek]} at ${event.eventtime.substring(0,5)}`
+  p= event.info 
+
+  section 
+    form(action=`/event/${event.id}` method="post")
+      dt 
+        label(for="username") Your name
+      dd 
+        input(type="text" 
+              id="username" 
+              name="username" 
+              placeholder="Name" 
+              value=username 
+              required)
+      dt 
+        label I'll be...
+      button(name="there" value=true) THERE
+      button(name="there" value=false) SQUARE
+
+  section 
+  h2 Going
+  each participant in participants 
+    if participant.there === true 
+      ul 
+        li= participant.username
+  h2 Not going
+  each participant in participants 
+    if participant.there === false 
+      ul 
+        li= participant.username

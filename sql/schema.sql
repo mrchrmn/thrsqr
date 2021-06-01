@@ -1,15 +1,21 @@
 CREATE TABLE events (
   id char(8) PRIMARY KEY,
-  title text NOT NULL,
+  title varchar(100) NOT NULL,
   dayOfWeek int NOT NULL,
   eventTime time NOT NULL,
   timeZone varchar NOT NULL,
-  info text
+  info varchar(150), 
+  lastUpdate timestamp DEFAULT now()
 );
 
 CREATE TABLE participants (
+  id char(8) PRIMARY KEY,
+  username varchar(50)
+);
+
+CREATE TABLE events_participants (
   id serial PRIMARY KEY,
-  event_id char(8) REFERENCES events (id),
-  username text NOT NULL,
+  event_id char(8) REFERENCES events (id) ON DELETE CASCADE, 
+  participant_id char(8) REFERENCES participants (id) ON DELETE CASCADE, 
   there boolean NOT NULL
 );

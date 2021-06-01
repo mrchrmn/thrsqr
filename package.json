@@ -30,6 +30,7 @@
     "express-session": "^1.17.2",
     "express-validator": "^6.11.1",
     "pg": "^8.6.0",
+    "pg-format": "^1.0.4",
     "pug": "^3.0.2"
   },
   "devDependencies": {
