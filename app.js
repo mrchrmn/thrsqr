@@ -9,6 +9,7 @@ const store = require("connect-loki");
 const { persistence } = require("./lib/get-persistence");
 const Persistence = require(persistence);
 const catchError = require("./lib/catch-error");
+const { lastOccurrence } = require("./lib/dates");
 
 
 const app = express();
@@ -16,6 +17,8 @@ const HOST = config.HOST;
 const PORT = config.PORT;
 const LokiStore = store(session);
 
+// responses can still be read and updated until this time after the start of an event
+const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000; 
 
 app.set("view engine", "pug");
 app.set("views", "./views");
@@ -115,10 +118,17 @@ app.get("/event/:eventId", catchError(
     let store = res.locals.store;
     let eventId = req.params.eventId;
     let event = await store.getEvent(eventId);
-
+    console.log(event);
     if (!event) {
       throw new Error("Requested event not found.");
     } else {
+      let previous = lastOccurrence(event.eventtime, event.dayofweek);
+      let lastUpdate = new Date(event.lastupdate);
+  
+      if (previous > lastUpdate + WAIT_TIME_IN_MS) {
+        await store.resetResponses(eventId);
+      }
+
       let responses = await store.getResponses(eventId);
       res.render("event", {
         event,
