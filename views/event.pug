@@ -28,7 +28,7 @@ block main
     if participant.there === true 
       ul 
         li 
-          form(action=`/event/${event.id}/remove/${participant.id}`)
+          form(action=`/event/${event.id}/remove/${participant.id}` method="post")
             p #{participant.username} 
             button remove
   h2 Not going
@@ -36,6 +36,6 @@ block main
     if participant.there === false 
       ul 
         li 
-          form(action=`/event/${event.id}/remove/${participant.id}`)
+          form(action=`/event/${event.id}/remove/${participant.id}` method="post")
             p #{participant.username} 
             button remove
