@@ -101,8 +101,7 @@ app.post("/event/new",
       let eventId = await store.generateId("events");
       let eventDetails = { ...req.body, eventId };
 
-      let created = await store.newEvent(eventDetails);
-      if (!created) throw new Error("There was a problem creating the event.");
+      await store.newEvent(eventDetails);
 
       res.render("new-event-success", { ...eventDetails, origin: req.headers.origin });
     }
@@ -132,7 +131,7 @@ app.get("/event/:eventId", catchError(
 ));
 
 
-// 
+// Update participation
 app.post("/event/:eventId/:there", 
   [
     body("username")
@@ -154,15 +153,30 @@ app.post("/event/:eventId/:there",
         participantId = await store.newParticipant(username);
       }
 
-      await store.updateEventsParticipants(eventId, username, there, participantId);
+      await store.updateResponses(eventId, username, there, participantId);
 
       req.session.participantId = participantId;
       req.session.username = username;
-      req.flash("success", "Event updated.");
+      req.flash("success", "Event responses updated.");
       res.redirect(`/event/${eventId}`);
     }
   )
 );
+
+
+// Remove partcipation
+app.post("/event/:eventId/remove/:participantId", catchError(
+  async (req, res) => {
+    let store = res.locals.store;
+    let eventId = req.params.eventId;
+    let participantId = req.params.participantId;
+
+    await store.removeResponse(eventId, participantId);
+
+    req.flash("success", "Removed response.");
+    res.redirect(`/event/${eventId}`);
+  }
+));
 
 
 // Error handler
