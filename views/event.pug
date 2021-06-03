@@ -19,23 +19,35 @@ block main
               required)
       dt 
         label I'll be...
-      button(formaction=`/event/${event.id}/1`) THERE
-      button(formaction=`/event/${event.id}/0`) SQUARE
+      dd
+        button(formaction=`/event/${event.id}/1`) THERE
+        button(formaction=`/event/${event.id}/0`) SQUARE
+      dt 
+        label(for="comment") Comment (optional)
+      dd
+        textarea(rows=3 
+                 maxlength=150
+                 id="comment" 
+                 name="comment" 
+                 placeholder="Comment")=comment
+
 
   section 
   h2 Going
-  each participant in participants 
-    if participant.there === true 
+  each response in responses 
+    if response.there === true 
       ul 
         li 
-          form(action=`/event/${event.id}/remove/${participant.id}` method="post")
-            p #{participant.username} 
+          form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
+            p=response.username
+            p=response.comment
             button remove
   h2 Not going
-  each participant in participants 
-    if participant.there === false 
+  each response in responses 
+    if response.there === false 
       ul 
         li 
-          form(action=`/event/${event.id}/remove/${participant.id}` method="post")
-            p #{participant.username} 
+          form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
+            p=response.username
+            p=response.comment
             button remove

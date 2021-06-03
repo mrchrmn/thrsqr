@@ -17,16 +17,6 @@ const PORT = config.PORT;
 const LokiStore = store(session);
 
 
-// authentication check middleware
-// const requiresAdmin = (_req, res, next) => {
-//   if (!res.locals.admin) {
-//     res.redirect(302, "/admin/signin");
-//   } else {
-//     next();
-//   }
-// };
-
-
 app.set("view engine", "pug");
 app.set("views", "./views");
 
@@ -59,9 +49,9 @@ app.use((req, res, next) => {
 
 // Extract session datastore
 app.use((req, res, next) => {
-  res.locals.admin = req.session.admin;
   res.locals.username = req.session.username;
   res.locals.participantId = req.session.participantId;
+  res.locals.lastComment = req.session.lastComment;
   res.locals.flash = req.session.flash;
   delete req.session.flash;
   next();
@@ -119,10 +109,11 @@ app.get("/event/:eventId", catchError(
     if (!event) {
       throw new Error("Requested event not found.");
     } else {
-      let participants = await store.getParticipants(eventId);
+      let responses = await store.getResponses(eventId);
       res.render("event", {
         event,
-        participants,
+        responses,
+        comment: res.locals.lastComment,
         username: res.locals.username,
         participantId: res.locals.participant
       });
@@ -147,16 +138,20 @@ app.post("/event/:eventId/:there",
       let participantId = res.locals.participantId;
       let eventId = req.params.eventId;
       let username = req.body.username;
+      let comment = req.body.comment;
       let there = !!Number(req.params.there);
+
+      console.log(comment.toUpperCase());
 
       if (!participantId) {
         participantId = await store.newParticipant(username);
       }
 
-      await store.updateResponses(eventId, username, there, participantId);
+      await store.updateResponses(eventId, username, there, participantId, comment);
 
       req.session.participantId = participantId;
       req.session.username = username;
+      req.session.lastComment = comment;
       req.flash("success", "Event responses updated.");
       res.redirect(`/event/${eventId}`);
     }

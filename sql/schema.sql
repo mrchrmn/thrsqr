@@ -17,5 +17,6 @@ CREATE TABLE responses (
   id serial PRIMARY KEY,
   event_id char(8) REFERENCES events (id) ON DELETE CASCADE, 
   participant_id char(8) REFERENCES participants (id) ON DELETE CASCADE, 
-  there boolean NOT NULL
+  there boolean NOT NULL,
+  comment varChar(150)
 );

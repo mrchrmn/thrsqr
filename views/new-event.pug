@@ -11,6 +11,7 @@ block main
               id="eventTitle" 
               name="eventTitle"
               placeholder="New event title"
+              maxlength=100 
               required)    
       dt 
         label(for="eventDayOfWeek") and takes place every...
@@ -40,7 +41,7 @@ block main
         textarea(rows=3 
                  maxlength=150
                  id="eventInfo" 
-                 name="eventInfo"
+                 name="eventInfo" 
                  placeholder="Additional Info")
 
     input(type="submit" value="create event")
