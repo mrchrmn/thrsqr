@@ -1,5 +1,8 @@
 extends layout 
 
+block title 
+  title=`${event.title} | There or Square`
+
 block main 
   - var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   h1= event.title
@@ -30,7 +33,6 @@ block main
                  id="comment" 
                  name="comment" 
                  placeholder="Comment")=comment
-
 
   section 
   h2 Going

@@ -130,7 +130,12 @@ app.post("/event/:eventId/:there",
       .isLength({ min: 1})
       .withMessage("You need to provide a name.")
       .isLength({ max: 50 })
-      .withMessage("Name cannot be longer than 50 characters.")
+      .withMessage("Name cannot be longer than 50 characters."),
+
+    body("comment")
+      .trim()
+      .isLength({ max: 150 })
+      .withMessage("Comment cannot be longer than 150 characters.")
   ], 
   catchError(
     async (req, res) => {
