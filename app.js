@@ -6,7 +6,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 const { body, validationResult } = require("express-validator");
 const store = require("connect-loki");
-const { persistence } = require("./lib/get-config");
+const { persistence } = require("./lib/get-persistence");
 const Persistence = require(persistence);
 const catchError = require("./lib/catch-error");
 
@@ -91,9 +91,19 @@ app.post("/event/new",
       let eventId = await store.generateId("events");
       let eventDetails = { ...req.body, eventId };
 
-      await store.newEvent(eventDetails);
+      let errors = validationResult(req);
 
-      res.render("new-event-success", { ...eventDetails, origin: req.headers.origin });
+      if (!errors.isEmpty()) {
+        errors.array().forEach(message => req.flash("error", message.msg));
+        res.render("new-event", {
+          flash: req.flash()
+        });
+
+      } else {
+        await store.newEvent(eventDetails);
+        res.render("new-event-success", { ...eventDetails, origin: req.headers.origin });  
+      }
+
     }
   )
 );
@@ -146,19 +156,24 @@ app.post("/event/:eventId/:there",
       let comment = req.body.comment;
       let there = !!Number(req.params.there);
 
-      console.log(comment.toUpperCase());
-
-      if (!participantId) {
-        participantId = await store.newParticipant(username);
+      let errors = validationResult(req);
+      
+      if (!errors.isEmpty()) {
+        errors.array().forEach(message => req.flash("error", message.msg));
+        res.redirect(`/event/${eventId}`);
+      } else {
+        if (!participantId) {
+          participantId = await store.newParticipant(username);
+        }
+  
+        await store.updateResponses(eventId, username, there, participantId, comment);
+  
+        req.session.participantId = participantId;
+        req.session.username = username;
+        req.session.lastComment = comment;
+        req.flash("success", "Event responses updated.");
+        res.redirect(`/event/${eventId}`);          
       }
-
-      await store.updateResponses(eventId, username, there, participantId, comment);
-
-      req.session.participantId = participantId;
-      req.session.username = username;
-      req.session.lastComment = comment;
-      req.flash("success", "Event responses updated.");
-      res.redirect(`/event/${eventId}`);
     }
   )
 );
