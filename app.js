@@ -122,7 +122,7 @@ app.get("/event/:eventId", catchError(
 ));
 
 
-// Update participation
+// Update responses
 app.post("/event/:eventId/:there", 
   [
     body("username")
@@ -164,7 +164,7 @@ app.post("/event/:eventId/:there",
 );
 
 
-// Remove partcipation
+// Remove response
 app.post("/event/:eventId/remove/:participantId", catchError(
   async (req, res) => {
     let store = res.locals.store;
