@@ -7,7 +7,7 @@ block main
   p= event.info 
 
   section 
-    form(action=`/event/${event.id}/1` method="post")
+    form(action=`/event/${event.id}` method="post")
       dt 
         label(for="username") Your name
       dd 
@@ -19,7 +19,7 @@ block main
               required)
       dt 
         label I'll be...
-      button THERE
+      button(formaction=`/event/${event.id}/1`) THERE
       button(formaction=`/event/${event.id}/0`) SQUARE
 
   section 
@@ -27,9 +27,15 @@ block main
   each participant in participants 
     if participant.there === true 
       ul 
-        li= participant.username
+        li 
+          form(action=`/event/${event.id}/remove/${participant.id}`)
+            p #{participant.username} 
+            button remove
   h2 Not going
   each participant in participants 
     if participant.there === false 
       ul 
-        li= participant.username
+        li 
+          form(action=`/event/${event.id}/remove/${participant.id}`)
+            p #{participant.username} 
+            button remove
