@@ -33,6 +33,10 @@
     "pg-format": "^1.0.4",
     "pug": "^3.0.2"
   },
+  "engines": {
+    "node": "13.1.0",
+    "npm": "6.12.1"
+  },
   "devDependencies": {
     "nodemon": "^2.0.7"
   }
