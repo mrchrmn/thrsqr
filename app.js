@@ -137,14 +137,14 @@ app.get("/event/:eventId", catchError(
 
       let responses = await store.getResponses(eventId);
 
-      let nextOccurrence = getLastOrNext(event.eventtime, event.dayofweek, "next").toDateString();
+      let nextDate = getLastOrNext(event.eventtime, event.dayofweek, "next").toDateString();
       let going = countGoing(responses);
       
       res.render("event", {
         event,
         responses,
         going,
-        nextOccurrence,
+        nextDate,
         comment: res.locals.lastComment,
         username: res.locals.username,
         participantId: res.locals.participant
