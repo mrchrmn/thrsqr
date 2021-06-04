@@ -36,20 +36,20 @@ block main
 
   section 
   h2 Going: #{going}
-  each response in responses 
-    if response.there === true 
-      ol(type="1")
+  ol(type="1")
+    each response in responses 
+      if response.there === true 
         li 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
             p=response.username
+              button remove
             p=response.comment
-            button remove
   h2 Not going
-  each response in responses 
-    if response.there === false 
-      ul 
+  ul 
+    each response in responses 
+      if response.there === false 
         li 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
-            p=response.username
+            p=response.username 
+              button remove
             p=response.comment
-            button remove
