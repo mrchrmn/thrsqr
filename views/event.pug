@@ -35,10 +35,10 @@ block main
                  placeholder="Comment")=comment
 
   section 
-  h2 Going
+  h2 Going: #{going}
   each response in responses 
     if response.there === true 
-      ul 
+      ol(type="1")
         li 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
             p=response.username

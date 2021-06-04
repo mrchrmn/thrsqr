@@ -9,7 +9,7 @@ const store = require("connect-loki");
 const { persistence } = require("./lib/get-persistence");
 const Persistence = require(persistence);
 const catchError = require("./lib/catch-error");
-const { lastOccurrence } = require("./lib/dates");
+const { lastOccurrence, slugFrom, countGoing } = require("./lib/thrsqr");
 
 
 const app = express();
@@ -104,12 +104,18 @@ app.post("/event/new",
 
       } else {
         await store.newEvent(eventDetails);
-        res.render("new-event-success", { ...eventDetails, origin: req.headers.origin });  
+        let slug = slugFrom(eventDetails.eventTitle);
+        res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });  
       }
-
     }
   )
 );
+
+
+// Redirect from title slug to event
+app.get("/event/:slug/:eventId", (req, res) => {
+  res.redirect(303, `/event/${req.params.eventId}`);
+});
 
 
 // Display event page
@@ -130,9 +136,12 @@ app.get("/event/:eventId", catchError(
       }
 
       let responses = await store.getResponses(eventId);
+      let going = countGoing(responses);
+      
       res.render("event", {
         event,
         responses,
+        going,
         comment: res.locals.lastComment,
         username: res.locals.username,
         participantId: res.locals.participant

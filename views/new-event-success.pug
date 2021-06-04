@@ -5,9 +5,11 @@ block title
 
 block main 
   h1= eventTitle 
-  h2 Share this link to your event.
+  h2 Share one this link to your event.
+  p Anyone with the link can read and modify the list of participants. 
+  p Don't forget to copy it somewhere safe or bookmark it for yourself. 
 
   p
-    a(href=`/event/${eventId}`)= `${origin}/event/${eventId}`
+    a(href=`/event/${slug}/${eventId}`)= `${origin}/event/${slug}/${eventId}`
   h2 
     a(href=`/event/${eventId}`) Go to event.
