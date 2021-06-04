@@ -7,6 +7,7 @@ block main
   - var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   h1= event.title
   h2= `Every ${week[event.dayofweek]} at ${event.eventtime.substring(0,5)}`
+  h3= `Next on ${nextOccurrence}`
   p= event.info 
 
   section 

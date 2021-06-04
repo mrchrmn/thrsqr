@@ -9,7 +9,7 @@ const store = require("connect-loki");
 const { persistence } = require("./lib/get-persistence");
 const Persistence = require(persistence);
 const catchError = require("./lib/catch-error");
-const { lastOccurrence, slugFrom, countGoing } = require("./lib/thrsqr");
+const { getLastOrNext, slugFrom, countGoing } = require("./lib/thrsqr");
 
 
 const app = express();
@@ -128,7 +128,7 @@ app.get("/event/:eventId", catchError(
     if (!event) {
       throw new Error("Requested event not found.");
     } else {
-      let previous = lastOccurrence(event.eventtime, event.dayofweek);
+      let previous = getLastOrNext(event.eventtime, event.dayofweek, "last");
       let lastUpdate = new Date(event.lastupdate);
   
       if (previous > lastUpdate + WAIT_TIME_IN_MS) {
@@ -136,12 +136,15 @@ app.get("/event/:eventId", catchError(
       }
 
       let responses = await store.getResponses(eventId);
+
+      let nextOccurrence = getLastOrNext(event.eventtime, event.dayofweek, "next").toDateString();
       let going = countGoing(responses);
       
       res.render("event", {
         event,
         responses,
         going,
+        nextOccurrence,
         comment: res.locals.lastComment,
         username: res.locals.username,
         participantId: res.locals.participant
