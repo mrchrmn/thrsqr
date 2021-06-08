@@ -9,7 +9,7 @@ const store = require("connect-loki");
 const { persistence } = require("./lib/get-persistence");
 const Persistence = require(persistence);
 const catchError = require("./lib/catch-error");
-const { getLastOrNext, slugFrom, countGoing } = require("./lib/thrsqr");
+const { getLast, slugFrom, countGoing } = require("./lib/thrsqr");
 
 
 const app = express();
@@ -124,27 +124,30 @@ app.get("/event/:eventId", catchError(
     let store = res.locals.store;
     let eventId = req.params.eventId;
     let event = await store.getEvent(eventId);
-    console.log(event);
+
     if (!event) {
       throw new Error("Requested event not found.");
     } else {
-      let previous = getLastOrNext(event.eventtime, event.dayofweek, "last");
+      let previous = getLast(event.eventtime, event.dayofweek, event.utcoffset);
+      console.log(previous);
       let lastUpdate = new Date(event.lastupdate);
+      console.log(lastUpdate);
   
-      if (previous > lastUpdate + WAIT_TIME_IN_MS) {
+      if (previous.valueOf() > lastUpdate.valueOf() + WAIT_TIME_IN_MS) {
+        console.log("RESET");
         await store.resetResponses(eventId);
       }
 
       let responses = await store.getResponses(eventId);
 
-      let nextDate = getLastOrNext(event.eventtime, event.dayofweek, "next").toDateString();
+      // let nextDate = getNext(event.eventtime, event.dayofweek, event.utcoffset).toDateString();
       let going = countGoing(responses);
       
       res.render("event", {
         event,
         responses,
         going,
-        nextDate,
+        // nextDate,
         comment: res.locals.lastComment,
         username: res.locals.username,
         participantId: res.locals.participant
