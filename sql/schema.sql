@@ -5,8 +5,7 @@ CREATE TABLE events (
   eventTime time NOT NULL,
   timeZone varchar NOT NULL,
   info varchar(150), 
-  lastUpdate timestamptz DEFAULT now(),
-  editkey char(4) NOT NULL
+  lastUpdate timestamptz DEFAULT now()
 );
 
 CREATE TABLE participants (
@@ -21,4 +20,10 @@ CREATE TABLE responses (
   participant_id char(8) REFERENCES participants (id) ON DELETE CASCADE, 
   there boolean NOT NULL,
   comment varChar(150)
+);
+
+CREATE TABLE admins (
+  id serial PRIMARY KEY,
+  username char(16) NOT NULL,
+  password text NOT NULL
 );
