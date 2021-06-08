@@ -1,8 +1,8 @@
 extends layout 
 
 block main 
-  h1 Set up a new event
-  form(action="/event/new" method="post")
+  h1 Edit event details
+  form(action=`/event/edit/${event.id}` method="post")
     dl 
       dt 
         label(for="eventTitle") The event is called...
@@ -10,6 +10,7 @@ block main
         input(type="text" 
               id="eventTitle" 
               name="eventTitle"
+              value=event.title
               placeholder="New event title"
               maxlength=100 
               required)    
@@ -18,13 +19,17 @@ block main
       dd 
         select(name="eventDayOfWeek" required)
           each val, index in ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-            option(value=index)= val 
+            if index === event.dayofweek 
+              option(selected value=index)= val 
+            else
+              option(value=index)= val 
       dt 
         label(for="eventTime") Time:
       dd 
         input(type="time" 
               id="eventTime" 
               name="eventTime" 
+              value=event.eventtime
               required)
         input(type="hidden"
               id="eventTimeZone"
@@ -37,6 +42,6 @@ block main
                  maxlength=150
                  id="eventInfo" 
                  name="eventInfo" 
-                 placeholder="Additional Info")
+                 placeholder="Additional Info")=event.info
 
-    input(type="submit" value="create event")
+    input(type="submit" value="Update event")

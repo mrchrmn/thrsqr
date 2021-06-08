@@ -61,6 +61,8 @@ app.use((req, res, next) => {
 });
 
 
+// GET handlers
+
 // Welcome page
 app.get("/", (_req, res) => {
   res.render("welcome");
@@ -73,43 +75,21 @@ app.get("/event/new", (_req, res) => {
 });
 
 
-// Successfully registered new event
-app.post("/event/new",
-  [
-    body("eventTitle")
-      .trim()
-      .isLength({ min: 1})
-      .withMessage("You need to provide a title.")
-      .isLength({ max: 100 })
-      .withMessage("Title cannot be longer than 100 characters."),
+// Edit existing event
+app.get("/event/edit/:eventId", catchError(
+  async (req, res) => {
+    let store = res.locals.store;
+    let eventId = req.params.eventId;
+    let event = await store.getEvent(eventId);
 
-    body("eventInfo")
-      .trim()
-      .isLength({ max: 150 })
-      .withMessage("Info cannot be longer than 150 characters.")
-  ], 
-  catchError(
-    async (req, res) => {
-      let store = res.locals.store;
-      let eventId = await store.generateId("events");
-      let eventDetails = { ...req.body, eventId };
-
-      let errors = validationResult(req);
-
-      if (!errors.isEmpty()) {
-        errors.array().forEach(message => req.flash("error", message.msg));
-        res.render("new-event", {
-          flash: req.flash()
-        });
-
-      } else {
-        await store.newEvent(eventDetails);
-        let slug = slugFrom(eventDetails.eventTitle);
-        res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });  
-      }
+    if (!event) {
+      throw new Error("Requested event not found.");
+    } else {
+      res.render("edit-event", {
+        event
+      });
     }
-  )
-);
+}));
 
 
 // Redirect from title slug to event
@@ -155,6 +135,86 @@ app.get("/event/:eventId", catchError(
     }
   }
 ));
+
+
+// POST handlers
+
+// Successfully registered new event
+app.post("/event/new",
+  [
+    body("eventTitle")
+      .trim()
+      .isLength({ min: 1})
+      .withMessage("You need to provide a title.")
+      .isLength({ max: 100 })
+      .withMessage("Title cannot be longer than 100 characters."),
+
+    body("eventInfo")
+      .trim()
+      .isLength({ max: 150 })
+      .withMessage("Info cannot be longer than 150 characters.")
+  ], 
+  catchError(
+    async (req, res) => {
+      let store = res.locals.store;
+      let eventId = await store.generateId("events");
+      let eventDetails = { ...req.body, eventId };
+
+      let errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        errors.array().forEach(message => req.flash("error", message.msg));
+        res.render("new-event", {
+          flash: req.flash()
+        });
+
+      } else {
+        await store.newEvent(eventDetails);
+        let slug = slugFrom(eventDetails.eventTitle);
+        res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });  
+      }
+    }
+  )
+);
+
+
+// Update existing
+app.post("/event/edit/:eventId",
+  [
+    body("eventTitle")
+      .trim()
+      .isLength({ min: 1})
+      .withMessage("You need to provide a title.")
+      .isLength({ max: 100 })
+      .withMessage("Title cannot be longer than 100 characters."),
+
+    body("eventInfo")
+      .trim()
+      .isLength({ max: 150 })
+      .withMessage("Info cannot be longer than 150 characters.")
+  ], 
+  catchError(
+    async (req, res) => {
+      let store = res.locals.store;
+      let eventId = req.params.eventId;
+      let eventDetails = { ...req.body, eventId };
+
+      let errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        errors.array().forEach(message => req.flash("error", message.msg));
+        res.render("edit-event", {
+          flash: req.flash()
+        });
+
+      } else {
+        await store.updateEvent(eventDetails);
+        req.flash("success", "Event updated.");
+        res.redirect(`/event/${eventId}`);          
+      }
+    }
+  )
+);
 
 
 // Update responses
@@ -217,6 +277,7 @@ app.post("/event/:eventId/remove/:participantId", catchError(
     res.redirect(`/event/${eventId}`);
   }
 ));
+
 
 
 // Error handler
