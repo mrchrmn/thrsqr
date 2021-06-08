@@ -108,18 +108,14 @@ app.get("/event/:eventId", catchError(
     if (!event) {
       throw new Error("Requested event not found.");
     } else {
+      // if latest update is older than last previous event reset responses.
       let previous = getLast(event.eventtime, event.dayofweek, event.utcoffset);
-      console.log(previous);
-      let lastUpdate = new Date(event.lastupdate);
-      console.log(lastUpdate);
-  
+      let lastUpdate = new Date(event.lastupdate); 
       if (previous.valueOf() > lastUpdate.valueOf() + WAIT_TIME_IN_MS) {
-        console.log("RESET");
         await store.resetResponses(eventId);
       }
 
       let responses = await store.getResponses(eventId);
-
       let nextDate = getNext(event.eventtime, event.dayofweek, event.utcoffset).toDateString();
       let going = countGoing(responses);
       
@@ -129,8 +125,7 @@ app.get("/event/:eventId", catchError(
         going,
         nextDate,
         comment: res.locals.lastComment,
-        username: res.locals.username,
-        participantId: res.locals.participant
+        username: res.locals.username
       });
     }
   }
@@ -178,7 +173,7 @@ app.post("/event/new",
 );
 
 
-// Update existing event
+// Update existing event details
 app.post("/event/edit/:eventId",
   [
     body("eventTitle")
@@ -217,7 +212,7 @@ app.post("/event/edit/:eventId",
 );
 
 
-// Update responses
+// Update responses (there or square)
 app.post("/event/:eventId/:there", 
   [
     body("username")
@@ -247,7 +242,7 @@ app.post("/event/:eventId/:there",
         errors.array().forEach(message => req.flash("error", message.msg));
         res.redirect(`/event/${eventId}`);
       } else {
-        if (!participantId) {
+        if (!participantId || ! await store.ifExists(participantId, "participants")) {
           participantId = await store.newParticipant(username);
         }
   
@@ -289,5 +284,5 @@ app.use((err, _req, res, _next) => {
 
 // Listener
 app.listen(PORT, HOST, () => {
-  console.log(`There Or Square listening on port ${PORT} of ${HOST}.`);
+  console.log(`ThrSqr listening on port ${PORT} of ${HOST}.`);
 });
