@@ -5,12 +5,14 @@ CREATE TABLE events (
   eventTime time NOT NULL,
   timeZone varchar NOT NULL,
   info varchar(150), 
-  lastUpdate timestamptz DEFAULT now()
+  lastUpdate timestamptz DEFAULT now(),
+  editkey char(4) NOT NULL
 );
 
 CREATE TABLE participants (
   id char(8) PRIMARY KEY,
-  username varchar(50)
+  username varchar(50),
+  lastUpdate timestamptz DEFAULT now()
 );
 
 CREATE TABLE responses (
