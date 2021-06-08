@@ -1,15 +1,23 @@
 extends layout 
 
 block title 
-  title=`${eventTitle} | There or Square`
+  title=`${eventTitle} | ThrSqr - There or Square`
 
 block main 
   h1= eventTitle 
-  h2 Share this link to your event.
-  p Please note: Anyone with the link can read and modify the list of participants and potentially edit the event details.
-  p Don't forget to copy it somewhere safe or bookmark it for yourself. 
-
+  h2 Share this link to your event:
   p
     a(href=`/event/${slug}/${eventId}`)= `${origin}/event/${slug}/${eventId}`
+  h3 Please note:
+  ul 
+    li Anyone with the link can read and modify the list of responses, and potentially edit the event details.
+    li Don't forget to copy the link somewhere safe or bookmark it for yourself. 
+    li The list of responses clears automatically one hour after the event has begun. 
+  h3 Editing event details 
+  p To change your event (instead of setting up a new one) use this link:
+  p
+    a(href=`/event/edit/${eventId}`)= `${origin}/event/edit/${eventId}`
+  p Caution: Strange things may happen to your current list of responses if you change the time or day of the event. 
+
   h2 
     a(href=`/event/${eventId}`) Go to event.

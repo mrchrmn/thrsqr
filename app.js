@@ -9,7 +9,7 @@ const store = require("connect-loki");
 const { persistence } = require("./lib/get-persistence");
 const Persistence = require(persistence);
 const catchError = require("./lib/catch-error");
-const { getLast, slugFrom, countGoing } = require("./lib/thrsqr");
+const { getLast, slugFrom, countGoing, getNext } = require("./lib/thrsqr");
 
 
 const app = express();
@@ -33,7 +33,7 @@ app.use(session({
     path: "/",
     secure: false
   },
-  name: "there-or-square-session-id",
+  name: "thrsqr-session-id",
   resave: false,
   saveUninitialized: true,
   secret: config.SECRET,
@@ -120,14 +120,14 @@ app.get("/event/:eventId", catchError(
 
       let responses = await store.getResponses(eventId);
 
-      // let nextDate = getNext(event.eventtime, event.dayofweek, event.utcoffset).toDateString();
+      let nextDate = getNext(event.eventtime, event.dayofweek, event.utcoffset).toDateString();
       let going = countGoing(responses);
       
       res.render("event", {
         event,
         responses,
         going,
-        // nextDate,
+        nextDate,
         comment: res.locals.lastComment,
         username: res.locals.username,
         participantId: res.locals.participant
@@ -178,7 +178,7 @@ app.post("/event/new",
 );
 
 
-// Update existing
+// Update existing event
 app.post("/event/edit/:eventId",
   [
     body("eventTitle")

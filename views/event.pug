@@ -1,13 +1,13 @@
 extends layout 
 
 block title 
-  title=`${event.title} | There or Square`
+  title=`${event.title} | ThrSqr - There or Square`
 
 block main 
   - var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   h1= event.title
   h2= `Every ${week[event.dayofweek]} at ${event.eventtime.substring(0,5)} (${event.timezone})`
-  // h3= `Next on ${nextDate}`
+  h3= `Next on ${nextDate}`
   p= event.info 
 
   section 

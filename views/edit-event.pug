@@ -1,7 +1,11 @@
 extends layout 
 
+block title 
+  title=`${eventTitle} | Edit event details | ThrSqr - There or Square`
+
 block main 
-  h1 Edit event details
+  h1= event.title
+  h2 Edit event details
   form(action=`/event/edit/${event.id}` method="post")
     dl 
       dt 
