@@ -18,9 +18,6 @@ input, select, button {
   font-size: 150%;
 }
 
-input[type="text"] {
-}
-
 textarea {
   font-size: 75%;
 }
