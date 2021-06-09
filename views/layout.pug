@@ -11,14 +11,14 @@ html(lang="en-UK")
     link(rel="stylesheet" href="/stylesheets/whitespace-reset.css")
     link(rel="stylesheet" href="/stylesheets/application.css")
     meta(name="author" content="Marc Hermann")
-    meta(name="description" content="ThrSqr - RSVP app for weekly events.")
+    meta(name="description" content="ThrSqr - RSVP tracker for weekly events and friendly people.")
     block script
       script(src="/javascript/application.js")
 
   body 
     header 
       block headerlinks 
-        a(href="/") Home
+        <a href="/">Home</a> | <a href="/reset/user">Reset user data for this browser</a>
 
     main 
       - let msgTypes = Object.keys(flash || {});

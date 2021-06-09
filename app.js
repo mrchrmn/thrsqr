@@ -134,6 +134,16 @@ app.get("/event/:eventId", catchError(
 ));
 
 
+// Deletes user session data
+app.get("/reset/user", (req, res) => {
+  delete req.session.username;
+  delete req.session.participantId;
+  delete req.session.lastComment;
+
+  res.redirect(req.headers.referer);
+})
+
+
 // POST handlers
 
 // Successfully registered new event
@@ -206,7 +216,7 @@ app.post("/event/edit/:eventId",
 
       } else {
         await store.updateEvent(eventDetails);
-        req.flash("success", "Event updated.");
+        // req.flash("success", "Event updated.");
         res.redirect(`/event/${eventId}`);          
       }
     }
@@ -253,7 +263,7 @@ app.post("/event/:eventId/:there",
         req.session.participantId = participantId;
         req.session.username = username;
         req.session.lastComment = comment;
-        req.flash("success", "Event responses updated.");
+        // req.flash("success", "Event responses updated.");
         res.redirect(`/event/${eventId}`);          
       }
     }
@@ -270,7 +280,7 @@ app.post("/event/:eventId/remove/:participantId", catchError(
 
     await store.removeResponse(eventId, participantId);
 
-    req.flash("success", "Removed response.");
+    // req.flash("success", "Removed response.");
     res.redirect(`/event/${eventId}`);
   }
 ));
