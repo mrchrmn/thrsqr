@@ -27,3 +27,7 @@ CREATE TABLE admins (
   username char(16) NOT NULL,
   password text NOT NULL
 );
+
+DELETE FROM responses;
+DELETE FROM events;
+DELETE FROM participants;
