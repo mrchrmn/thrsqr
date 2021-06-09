@@ -44,15 +44,13 @@ block main
       if response.there === true 
         li 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
-            p=response.username
+            p <strong>#{response.username}</strong> #{response.comment}
               button remove
-            p=response.comment
   h2 Not going
   ul 
     each response in responses 
       if response.there === false 
         li 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
-            p=response.username 
+            p <strong>#{response.username}</strong> #{response.comment}
               button remove
-            p=response.comment
