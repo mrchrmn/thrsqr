@@ -1,4 +1,29 @@
 body {
   font-family: "Hepta Slab", Helvetica, Arial, sans-serif;
+  font-size: 3vw;
+  background-color: #c8f3c8;
 }
 
+dt {
+  padding-bottom: 1%;
+}
+
+dd {
+  padding-bottom: 3%;
+  margin-inline-start: 0;
+}
+
+input, select {
+  font-size: 150%;
+}
+
+textarea {
+  width: 80%;
+  font-size: 75%;
+}
+
+footer {
+  margin-top: 150px;
+  font-size: 1.5vw;
+  color: #6c876c;
+}
