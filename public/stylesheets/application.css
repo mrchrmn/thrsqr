@@ -1,7 +1,7 @@
 body {
   background-color: #c8f3c8;
   color: #174117;
-  font: normal 1.25rem "Hepta Slab", Georgia, 'Times New Roman', Times, serif;
+  font: normal 20px "Hepta Slab", Georgia, 'Times New Roman', Times, serif;
   margin: 20px;
   max-width: 640px;
 }
@@ -33,7 +33,7 @@ section h2 {
 }
 
 main > form {
-  margin-top: 1.5rem;
+  margin-top: 25px;
 }
 
 form dt {
@@ -54,7 +54,7 @@ main > form button {
   color: #174117;
   border-radius: 3px;
   box-sizing: border-box;
-  font: normal 1.25rem "Hepta Slab", Georgia, 'Times New Roman', Times, serif;
+  font: normal 20px "Hepta Slab", Georgia, 'Times New Roman', Times, serif;
   padding: 5px 5px;
   width: 320px;
 }
@@ -118,5 +118,5 @@ a:hover {
 }
 
 #responses p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 20px;
 }
