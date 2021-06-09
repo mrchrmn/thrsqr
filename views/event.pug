@@ -8,7 +8,7 @@ block script
 block main 
   - var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   h1= event.title
-  h2= `Every ${week[event.dayofweek]} at ${event.eventtime.substring(0,5)} (${event.timezone})`
+  h2 Every #{week[event.dayofweek]} at #{event.eventtime.substring(0,5)} <span id="timezoneinfo">(Timezone: #{event.timezone})</span>
   h3= `Next on ${nextDate}`
   p= event.info ? "Info: " + event.info : ""
   form(action=`/event/${event.id}` method="post")
