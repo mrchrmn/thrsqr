@@ -118,11 +118,13 @@ app.get("/event/:eventId", catchError(
       let responses = await store.getResponses(eventId);
       let nextDate = getNext(event.eventtime, event.dayofweek, event.utcoffset).toDateString();
       let going = countGoing(responses);
+      let notGoing = responses.length - going;
       
       res.render("event", {
         event,
         responses,
         going,
+        notGoing,
         nextDate,
         comment: res.locals.lastComment,
         username: res.locals.username

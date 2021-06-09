@@ -1,37 +1,122 @@
 body {
-  font-family: "Hepta Slab", Helvetica, Arial, sans-serif;
-  font-size: 3vmin;
   background-color: #c8f3c8;
-  max-width: 1000px;
+  color: #174117;
+  font: normal 1.25rem "Hepta Slab", Georgia, 'Times New Roman', Times, serif;
+  margin: 20px;
+  max-width: 640px;
 }
 
-dt {
-  padding-bottom: 1%;
+h1, h2, h3 {
+  padding: 10px 0;
 }
 
-dd {
-  padding-bottom: 3%;
-  margin-inline-start: 0;
+h1 {
+  font-size: 225%;
 }
 
-input, select, button {
+h2 {
   font-size: 150%;
 }
 
-textarea {
-  font-size: 75%;
+
+header, 
+main {
+  padding-bottom: 40px;
 }
 
-button {
-  margin: 1%;
+section {
+  padding: 20px 0;
 }
 
-ol button {
-  font-size: 100%;
+section h2 {
+  padding-top: 40px;
+}
+
+main > form {
+  margin-top: 1.5rem;
+}
+
+form dt {
+  padding-bottom: 5px;
+}
+
+form dd {
+  padding-bottom: 20px;
+}
+
+form input[type="text"],
+form input[type="time"],
+form input[type="submit"],
+form select,
+form textarea, 
+main > form button {
+  border: 2px solid #165316;
+  color: #174117;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font: normal 1.25rem "Hepta Slab", Georgia, 'Times New Roman', Times, serif;
+  padding: 5px 5px;
+  width: 320px;
+}
+
+main > form button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  color: white;
+  font-weight: bold;
+  width: 140px;
+  height: 70px;
+  margin-right: 40px;
+}
+
+form input[type="submit"] {
+  color: white;
+  font-weight: bold;
+}
+
+#there, form input[type="submit"] {
+  background-color: #00a900;
+}
+
+#there:hover, form input[type="submit"]:hover {
+  background-color: #1bd31b;
+}
+
+#square {
+  background-color: #a92700;
+}
+
+#square:hover {
+  background-color: #d4461b;
 }
 
 footer {
-  margin-top: 150px;
-  font-size: 1.5vmin;
-  color: #6c876c;
+  font-size: 1rem;
+  color: #488248;
+}
+
+a {
+  color: #006a00;
+}
+
+a:hover {
+  color: #00a900;
+}
+
+#responses button {
+  border: none;
+  background: transparent url("../images/icon_delete.png") 0 3px no-repeat;
+  box-sizing: border-box;
+  height: 27px;
+  width: 24px;
+  opacity: 0.5;
+  margin-left: 14px;
+}
+
+#responses button:hover {
+  opacity: 1;
+}
+
+#responses p {
+  margin-bottom: 1.25rem;
 }

@@ -7,8 +7,9 @@ html(lang="en-UK")
       title ThrSqr - There or Square 
     meta(charset="UTF-8")
     link(rel="stylesheet" href="//fonts.googleapis.com/css?family=Hepta+Slab")
-    // link(rel="stylesheet" href="/stylesheets/whitespace-reset.css")
-    // link(rel="stylesheet" href="/stylesheets/application.css")
+    link(rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto")
+    link(rel="stylesheet" href="/stylesheets/whitespace-reset.css")
+    link(rel="stylesheet" href="/stylesheets/application.css")
     meta(name="author" content="Marc Hermann")
     meta(name="description" content="ThrSqr - RSVP app for weekly events.")
     block script
@@ -20,14 +21,14 @@ html(lang="en-UK")
         a(href="/") Home
 
     main 
-    - let msgTypes = Object.keys(flash || {});
-    if msgTypes.length > 0
-    ul 
-      each msgType in msgTypes 
-        each message in flash[msgType] 
-          li.flash(class=type)= message 
+      - let msgTypes = Object.keys(flash || {});
+      if msgTypes.length > 0
+      ul 
+        each msgType in msgTypes 
+          each message in flash[msgType] 
+            li.flash(class=type)= message 
 
-    block main 
+      block main 
 
     footer 
       p PS: ThrSqr is still in development, nothing is set in stone, and things may change at a whim. <strong>This may lead to a loss of data<strong>. 

@@ -10,47 +10,42 @@ block main
   h1= event.title
   h2= `Every ${week[event.dayofweek]} at ${event.eventtime.substring(0,5)} (${event.timezone})`
   h3= `Next on ${nextDate}`
-  p= event.info 
-
-  section 
-    form(action=`/event/${event.id}` method="post")
-      dt 
-        label(for="username") Your name
-      dd 
-        input(type="text" 
-              id="username" 
-              name="username" 
-              placeholder="Name" 
-              value=username 
-              required)
-      dt 
-        label I'll be...
-      dd
-        button(formaction=`/event/${event.id}/1`) THERE
-        button(formaction=`/event/${event.id}/0`) SQUARE
-      dt 
-        label(for="comment") Comment (optional)
-      dd
-        textarea(rows=3 
-                 maxlength=150
-                 id="comment" 
-                 name="comment" 
-                 placeholder="Comment")=comment
-
-  section 
-  h2 Going: #{going}
-  ol(type="1")
-    each response in responses 
-      if response.there === true 
-        li 
+  p= event.info ? "Info: " + event.info : ""
+  form(action=`/event/${event.id}` method="post")
+    dt 
+      label(for="username") Name
+    dd 
+      input(type="text" 
+            id="username" 
+            name="username" 
+            placeholder="Name" 
+            value=username 
+            required)
+    dt 
+      label(for="comment") Comment (optional)
+    dd
+      textarea(rows=3 
+                maxlength=150
+                id="comment" 
+                name="comment" 
+                placeholder="Comment")=comment
+    dt 
+      label I'll be...
+    dd
+      button(formaction=`/event/${event.id}/1` id="there") THERE
+      button(formaction=`/event/${event.id}/0` id="square") SQUARE
+  section(id="responses")
+    if going > 0
+      h2 Going: #{going}
+      each response in responses 
+        if response.there === true 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
             p <strong>#{response.username}</strong> #{response.comment}
-              button remove
-  h2 Not going
-  ul 
-    each response in responses 
-      if response.there === false 
-        li 
+              button
+    if notGoing > 0
+      h2 Not going:
+      each response in responses 
+        if response.there === false 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
             p <strong>#{response.username}</strong> #{response.comment}
-              button remove
+              button
