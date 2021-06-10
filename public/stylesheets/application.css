@@ -7,6 +7,7 @@ body {
   word-wrap: break-word;
 }
 
+/*
 h1, h2, h3 {
   padding: 10px 0;
 }
@@ -19,6 +20,11 @@ h2 {
   font-size: 150%;
 }
 
+section h2 {
+  padding-top: 40px;
+}
+*/
+
 header, 
 main {
   padding-bottom: 40px;
@@ -26,10 +32,6 @@ main {
 
 section {
   padding: 20px 0;
-}
-
-section h2 {
-  padding-top: 40px;
 }
 
 main > form {
@@ -41,6 +43,7 @@ form dt {
 }
 
 form dd {
+  margin-left: 0px;
   padding-bottom: 20px;
 }
 
