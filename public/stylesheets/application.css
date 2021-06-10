@@ -65,6 +65,7 @@ main > form button {
 main > form button {
   -moz-appearance: none;
   -webkit-appearance: none;
+  box-sizing: border-box;
   color: white;
   font-weight: bold;
   width: 210px;
@@ -141,23 +142,11 @@ a:hover {
   form select,
   form textarea, 
   main > form button {
-    border: 2px solid #165316;
-    color: #174117;
-    border-radius: 3px;
-    box-sizing: border-box;
-    font: inherit;
-    padding: 5px 5px;
     width: 90%;
   }
 
   main > form button {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    box-sizing: border-box;
-    color: white;
-    font-weight: bold;
     width: 40%;
-    height: 70px;
     margin-right: 10%;
   }
 }
