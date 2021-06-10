@@ -1,7 +1,7 @@
 body {
   background-color: #c8f3c8;
   color: #174117;
-  font: normal 20px "Hepta Slab", Georgia, 'Times New Roman', Times, serif;
+  font: normal 1.25rem "Hepta Slab", Georgia, 'Times New Roman', Times, serif;
   margin: 20px;
   max-width: 640px;
   word-wrap: break-word;
@@ -57,9 +57,9 @@ main > form button {
   color: #174117;
   border-radius: 3px;
   box-sizing: border-box;
-  font: normal 20px "Hepta Slab", Georgia, 'Times New Roman', Times, serif;
+  font: inherit;
   padding: 5px 5px;
-  width: 320px;
+  width: 480px;
 }
 
 main > form button {
@@ -67,9 +67,9 @@ main > form button {
   -webkit-appearance: none;
   color: white;
   font-weight: bold;
-  width: 140px;
+  width: 210px;
   height: 70px;
-  margin-right: 40px;
+  margin-right: 60px;
 }
 
 form input[type="submit"] {
