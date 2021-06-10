@@ -149,4 +149,8 @@ a:hover {
     width: 40%;
     margin-right: 10%;
   }
+
+  #responses p {
+    font-size: 100%;
+  }
 }
