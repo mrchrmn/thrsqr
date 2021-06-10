@@ -20,7 +20,6 @@ My first web app: an rsvp tracker for weekly events and friendly people.
 
 * Responsive CSS that works well on mobile devices
 * Master admin page
-* A way to block bots from creating events
 * Nicer interface
   * More languages
   * Possibility to upload event logos

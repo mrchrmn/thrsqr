@@ -129,6 +129,14 @@ a:hover {
   font-size: 50%;
 }
 
+#email {
+  display: none;
+}
+
+#message {
+  display: none;
+}
+
 @media only screen and (max-width: 640px) {
   body {
     max-width: 100%;

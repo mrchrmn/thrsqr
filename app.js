@@ -163,22 +163,33 @@ app.post("/event/new",
   ], 
   catchError(
     async (req, res) => {
-      let store = res.locals.store;
-      let eventId = await store.generateId("events");
-      let eventDetails = { ...req.body, eventId };
+      let email = req.body.email;
+      let message = req.body.message;
 
-      let errors = validationResult(req);
-
-      if (!errors.isEmpty()) {
-        errors.array().forEach(message => req.flash("error", message.msg));
-        res.render("new-event", {
-          flash: req.flash()
-        });
-
+      if (email.length > 0 || message.length > 0) {
+        res.status(200).send("Thank you for registering.");
+      
       } else {
-        await store.newEvent(eventDetails);
-        let slug = slugFrom(eventDetails.eventTitle);
-        res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });  
+        delete req.body.email;
+        delete req.body.message;
+  
+        let store = res.locals.store;
+        let eventId = await store.generateId("events");
+        let eventDetails = { ...req.body, eventId };
+  
+        let errors = validationResult(req);
+  
+        if (!errors.isEmpty()) {
+          errors.array().forEach(message => req.flash("error", message.msg));
+          res.render("new-event", {
+            flash: req.flash()
+          });
+  
+        } else {
+          await store.newEvent(eventDetails);
+          let slug = slugFrom(eventDetails.eventTitle);
+          res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });  
+        }  
       }
     }
   )
