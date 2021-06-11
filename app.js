@@ -137,7 +137,7 @@ app.get("/event/:eventId", catchError(
       }
 
       let responses = await store.getResponses(eventId);
-      if req.session.language === "de" locale = "de-DE";
+      if (req.session.language === "de") locale = "de-DE";
       let nextDate = getNext(event.eventtime, event.dayofweek, event.utcoffset).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
       let going = countGoing(responses);
       let notGoing = responses.length - going;
