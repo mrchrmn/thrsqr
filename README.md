@@ -18,12 +18,10 @@ My first web app: an rsvp tracker for weekly events and friendly people.
 
 ## On the todo list
 
-* Responsive CSS that works well on mobile devices
 * Master admin page
 * Nicer interface
   * Possibility to upload event logos
   * Colour palette from event logos
 * More client side code:
-  * Display event time in client time zone
   * Database updates without page reloads
   * Turn into SPA?
