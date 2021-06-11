@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'biorhymeregular';
+    src: url('BioRhyme-Regular-webfont.eot');
+    src: url('BioRhyme-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('BioRhyme-Regular-webfont.woff2') format('woff2'),
+         url('BioRhyme-Regular-webfont.woff') format('woff'),
+         url('BioRhyme-Regular-webfont.ttf') format('truetype'),
+         url('BioRhyme-Regular-webfont.svg#biorhymeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'biorhymebold';
+    src: url('BioRhyme-Bold-webfont.eot');
+    src: url('BioRhyme-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('BioRhyme-Bold-webfont.woff2') format('woff2'),
+         url('BioRhyme-Bold-webfont.woff') format('woff'),
+         url('BioRhyme-Bold-webfont.ttf') format('truetype'),
+         url('BioRhyme-Bold-webfont.svg#biorhymebold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'biorhymelight';
+  src: url('BioRhyme-Light-webfont.eot');
+  src: url('BioRhyme-Light-webfont.eot?#iefix') format('embedded-opentype'),
+       url('BioRhyme-Light-webfont.woff2') format('woff2'),
+       url('BioRhyme-Light-webfont.woff') format('woff'),
+       url('BioRhyme-Light-webfont.ttf') format('truetype'),
+       url('BioRhyme-Light-webfont.svg#biorhymelight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
