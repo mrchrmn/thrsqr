@@ -10,7 +10,7 @@ block main
   h1= event.title
   h2 #{TEXTS.eventEvery} #{week[event.dayofweek]} #{TEXTS.eventAt} #{event.eventtime.substring(0,5)} <span id="timezoneinfo">(#{TEXTS.timezone}: #{event.timezone})</span>
   h3 #{TEXTS.nextOn} #{nextDate}
-  p= event.info ? "Info: " + event.info : ""
+  p= event.info ? event.info : ""
   form(action=`/event/${event.id}` method="post")
     dt 
       label(for="username") Name
