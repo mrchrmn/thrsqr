@@ -6,10 +6,10 @@ block title
 block script
 
 block main 
-  - var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  - var week = TEXTS.weekArray
   h1= event.title
-  h2 Every #{week[event.dayofweek]} at #{event.eventtime.substring(0,5)} <span id="timezoneinfo">(Timezone: #{event.timezone})</span>
-  h3= `Next on ${nextDate}`
+  h2 #{TEXTS.eventEvery} #{week[event.dayofweek]} #{TEXTS.eventAt} #{event.eventtime.substring(0,5)} <span id="timezoneinfo">(#{TEXTS.timezone}: #{event.timezone})</span>
+  h3 #{TEXTS.nextOn} #{nextDate}
   p= event.info ? "Info: " + event.info : ""
   form(action=`/event/${event.id}` method="post")
     dt 
@@ -22,28 +22,28 @@ block main
             value=username 
             required)
     dt 
-      label(for="comment") Comment (optional)
+      label(for="comment") #{TEXTS.comment} (optional)
     dd
-      textarea(rows=4 
+      textarea(rows=3 
                 maxlength=150
                 id="comment" 
                 name="comment" 
-                placeholder="Comment")=comment
+                placeholder=TEXTS.comment)=comment
     dt 
-      label I'll be...
+      label= TEXTS.illBe
     dd
-      button(formaction=`/event/${event.id}/1` id="there") THERE
-      button(formaction=`/event/${event.id}/0` id="square") SQUARE
+      button(formaction=`/event/${event.id}/1` id="there")=TEXTS.there
+      button(formaction=`/event/${event.id}/0` id="square")=TEXTS.square
   section(id="responses")
     if going > 0
-      h2 Going: #{going}
+      h2 #{TEXTS.there} - #{going}
       each response in responses 
         if response.there === true 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
             p <strong>#{response.username}</strong> #{response.comment}
               button
     if notGoing > 0
-      h2 Not going:
+      h2 #{TEXTS.square}
       each response in responses 
         if response.there === false 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post")

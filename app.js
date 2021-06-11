@@ -10,7 +10,7 @@ const { persistence } = require("./lib/get-persistence");
 const Persistence = require(persistence);
 const catchError = require("./lib/catch-error");
 const { getLast, slugFrom, countGoing, getNext } = require("./lib/thrsqr");
-
+const TEXTS = require("./lib/texts.json");
 
 const app = express();
 const HOST = config.HOST;
@@ -44,10 +44,25 @@ app.use(flash());
 
 
 // Create a new datastore
-app.use((req, res, next) => {
-  res.locals.store = new Persistence(req.session);
+app.use((_req, res, next) => {
+  res.locals.store = new Persistence();
   next();
 });
+
+
+app.use((req, res, next) => {
+  if (!req.session.language) {
+    req.session.language = req.headers["accept-language"].substring(0,2);
+  }
+
+  if (req.session.language === "de") {
+    res.locals.texts = TEXTS["de"];
+  } else {
+    res.locals.texts = TEXTS["en"];
+  }
+
+  next();
+})
 
 
 // Extract session datastore
@@ -65,13 +80,17 @@ app.use((req, res, next) => {
 
 // Welcome page
 app.get("/", (_req, res) => {
-  res.render("welcome");
+  res.render("welcome", {
+    TEXTS: res.locals.texts
+  });
 });
 
 
 // Create new event
 app.get("/event/new", (_req, res) => {
-  res.render("new-event");
+  res.render("new-event", {
+    TEXTS: res.locals.texts
+  });
 });
 
 
@@ -86,6 +105,7 @@ app.get("/event/edit/:eventId", catchError(
       throw new Error("Requested event not found.");
     } else {
       res.render("edit-event", {
+        TEXTS: res.locals.texts,
         event
       });
     }
@@ -121,6 +141,7 @@ app.get("/event/:eventId", catchError(
       let notGoing = responses.length - going;
       
       res.render("event", {
+        TEXTS: res.locals.texts,
         event,
         responses,
         going,
@@ -139,9 +160,16 @@ app.get("/reset/user", (req, res) => {
   delete req.session.username;
   delete req.session.participantId;
   delete req.session.lastComment;
+  delete req.session.language;
 
   res.redirect(req.headers.referer);
-})
+});
+
+
+app.get("/change-language", (req, res) => {
+  req.session.language = req.session.language === "en" ? "de" : "en";
+  res.redirect(req.headers.referer);
+});
 
 
 // POST handlers
@@ -182,13 +210,26 @@ app.post("/event/new",
         if (!errors.isEmpty()) {
           errors.array().forEach(message => req.flash("error", message.msg));
           res.render("new-event", {
+            TEXTS: res.locals.texts,
             flash: req.flash()
           });
   
         } else {
           await store.newEvent(eventDetails);
           let slug = slugFrom(eventDetails.eventTitle);
-          res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });  
+
+          let successView;
+          if (req.session.language === "de") {
+            successView = "new-event-success-de";
+          } else {
+            successView = "new-event-success";
+          }
+
+          res.render(successView, { 
+            ...eventDetails, 
+            origin: req.headers.origin, 
+            slug,
+            TEXTS: res.locals.texts });  
         }  
       }
     }
@@ -222,6 +263,7 @@ app.post("/event/edit/:eventId",
       if (!errors.isEmpty()) {
         errors.array().forEach(message => req.flash("error", message.msg));
         res.render("edit-event", {
+          TEXTS: res.locals.texts,
           flash: req.flash()
         });
 

@@ -1,14 +1,14 @@
 body {
   background-color: #c8f3c8;
   color: #174117;
-  font: normal 1.25rem "biorhymeregular", Georgia, 'Times New Roman', Times, serif;
+  font: normal 1.125rem "biorhymeregular", Georgia, 'Times New Roman', Times, serif;
   margin: 20px;
   max-width: 640px;
   word-wrap: break-word;
 }
 
 
-h1, h2, h3 {
+h1, h2, h3, strong {
   font-family: "biorhymebold", Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -61,8 +61,8 @@ main > form button {
 }
 
 form input[type="submit"] {
+  font-family: "biorhymebold", Georgia, 'Times New Roman', Times, serif;
   color: white;
-  font-weight: bold;
 }
 
 #there, form input[type="submit"] {
@@ -124,6 +124,10 @@ a:hover {
   display: none;
 }
 
+.headerlinks {
+  font-size: smaller;
+}
+
 @media only screen and (max-width: 640px) {
   body {
     max-width: 100%;
@@ -146,6 +150,6 @@ a:hover {
   }
 
   #responses p {
-    font-size: 100%;
+    font-size: 112.5%;
   }
 }

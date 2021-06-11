@@ -18,7 +18,7 @@ html(lang="en-UK")
   body 
     header 
       block headerlinks 
-        <a href="/">Home</a> | <a href="/reset/user">Reset user data for this browser</a>
+        <a href="/">Home</a> | <span class="headerlinks"><a href="/reset/user">#{TEXTS.resetUserData}</a> | <a href="/change-language">#{TEXTS.changeLanguage}</a></span>
 
     main 
       - let msgTypes = Object.keys(flash || {});
@@ -31,4 +31,6 @@ html(lang="en-UK")
       block main 
 
     footer 
-      p PS: ThrSqr is still in development, nothing is set in stone, and things may change at a whim. <strong>This may lead to a loss of data<strong>. 
+      p!= TEXTS.disclaimer
+      p
+        a(href="/change-language")= TEXTS.changeLanguage

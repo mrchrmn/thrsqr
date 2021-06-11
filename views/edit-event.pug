@@ -1,34 +1,34 @@
 extends layout 
 
 block title 
-  title=`${eventTitle} | Edit event details | ThrSqr`
+  title=`${event.title} | ${TEXTS.editEventHeading} | ThrSqr`
 
 block main 
   h1= event.title
-  h2 Edit event details
+  h2= TEXTS.editEventHeading
   form(action=`/event/edit/${event.id}` method="post")
     dl 
       dt 
-        label(for="eventTitle") The event is called...
+        label(for="eventTitle")= TEXTS.eventTitle
       dd 
         input(type="text" 
               id="eventTitle" 
               name="eventTitle"
               value=event.title
-              placeholder="New event title"
+              placeholder=TEXTS.eventTitlePlaceholder
               maxlength=100 
               required)    
       dt 
-        label(for="eventDayOfWeek") and takes place every...
+        label(for="eventDayOfWeek")= TEXTS.eventDayOfWeek
       dd 
         select(name="eventDayOfWeek" required)
-          each val, index in ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+          each val, index in TEXTS.weekArray
             if index === event.dayofweek 
               option(selected value=index)= val 
             else
               option(value=index)= val 
       dt 
-        label(for="eventTime") Time:
+        label(for="eventTime")= TEXTS.eventTime
       dd 
         input(type="time" 
               id="eventTime" 
@@ -40,12 +40,12 @@ block main
               name="eventTimeZone"
               value="")
       dt 
-        label(for="eventInfo") Additional info, eg. place (optional):
+        label(for="eventInfo")= TEXTS.eventInfo
       dd 
-        textarea(rows=4 
+        textarea(rows=3 
                  maxlength=150
                  id="eventInfo" 
                  name="eventInfo" 
-                 placeholder="Additional Info")=event.info
+                 placeholder=TEXTS.eventInfoPlaceholder)=event.info
 
-    input(type="submit" value="Update event")
+    input(type="submit" value=TEXTS.updateEvent)
