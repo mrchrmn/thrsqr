@@ -123,6 +123,7 @@ app.get("/event/:eventId", catchError(
   async (req, res) => {
     let store = res.locals.store;
     let eventId = req.params.eventId;
+    let locale = req.headers["accept-language"].substring(0,5);
     let event = await store.getEvent(eventId);
 
     if (!event) {
@@ -136,7 +137,7 @@ app.get("/event/:eventId", catchError(
       }
 
       let responses = await store.getResponses(eventId);
-      let nextDate = getNext(event.eventtime, event.dayofweek, event.utcoffset).toDateString();
+      let nextDate = getNext(event.eventtime, event.dayofweek, event.utcoffset).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
       let going = countGoing(responses);
       let notGoing = responses.length - going;
       
