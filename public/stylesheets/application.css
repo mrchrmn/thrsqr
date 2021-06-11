@@ -132,6 +132,7 @@ a:hover {
   body {
     max-width: 95%;
     width: 95%;
+    margin: 10px;
     font-size: 1.125rem;
   }
 
