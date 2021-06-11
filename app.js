@@ -20,6 +20,17 @@ const LokiStore = store(session);
 // responses can still be read and updated until this time after the start of an event
 const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000; 
 
+
+// SignIn check middleware
+const adminOnly = (req, res, next) => {
+  if(!res.locals.superuser) {
+    res.redirect(302, "/superusersignin");
+  } else {
+    next();
+  }
+}
+
+
 app.set("view engine", "pug");
 app.set("views", "./views");
 
@@ -67,6 +78,7 @@ app.use((req, res, next) => {
 
 // Extract session datastore
 app.use((req, res, next) => {
+  res.locals.superuser = req.session.superuser;
   res.locals.username = req.session.username;
   res.locals.participantId = req.session.participantId;
   res.locals.lastComment = req.session.lastComment;
@@ -159,6 +171,7 @@ app.get("/event/:eventId", catchError(
 
 // Deletes user session data
 app.get("/reset/user", (req, res) => {
+  delete req.session.superuser;
   delete req.session.username;
   delete req.session.participantId;
   delete req.session.lastComment;
@@ -168,10 +181,40 @@ app.get("/reset/user", (req, res) => {
 });
 
 
+// Swap German and English via session
 app.get("/change-language", (req, res) => {
   req.session.language = req.session.language === "en" ? "de" : "en";
   res.redirect(req.headers.referer);
 });
+
+
+// Sign in as admin
+app.get("/superusersignin", (_req, res) => {
+  res.locals.texts = TEXTS["en"];
+  res.render("signin", {
+    TEXTS: res.locals.texts
+  });
+});
+
+
+app.get("/superuser", adminOnly, (_req, res) => {
+  res.locals.texts = TEXTS["en"];
+  res.render("superuser", {
+    TEXTS: res.locals.texts
+  });
+});
+
+
+app.get("superuser/delete-inactive-events", adminOnly, catchError(
+  async (_req, res) => {
+    await res.locals.store.deleteInactiveEvents();
+}));
+
+
+app.get("superuser/delete-inactive-participants", adminOnly, catchError(
+  async (_req, res) => {
+    await res.locals.store.deleteInactiveParticipants();
+}));
 
 
 // POST handlers
@@ -271,7 +314,6 @@ app.post("/event/edit/:eventId",
 
       } else {
         await store.updateEvent(eventDetails);
-        // req.flash("success", "Event updated.");
         res.redirect(`/event/${eventId}`);          
       }
     }
@@ -318,7 +360,6 @@ app.post("/event/:eventId/:there",
         req.session.participantId = participantId;
         req.session.username = username;
         req.session.lastComment = comment;
-        // req.flash("success", "Event responses updated.");
         res.redirect(`/event/${eventId}`);          
       }
     }
@@ -335,11 +376,32 @@ app.post("/event/:eventId/remove/:participantId", catchError(
 
     await store.removeResponse(eventId, participantId);
 
-    // req.flash("success", "Removed response.");
     res.redirect(`/event/${eventId}`);
   }
 ));
 
+
+// Signing in
+app.post("/superusersignin", catchError(
+  async (req, res) => {
+    let username = req.body.username.trim();
+    let password = req.body.password;
+    let authenticated = await res.locals.store.userAuthenticated(username, password)
+    res.locals.texts = TEXTS["en"];
+
+    if (!authenticated) {
+      req.flash("error", "Invalid credentials.");
+      res.render("signin", {
+        flash: req.flash(),
+        TEXTS: res.locals.texts,
+        username
+      });
+    } else {
+      req.session.superuser = true;
+      res.redirect("/superuser");
+    }
+  }
+));
 
 
 // Error handler

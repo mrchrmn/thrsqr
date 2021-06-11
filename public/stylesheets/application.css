@@ -35,6 +35,7 @@ form dd {
 }
 
 form input[type="text"],
+form input[type="password"],
 form input[type="time"],
 form input[type="submit"],
 form select,
@@ -137,6 +138,7 @@ a:hover {
   }
 
   form input[type="text"],
+  form input[type="password"],
   form input[type="time"],
   form input[type="submit"],
   form select,

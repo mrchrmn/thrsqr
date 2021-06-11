@@ -15,13 +15,13 @@ My first web app: an rsvp tracker for weekly events and friendly people.
 * Somewhat timezone aware
   * Registers and saves client time zone as event time zone.
   * Uses event time zone to reset responses one hour after the event has begun.
+* Master admin page
 
 ## On the todo list
 
-* Master admin page
-* Nicer interface
-  * Possibility to upload event logos
-  * Colour palette from event logos
 * More client side code:
   * Database updates without page reloads
   * Turn into SPA?
+* Nicer interface
+  * Possibility to upload event logos
+  * Colour palette from event logos
