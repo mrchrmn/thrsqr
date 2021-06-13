@@ -4,7 +4,7 @@ CREATE TABLE events (
   dayOfWeek int NOT NULL,
   eventTime time NOT NULL,
   timeZone varchar NOT NULL,
-  info varchar(150), 
+  info varchar(303), 
   lastUpdate timestamptz DEFAULT now()
 );
 
