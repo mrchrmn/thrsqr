@@ -1,10 +1,15 @@
 extends layout 
 
 block main 
-  h1 Danger 
+  h1 Danger zone!
   
-  h3 
-    a(href="/superuser/delete-inactive-events") Delete events with no activity in the past three months.
+  form(action="/superuser/delete-inactive-events" method="post" class="delete")
+    h3 Delete events with no activity in the past three months
+    input(type="submit" value="Delete events" class="delete") 
+
+  form(action="/superuser/delete-inactive-participants" method="post" class="delete")
+    h3 Delete participants with no activity in the past six months
+    input(type="submit" value="Delete participants" class="delete")
 
   h3 
-    a(href="/superuser/delete-inactive-participants") Delete participants with no activity in the past six months.
+    a(href="/signout")

@@ -193,18 +193,6 @@ app.get("/superuser", adminOnly, (_req, res) => {
 });
 
 
-app.get("superuser/delete-inactive-events", adminOnly, catchError(
-  async (_req, res) => {
-    await res.locals.store.deleteInactiveEvents();
-}));
-
-
-app.get("superuser/delete-inactive-participants", adminOnly, catchError(
-  async (_req, res) => {
-    await res.locals.store.deleteInactiveParticipants();
-}));
-
-
 // POST handlers
 
 // Successfully registered new event
@@ -383,6 +371,23 @@ app.post("/superusersignin", catchError(
     }
   }
 ));
+
+
+// Deleting inactive events or participants
+app.post("/superuser/delete-inactive-events", adminOnly, catchError(
+  async (_req, res) => {
+    await res.locals.store.deleteInactiveEvents();
+    res.redirect("/superuser");
+  }));
+
+app.post("/superuser/delete-inactive-participants", adminOnly, catchError(
+  async (_req, res) => {
+    await res.locals.store.deleteInactiveParticipants();
+    res.redirect("/superuser");
+  }));
+
+
+
 
 
 // Error handler

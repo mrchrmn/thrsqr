@@ -1,3 +1,10 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   background-color: #c8f3c8;
   color: #174117;
@@ -44,7 +51,6 @@ main > form button {
   border: 2px solid #165316;
   color: #174117;
   border-radius: 3px;
-  box-sizing: border-box;
   font: inherit;
   padding: 5px 5px;
   width: 480px;
@@ -53,9 +59,8 @@ main > form button {
 main > form button {
   -moz-appearance: none;
   -webkit-appearance: none;
-  box-sizing: border-box;
+  font-family: "biorhymebold", Georgia, 'Times New Roman', Times, serif;
   color: white;
-  font-weight: bold;
   width: 210px;
   height: 70px;
   margin-right: 60px;
@@ -74,11 +79,11 @@ form input[type="submit"] {
   background-color: #1bd31b;
 }
 
-#square {
+#square, form input[type="submit"].delete {
   background-color: #a92700;
 }
 
-#square:hover {
+#square:hover, form input[type="submit"].delete:hover {
   background-color: #d4461b;
 }
 
@@ -98,7 +103,6 @@ a:hover {
 #responses button {
   border: none;
   background: transparent url("../images/icon_delete.png") 0 3px no-repeat;
-  box-sizing: border-box;
   height: 27px;
   width: 24px;
   opacity: 0.5;
