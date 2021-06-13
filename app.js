@@ -207,8 +207,8 @@ app.post("/event/new",
 
     body("eventInfo")
       .trim()
-      .isLength({ max: 150 })
-      .withMessage("Info cannot be longer than 150 characters.")
+      .isLength({ max: 300 })
+      .withMessage("Info cannot be longer than 300 characters.")
   ], 
   catchError(
     async (req, res) => {
@@ -265,8 +265,8 @@ app.post("/event/edit/:eventId",
 
     body("eventInfo")
       .trim()
-      .isLength({ max: 150 })
-      .withMessage("Info cannot be longer than 150 characters.")
+      .isLength({ max: 300 })
+      .withMessage("Info cannot be longer than 300 characters.")
   ], 
   catchError(
     async (req, res) => {
