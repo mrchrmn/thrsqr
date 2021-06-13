@@ -67,9 +67,9 @@ app.use((req, res, next) => {
   }
 
   if (req.session.language === "de") {
-    res.locals.texts = TEXTS["de"];
+    res.locals.TEXTS = TEXTS["de"];
   } else {
-    res.locals.texts = TEXTS["en"];
+    res.locals.TEXTS = TEXTS["en"];
   }
 
   next();
@@ -92,17 +92,13 @@ app.use((req, res, next) => {
 
 // Welcome page
 app.get("/", (_req, res) => {
-  res.render("welcome", {
-    TEXTS: res.locals.texts
-  });
+  res.render("welcome");
 });
 
 
 // Create new event
 app.get("/event/new", (_req, res) => {
-  res.render("new-event", {
-    TEXTS: res.locals.texts
-  });
+  res.render("new-event");
 });
 
 
@@ -117,7 +113,6 @@ app.get("/event/edit/:eventId", catchError(
       throw new Error("Requested event not found.");
     } else {
       res.render("edit-event", {
-        TEXTS: res.locals.texts,
         event
       });
     }
@@ -155,14 +150,11 @@ app.get("/event/:eventId", catchError(
       let notGoing = responses.length - going;
       
       res.render("event", {
-        TEXTS: res.locals.texts,
         event,
         responses,
         going,
         notGoing,
-        nextDate,
-        comment: res.locals.lastComment,
-        username: res.locals.username
+        nextDate
       });
     }
   }
@@ -190,18 +182,14 @@ app.get("/change-language", (req, res) => {
 
 // Sign in as admin
 app.get("/superusersignin", (_req, res) => {
-  res.locals.texts = TEXTS["en"];
-  res.render("signin", {
-    TEXTS: res.locals.texts
-  });
+  res.locals.TEXTS = TEXTS["en"];
+  res.render("signin");
 });
 
 
 app.get("/superuser", adminOnly, (_req, res) => {
-  res.locals.texts = TEXTS["en"];
-  res.render("superuser", {
-    TEXTS: res.locals.texts
-  });
+  res.locals.TEXTS = TEXTS["en"];
+  res.render("superuser");
 });
 
 
@@ -255,7 +243,6 @@ app.post("/event/new",
         if (!errors.isEmpty()) {
           errors.array().forEach(message => req.flash("error", message.msg));
           res.render("new-event", {
-            TEXTS: res.locals.texts,
             flash: req.flash()
           });
   
@@ -270,11 +257,7 @@ app.post("/event/new",
             successView = "new-event-success";
           }
 
-          res.render(successView, { 
-            ...eventDetails, 
-            origin: req.headers.origin, 
-            slug,
-            TEXTS: res.locals.texts });  
+          res.render(successView, { ...eventDetails, origin: req.headers.origin, slug });  
         }  
       }
     }
@@ -308,7 +291,6 @@ app.post("/event/edit/:eventId",
       if (!errors.isEmpty()) {
         errors.array().forEach(message => req.flash("error", message.msg));
         res.render("edit-event", {
-          TEXTS: res.locals.texts,
           flash: req.flash()
         });
 
@@ -387,13 +369,12 @@ app.post("/superusersignin", catchError(
     let username = req.body.username.trim();
     let password = req.body.password;
     let authenticated = await res.locals.store.userAuthenticated(username, password)
-    res.locals.texts = TEXTS["en"];
+    res.locals.TEXTS = TEXTS["en"];
 
     if (!authenticated) {
       req.flash("error", "Invalid credentials.");
       res.render("signin", {
         flash: req.flash(),
-        TEXTS: res.locals.texts,
         username
       });
     } else {
