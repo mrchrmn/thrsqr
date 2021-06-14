@@ -1,6 +1,5 @@
 # ThrSqr
-An rsvp tracker for weekly events and friendly people.
-(My first web app. Hooray!)
+An RSVP tracker for weekly events and friendly people.
 
 ### Simple workflow
 
