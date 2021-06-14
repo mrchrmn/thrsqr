@@ -1,7 +1,9 @@
 # ThrSqr
-My first web app: an rsvp tracker for weekly events and friendly people.
+An rsvp tracker for weekly events and friendly people.
+(My first web app. Hooray!)
 
 ### Simple workflow
+
 1. Set up event, 
 2. share the link,
 3. leave name to vote, 
@@ -17,6 +19,13 @@ My first web app: an rsvp tracker for weekly events and friendly people.
   * Uses event time zone to reset responses one hour after the event has begun.
 * Master admin page
 
+## Currently built on the NEPP stack ;)
+
+* Node.js
+* Express
+* PostgresQL
+* Pug
+ 
 ## On the todo list
 
 * More client side code:
