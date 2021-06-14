@@ -9,7 +9,7 @@ An rsvp tracker for weekly events and friendly people.
 3. leave name to vote, 
 4. read responses. 
 
-## Features
+### Features
 
 * URL based, no login required
 * Remembers user on browser
@@ -19,14 +19,14 @@ An rsvp tracker for weekly events and friendly people.
   * Uses event time zone to reset responses one hour after the event has begun.
 * Master admin page
 
-## Currently built on the NEPP stack ;)
+### Currently built on the NEPP stack ;)
 
 * Node.js
 * Express
 * PostgresQL
 * Pug
  
-## On the todo list
+### On the todo list
 
 * More client side code:
   * Database updates without page reloads
