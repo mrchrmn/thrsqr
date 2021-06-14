@@ -23,7 +23,7 @@ An rsvp tracker for weekly events and friendly people.
 
 * Node.js
 * Express
-* PostgresQL
+* PostgreSQL
 * Pug
  
 ### On the todo list
