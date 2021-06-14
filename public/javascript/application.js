@@ -9,7 +9,6 @@ function replaceTimeZone() {
 
 function setDeleteAlerts() {
   let forms = document.querySelectorAll("form.delete");
-  console.log(forms);
   forms.forEach(form => {
     form.addEventListener("submit", event => {
       event.preventDefault();

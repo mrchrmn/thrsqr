@@ -3,8 +3,6 @@ extends layout
 block title 
   title=`${event.title} | ThrSqr`
 
-block script
-
 block main 
   - var week = TEXTS.weekArray
   h1= event.title
@@ -39,13 +37,13 @@ block main
       h2 #{TEXTS.there} - #{going}
       each response in responses 
         if response.there === true 
-          form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
+          form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
             p <strong>#{response.username}</strong> #{response.comment}
               button
     if notGoing > 0
       h2 #{TEXTS.square}
       each response in responses 
         if response.there === false 
-          form(action=`/event/${event.id}/remove/${response.part_id}` method="post")
+          form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
             p <strong>#{response.username}</strong> #{response.comment}
               button
