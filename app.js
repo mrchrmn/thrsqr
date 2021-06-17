@@ -40,12 +40,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(session({
   cookie: {
     httpOnly: true,
-    maxAge: 365 * 24 * 3600000,
+    maxAge: 180 * 24 * 3600000,
     path: "/",
     secure: false
   },
   name: "thrsqr-session-id",
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   secret: config.SECRET,
   store: new LokiStore({})
