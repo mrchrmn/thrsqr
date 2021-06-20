@@ -11,6 +11,7 @@ const Persistence = require(persistence);
 const catchError = require("./lib/catch-error");
 const { getLast, slugFrom, countGoing, getNext } = require("./lib/thrsqr");
 const TEXTS = require("./lib/texts.json");
+const stayAwake = require("./lib/stay-awake");
 
 const app = express();
 const HOST = config.HOST;
@@ -23,12 +24,12 @@ const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000;
 
 // SignIn check middleware
 const adminOnly = (req, res, next) => {
-  if(!res.locals.superuser) {
+  if (!res.locals.superuser) {
     res.redirect(302, "/superusersignin");
   } else {
     next();
   }
-}
+};
 
 
 app.set("view engine", "pug");
@@ -400,4 +401,10 @@ app.use((err, _req, res, _next) => {
 // Listener
 app.listen(PORT, HOST, () => {
   console.log(`ThrSqr listening on port ${PORT} of ${HOST}.`);
+  stayAwake({
+    url: "https://thrsqr.herokuapp.com",
+    minutes: 27.5,
+    start: 0,
+    end: 24
+  });
 });
