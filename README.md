@@ -1,5 +1,6 @@
 # ThrSqr
 An RSVP tracker for weekly events and friendly people.
+[Click here](https://thrsqr.herokuapp.com) to see it in action and use it.
 
 ### Simple workflow
 
