@@ -1,5 +1,5 @@
 {
-  "name": "there-or-square",
+  "name": "ThrSqr",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrchrmn/there-or-square.git"
+    "url": "git+https://github.com/mrchrmn/thrsqr.git"
   },
   "author": "Marc Hermann",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mrchrmn/there-or-square/issues"
+    "url": "https://github.com/mrchrmn/thrsqr/issues"
   },
-  "homepage": "https://github.com/mrchrmn/there-or-square#readme",
+  "homepage": "https://github.com/mrchrmn/thrsqr#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "connect-loki": "^1.2.0",
