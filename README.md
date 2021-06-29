@@ -1,5 +1,6 @@
 # ThrSqr
 An RSVP tracker for weekly events and friendly people.
+[Click here](https://thrsqr.herokuapp.com) to see it in action and use it.
 
 ### Simple workflow
 
@@ -16,9 +17,9 @@ An RSVP tracker for weekly events and friendly people.
 * Somewhat timezone aware
   * Registers and saves client time zone as event time zone.
   * Uses event time zone to reset responses one hour after the event has begun.
-* Master admin page
+* Master admin page to clean up events and users
 
-### Currently built on the NEPP stack ;)
+### Built with
 
 * Node.js
 * Express
