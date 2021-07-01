@@ -404,7 +404,7 @@ app.listen(PORT, HOST, () => {
   stayAwake({
     url: "https://thrsqr.herokuapp.com",
     minutes: 27.5,
-    start: 0,
+    start: 7,
     end: 24
   });
 });
