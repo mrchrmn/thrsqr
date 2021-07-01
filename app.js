@@ -119,7 +119,8 @@ app.get("/site/webmanifest/:eventId", catchError(
 "theme_color": "#c8f3c8",
 "background_color": "#174117",
 "display": "standalone",
-"start_url": "/event/${event.id}"
+"start_url": "/event/${event.id}",
+"description": "ThrSqr - Your RSVP tracker for weekly events and friendly people."
 }`;
 
     res.append("Content-Type", "text/html").send(eventManifest);
