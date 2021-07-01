@@ -3,6 +3,9 @@ extends layout
 block title 
   title=`${event.title} | ThrSqr`
 
+block manifest 
+  link(rel="manifest" href=`/site/webmanifest/${event.id}`)
+
 block main 
   - var week = TEXTS.weekArray
   h1= event.title

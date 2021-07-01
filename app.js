@@ -91,6 +91,40 @@ app.use((req, res, next) => {
 
 // GET handlers
 
+// Webmanifest
+
+app.get("/site/webmanifest/:eventId", catchError(
+  async (req, res) => {
+    let store = res.locals.store;
+    let eventId = req.params.eventId;
+    let event = await store.getEvent(eventId);
+
+    let eventManifest = "";
+
+    if (event) eventManifest = `{
+"name": "${event.title}",
+"short_name": "${event.title}",
+"icons": [
+    {
+        "src": "/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    },
+    {
+        "src": "/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }
+],
+"theme_color": "#c8f3c8",
+"background_color": "#174117",
+"display": "standalone"
+}`;
+
+    res.append("Content-Type", "text/html").send(eventManifest);
+  }
+));
+
 // Welcome page
 app.get("/", (_req, res) => {
   res.render("welcome");

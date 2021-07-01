@@ -5,19 +5,24 @@ html(lang="en-UK")
   head 
     block title
       title ThrSqr - Are you There or are your Square?
+
     meta(charset="UTF-8")
+
+    block script
+      script(src="/javascript/application.js")
+
     link(rel="stylesheet" href="/fonts/stylesheet.css")
     link(rel="stylesheet" href="/stylesheets/normalize.css")
     link(rel="stylesheet" href="/stylesheets/application.css")
+
     link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
     link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
     link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
-    link(rel="manifest" href="/site.webmanifest")
+    block manifest
+
     meta(content="width=device-width, initial-scale=1" name="viewport")
     meta(name="author" content="Marc Hermann")
     meta(name="description" content="ThrSqr - RSVP tracker for weekly events and friendly people.")
-    block script
-      script(src="/javascript/application.js")
 
   body 
     header 
