@@ -118,7 +118,8 @@ app.get("/site/webmanifest/:eventId", catchError(
 ],
 "theme_color": "#c8f3c8",
 "background_color": "#174117",
-"display": "standalone"
+"display": "standalone",
+"start_url": "/event/${event.id}"
 }`;
 
     res.append("Content-Type", "text/html").send(eventManifest);
