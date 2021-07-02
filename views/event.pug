@@ -14,14 +14,14 @@ block main
   p= event.info ? event.info : ""
   section(id="responses")
     if going > 0
-      h2 #{TEXTS.there} - #{going}
+      h2.there #{TEXTS.there} - #{going}
       each response in responses 
         if response.there === true 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
             p <strong>#{response.username}</strong> #{response.comment}
               button
     if notGoing > 0
-      h2 #{TEXTS.square}
+      h2.square #{TEXTS.square}
       each response in responses 
         if response.there === false 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")

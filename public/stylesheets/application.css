@@ -19,6 +19,14 @@ h1, h2, h3, strong {
   font-family: "biorhymebold", Georgia, 'Times New Roman', Times, serif;
 }
 
+h2.there {
+  color: #00a900;
+}
+
+h2.square {
+  color: #a92700;
+}
+
 header, 
 main {
   padding-bottom: 40px;
