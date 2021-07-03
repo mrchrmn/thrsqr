@@ -1,6 +1,6 @@
 ![ThrSqr logo](./public/images/thrsqrlogo.png)
 
-# ThrSqr
+# ThrSqr - Will you be there or be square?
 An RSVP tracker for weekly events and friendly people.
 [Click here](https://thrsqr.herokuapp.com) to see it in action and use it.
 
