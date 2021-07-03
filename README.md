@@ -12,8 +12,7 @@ An RSVP tracker for weekly events and friendly people.
 ### Features
 
 * URL based, no login required
-* Remembers user on browser
-  * Users can change their mind or change their comment.
+* Dynamically generated webmanifest for each event
 * Somewhat timezone aware
   * Registers and saves client time zone as event time zone.
   * Uses event time zone to reset responses one hour after the event has begun.
