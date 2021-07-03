@@ -16,8 +16,9 @@ An RSVP tracker for weekly events and friendly people.
 * URL based, no login required
 * Dynamically generated webmanifest for each event
 * Somewhat timezone aware
-  * Registers and saves client time zone as event time zone.
-  * Uses event time zone to reset responses one hour after the event has begun.
+  * Registers and saves client time zone on event creation as event time zone.
+* Auto-resets responses
+  * Uses event time zone to reset one hour after the event has begun.
 * Master admin page to clean up events and users
 
 ### Built with
