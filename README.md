@@ -8,17 +8,15 @@ An RSVP tracker for weekly events and friendly people.
 
 1. Set up event, 
 2. share the link,
-3. leave name to vote, 
+3. be there or be square, 
 4. read responses. 
 
 ### Features
 
 * URL based, no login required
 * Dynamically generated webmanifest for each event
-* Somewhat timezone aware
-  * Registers and saves client time zone on event creation as event time zone.
-* Auto-resets responses
-  * Uses event time zone to reset one hour after the event has begun.
+* Registers and saves client time zone on event creation as event time zone.
+* Auto-resets responses one hour after the event has begun.
 * Master admin page to clean up events and users
 
 ### Built with
@@ -30,9 +28,8 @@ An RSVP tracker for weekly events and friendly people.
  
 ### On the todo list
 
-* More client side code:
-  * Database updates without page reloads
-  * Turn into SPA?
-* Nicer interface
-  * Possibility to upload event logos
-  * Colour palette from event logos
+* Database updates without page reloads
+* More front-end magic
+* Browser push notifications for events
+* Possibility to upload event logos
+  * Generate colour palette from event logos?
