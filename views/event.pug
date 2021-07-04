@@ -21,7 +21,7 @@ block main
             p <strong>#{response.username}</strong> #{response.comment}
               button
     if notGoing > 0
-      h2.square #{TEXTS.square}
+      h2.square #{TEXTS.square} - #{notGoing}
       each response in responses 
         if response.there === false 
           form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
