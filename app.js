@@ -11,7 +11,7 @@ const Persistence = require(persistence);
 const catchError = require("./lib/catch-error");
 const { getLast, slugFrom, countGoing, getNext } = require("./lib/thrsqr");
 const TEXTS = require("./lib/texts.json");
-const stayAwake = require("./lib/stay-awake");
+// const stayAwake = require("./lib/stay-awake");
 
 const app = express();
 const HOST = config.HOST;
@@ -437,10 +437,10 @@ app.use((err, _req, res, _next) => {
 // Listener
 app.listen(PORT, HOST, () => {
   console.log(`ThrSqr listening on port ${PORT} of ${HOST}.`);
-  stayAwake({
-    url: "https://thrsqr.herokuapp.com",
-    minutes: 27.5,
-    start: 7,
-    end: 24
-  });
+  // stayAwake({
+  //   url: "https://thrsqr.herokuapp.com",
+  //   minutes: 27.5,
+  //   start: 7,
+  //   end: 24
+  // });
 });
