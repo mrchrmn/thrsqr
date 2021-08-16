@@ -46,10 +46,10 @@ app.use(session({
     secure: false
   },
   name: "thrsqr-session-id",
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
   secret: config.SECRET,
-  store: new LokiStore({})
+  store: new LokiStore({ttl: 2419200})
 }));
 
 app.use(flash());
