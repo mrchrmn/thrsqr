@@ -2,7 +2,7 @@
 
 # ThrSqr - Will you be there or be square?
 An RSVP tracker for weekly events and friendly people.
-[Click here](https://thrsqr.herokuapp.com) to see it in action and use it.
+[Click here](https://thrsqr.hrmn.dev) to see it in action and use it.
 
 ### Simple workflow
 
