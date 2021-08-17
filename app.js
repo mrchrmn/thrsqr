@@ -31,26 +31,35 @@ const adminOnly = (req, res, next) => {
   }
 };
 
-
 app.set("view engine", "pug");
 app.set("views", "./views");
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
-app.use(session({
+
+let sessionConfig = {
   cookie: {
     httpOnly: true,
     maxAge: 180 * 24 * 3600000,
-    path: "/",
-    secure: false
+    path: "/", 
+    secret: false
   },
   name: "thrsqr-session-id",
   resave: false,
   saveUninitialized: false,
   secret: config.SECRET,
-  store: new LokiStore({ttl: 2419200})
-}));
+  store: new LokiStore({ttl: 2419200 * 3})
+}
+
+if (config.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+  sessionConfig.cookie.secure = true;
+}
+
+app.use(session(sessionConfig));
+
+
 
 app.use(flash());
 
