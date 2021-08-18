@@ -39,7 +39,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 
-// session setup
+// Session setup
 const isProduction = (config.NODE_ENV === "production");
 
 let sessionConfig = {
@@ -50,13 +50,12 @@ let sessionConfig = {
     secret: false
   },
   name: "thrsqr-session-id",
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   secret: config.SECRET,
   store: new pgSession({
-    pool: null,
-    conString: config.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
+    connectionString: config.DATABASE_URL,
+    ssl: isProduction ? { rejectUnauthorized: false } : false
   })
 }
 
@@ -66,6 +65,7 @@ if (isProduction) {
 }
 
 app.use(session(sessionConfig));
+
 
 
 app.use(flash());
