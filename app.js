@@ -50,12 +50,13 @@ let sessionConfig = {
     secret: false
   },
   name: "thrsqr-session-id",
-  resave: false,
+  resave: true,
   saveUninitialized: false,
   secret: config.SECRET,
   store: new pgSession({
+    pool: null,
     conString: config.DATABASE_URL,
-    ssl: isProduction ? { rejectUnauthorized: false } : false
+    ssl: { rejectUnauthorized: false }
   })
 }
 
