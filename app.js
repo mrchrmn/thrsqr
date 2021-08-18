@@ -12,8 +12,9 @@ const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 
 const { getLast, slugFrom, countGoing, getNext } = require("./lib/thrsqr");
+const stayAwake = require("./lib/stay-awake");
+
 const TEXTS = require("./lib/texts.json");
-// const stayAwake = require("./lib/stay-awake");
 
 const app = express();
 const HOST = config.HOST;
@@ -455,10 +456,10 @@ app.use((err, _req, res, _next) => {
 // Listener
 app.listen(PORT, HOST, () => {
   console.log(`ThrSqr listening on port ${PORT} of ${HOST}.`);
-  // stayAwake({
-  //   url: "https://thrsqr.herokuapp.com",
-  //   minutes: 27.5,
-  //   start: 7,
-  //   end: 24
-  // });
+  stayAwake({
+    url: "https://thrsqr.hrmn.dev",
+    minutes: 27.5,
+    start: 0,
+    end: 24
+  });
 });
