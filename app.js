@@ -54,8 +54,10 @@ let sessionConfig = {
   saveUninitialized: false,
   secret: config.SECRET,
   store: new pgSession({
-    connectionString: config.DATABASE_URL,
-    ssl: isProduction ? { rejectUnauthorized: false } : false
+    conObject: {
+      connectionString: config.DATABASE_URL,
+      ssl: isProduction ? { rejectUnauthorized: false } : false
+    }
   })
 }
 
