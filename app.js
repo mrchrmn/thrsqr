@@ -12,14 +12,13 @@ const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 
 const { getLast, slugFrom, countGoing, getNext } = require("./lib/thrsqr");
-const stayAwake = require("./lib/stay-awake");
+// const stayAwake = require("./lib/stay-awake");
 
 const TEXTS = require("./lib/texts.json");
 
 const app = express();
 const HOST = config.HOST;
 const PORT = config.PORT;
-//  const LokiStore = store(session);
 
 // responses can still be read and updated until this time after the start of an event
 const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000; 
@@ -434,16 +433,15 @@ app.post("/superuser/delete-inactive-events", adminOnly, catchError(
   async (_req, res) => {
     await res.locals.store.deleteInactiveEvents();
     res.redirect("/superuser");
-  }));
+  })
+);
 
 app.post("/superuser/delete-inactive-participants", adminOnly, catchError(
   async (_req, res) => {
     await res.locals.store.deleteInactiveParticipants();
     res.redirect("/superuser");
-  }));
-
-
-
+  })
+);
 
 
 // Error handler
@@ -456,10 +454,10 @@ app.use((err, _req, res, _next) => {
 // Listener
 app.listen(PORT, HOST, () => {
   console.log(`ThrSqr listening on port ${PORT} of ${HOST}.`);
-  stayAwake({
-    url: "https://thrsqr.hrmn.dev",
-    minutes: 27.5,
-    start: 0,
-    end: 24
-  });
+  // stayAwake({
+  //   url: "https://thrsqr.hrmn.dev",
+  //   minutes: 27.5,
+  //   start: 0,
+  //   end: 24
+  // });
 });
