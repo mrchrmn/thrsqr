@@ -39,6 +39,9 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 
+// session setup
+const isProduction = (config.NODE_ENV === "production");
+
 let sessionConfig = {
   cookie: {
     httpOnly: true,
@@ -51,17 +54,17 @@ let sessionConfig = {
   saveUninitialized: false,
   secret: config.SECRET,
   store: new pgSession({
-    conString: config.DATABASE_URL
+    conString: config.DATABASE_URL,
+    ssl: isProduction ? { rejectUnauthorized: false } : false
   })
 }
 
-if (config.NODE_ENV === "production") {
+if (isProduction) {
   app.set("trust proxy", 1);
   sessionConfig.cookie.secure = true;
 }
 
 app.use(session(sessionConfig));
-
 
 
 app.use(flash());
