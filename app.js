@@ -1,14 +1,16 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 const config = require("./lib/config");
+const Persistence = require("./lib/pg-persistence");
+const catchError = require("./lib/catch-error");
+
 const express = require("express");
 const flash = require("express-flash");
-const session = require("express-session");
 const { body, validationResult } = require("express-validator");
-const store = require("connect-loki");
-const { persistence } = require("./lib/get-persistence");
-const Persistence = require(persistence);
-const catchError = require("./lib/catch-error");
+
+const session = require("express-session");
+const pgSession = require("connect-pg-simple")(session);
+
 const { getLast, slugFrom, countGoing, getNext } = require("./lib/thrsqr");
 const TEXTS = require("./lib/texts.json");
 // const stayAwake = require("./lib/stay-awake");
@@ -16,11 +18,10 @@ const TEXTS = require("./lib/texts.json");
 const app = express();
 const HOST = config.HOST;
 const PORT = config.PORT;
-const LokiStore = store(session);
+//  const LokiStore = store(session);
 
 // responses can still be read and updated until this time after the start of an event
 const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000; 
-
 
 // SignIn check middleware
 const adminOnly = (req, res, next) => {
@@ -49,7 +50,9 @@ let sessionConfig = {
   resave: false,
   saveUninitialized: false,
   secret: config.SECRET,
-  store: new LokiStore({ttl: 2419200 * 3})
+  store: new pgSession({
+    conString: config.DATABASE_URL
+  })
 }
 
 if (config.NODE_ENV === "production") {
