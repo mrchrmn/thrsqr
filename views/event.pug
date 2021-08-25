@@ -9,7 +9,7 @@ block manifest
 block main 
   - var week = TEXTS.weekArray
   h1= event.title
-  h2 #{TEXTS.eventEvery} #{week[event.dayofweek]} #{TEXTS.eventAt} #{event.eventtime.substring(0,5)} <span id="timezoneinfo">(#{TEXTS.timezone}: #{event.timezone})</span>
+  h2 #{TEXTS.eventEvery} #{week[event.dayofweek]} #{TEXTS.eventAt} #{event.eventtime.substring(0,5)}<br /><span id="timezoneinfo">(#{TEXTS.timezone}: #{event.timezone})</span>
   h3 #{TEXTS.nextOn} #{nextDate}
   p= event.info ? event.info : ""
   section(id="responses")

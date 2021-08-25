@@ -26,10 +26,14 @@ block main
               id="eventTime" 
               name="eventTime" 
               required)
-        input(type="hidden"
+      dt 
+        label(for="eventTimeZone")= TEXTS.eventTimeZone
+      dd
+        input(type="text"
               id="eventTimeZone"
               name="eventTimeZone"
-              value="")
+              value=""
+              disabled)
       dt 
         label(for="eventInfo")= TEXTS.eventInfo
       dd 
