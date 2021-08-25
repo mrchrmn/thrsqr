@@ -2,7 +2,7 @@ const { dbQuery } = require("./db-query");
 const bcrypt = require("bcrypt");
 const ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-module.exports = class PgPersistence {
+module.exports = class PgStore {
   constructor() {
   }
 

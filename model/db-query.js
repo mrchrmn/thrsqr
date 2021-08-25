@@ -1,6 +1,6 @@
 // generic database query function, takes SQL statement and parameters
 
-const config = require("./config");
+const config = require("../lib/config");
 const { Client } = require("pg");
 const format = require("pg-format");
 

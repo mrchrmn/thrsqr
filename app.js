@@ -1,45 +1,38 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
+
+
+// ###### Configuration ######
+
 const config = require("./lib/config");
-const Persistence = require("./lib/pg-persistence");
-const catchError = require("./lib/catch-error");
+const HOST = config.HOST;
+const PORT = config.PORT;
+const TEXTS = require("./data/texts.json");
+
+// responses reset after this time has passed after the start of an event
+const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000;
+
+
+// ###### Express Setup ######
 
 const express = require("express");
 const flash = require("express-flash");
 const { body, validationResult } = require("express-validator");
-
 const session = require("express-session");
-const pgSession = require("connect-pg-simple")(session);
 
+
+// ###### Required modules ######
+
+const PgSession = require("connect-pg-simple")(session);
+const PgStore = require("./model/pg-store");
+
+const catchError = require("./lib/catch-error");
 const { getLast, slugFrom, countGoing, getNext } = require("./lib/thrsqr");
-// const stayAwake = require("./lib/stay-awake");
-
-const TEXTS = require("./lib/texts.json");
-
-const app = express();
-const HOST = config.HOST;
-const PORT = config.PORT;
-
-// responses can still be read and updated until this time after the start of an event
-const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000; 
-
-// SignIn check middleware
-const adminOnly = (req, res, next) => {
-  if (!res.locals.superuser) {
-    res.redirect(302, "/superusersignin");
-  } else {
-    next();
-  }
-};
-
-app.set("view engine", "pug");
-app.set("views", "./views");
-
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false }));
+const adminOnly = require("./lib/admin-only");
 
 
-// Session setup
+// ###### Session setup ######
+
 const isProduction = (config.NODE_ENV === "production");
 
 let sessionConfig = {
@@ -53,7 +46,7 @@ let sessionConfig = {
   resave: false,
   saveUninitialized: false,
   secret: config.SECRET,
-  store: new pgSession({
+  store: new PgSession({
     conObject: {
       connectionString: config.DATABASE_URL,
       ssl: isProduction ? { rejectUnauthorized: false } : false
@@ -66,16 +59,23 @@ if (isProduction) {
   sessionConfig.cookie.secure = true;
 }
 
+
+// ###### App setuo ######
+
+const app = express();
+
+app.set("view engine", "pug");
+app.set("views", "./views");
+
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 app.use(session(sessionConfig));
-
-
-
 app.use(flash());
 
 
 // Create a new datastore
 app.use((_req, res, next) => {
-  res.locals.store = new Persistence();
+  res.locals.store = new PgStore();
   next();
 });
 
@@ -454,10 +454,4 @@ app.use((err, _req, res, _next) => {
 // Listener
 app.listen(PORT, HOST, () => {
   console.log(`ThrSqr listening on port ${PORT} of ${HOST}.`);
-  // stayAwake({
-  //   url: "https://thrsqr.hrmn.dev",
-  //   minutes: 27.5,
-  //   start: 0,
-  //   end: 24
-  // });
 });

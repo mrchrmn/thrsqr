@@ -2,7 +2,6 @@
 node_modules
 package-lock.json
 session-store.db
-sql/connect-pg-simple.sql
 sql/users.sql
 sql/admins.sql
 sql/sampledata.sql
