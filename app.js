@@ -17,7 +17,6 @@ const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000;
 
 const express = require("express");
 const flash = require("express-flash");
-const { body, validationResult } = require("express-validator");
 const session = require("express-session");
 
 
@@ -251,145 +250,73 @@ app.get("/superuser", adminOnly, (_req, res) => {
 // POST handlers
 
 // Successfully registered new event
-app.post("/event/new",
-  [
-    body("eventTitle")
-      .trim()
-      .isLength({ min: 1})
-      .withMessage("You need to provide a title.")
-      .isLength({ max: 100 })
-      .withMessage("Title cannot be longer than 100 characters."),
+app.post("/event/new", catchError(
+  async (req, res) => {
+    let email = req.body.email;
+    let message = req.body.message;
 
-    body("eventInfo")
-      .trim()
-      .isLength({ max: 300 })
-      .withMessage("Info cannot be longer than 300 characters.")
-  ], 
-  catchError(
-    async (req, res) => {
-      let email = req.body.email;
-      let message = req.body.message;
+    if (email.length > 0 || message.length > 0) {
+      res.status(200).send("Thank you for registering.");
+    
+    } else {
+      delete req.body.email;
+      delete req.body.message;
 
-      if (email.length > 0 || message.length > 0) {
-        res.status(200).send("Thank you for registering.");
-      
+      let store = res.locals.store;
+      let eventId = await store.generateId("events");
+      let eventDetails = { ...req.body, eventId };
+
+      await store.newEvent(eventDetails);
+      let slug = slugFrom(eventDetails.eventTitle);
+
+      let successView;
+      if (req.session.language === "de") {
+        successView = "new-event-success-de";
       } else {
-        delete req.body.email;
-        delete req.body.message;
-  
-        let store = res.locals.store;
-        let eventId = await store.generateId("events");
-        let eventDetails = { ...req.body, eventId };
-  
-        let errors = validationResult(req);
-  
-        if (!errors.isEmpty()) {
-          errors.array().forEach(message => req.flash("error", message.msg));
-          res.render("new-event", {
-            flash: req.flash()
-          });
-  
-        } else {
-          await store.newEvent(eventDetails);
-          let slug = slugFrom(eventDetails.eventTitle);
-
-          let successView;
-          if (req.session.language === "de") {
-            successView = "new-event-success-de";
-          } else {
-            successView = "new-event-success";
-          }
-
-          res.render(successView, { ...eventDetails, origin: req.headers.origin, slug });  
-        }  
+        successView = "new-event-success";
       }
+
+      res.render(successView, { ...eventDetails, origin: req.headers.origin, slug });  
     }
-  )
-);
+  }
+));
 
 
 // Update existing event details
-app.post("/event/edit/:eventId",
-  [
-    body("eventTitle")
-      .trim()
-      .isLength({ min: 1})
-      .withMessage("You need to provide a title.")
-      .isLength({ max: 100 })
-      .withMessage("Title cannot be longer than 100 characters."),
+app.post("/event/edit/:eventId", catchError(
+  async (req, res) => {
+    let store = res.locals.store;
+    let eventId = req.params.eventId;
+    let eventDetails = { ...req.body, eventId };
 
-    body("eventInfo")
-      .trim()
-      .isLength({ max: 300 })
-      .withMessage("Info cannot be longer than 300 characters.")
-  ], 
-  catchError(
-    async (req, res) => {
-      let store = res.locals.store;
-      let eventId = req.params.eventId;
-      let eventDetails = { ...req.body, eventId };
-
-      let errors = validationResult(req);
-
-      if (!errors.isEmpty()) {
-        errors.array().forEach(message => req.flash("error", message.msg));
-        res.render("edit-event", {
-          flash: req.flash()
-        });
-
-      } else {
-        await store.updateEvent(eventDetails);
-        res.redirect(`/event/${eventId}`);          
-      }
-    }
-  )
-);
+    await store.updateEvent(eventDetails);
+    res.redirect(`/event/${eventId}`);          
+  }
+));
 
 
 // Update responses (there or square)
-app.post("/event/:eventId/:there", 
-  [
-    body("username")
-      .trim()
-      .isLength({ min: 1})
-      .withMessage("You need to provide a name.")
-      .isLength({ max: 50 })
-      .withMessage("Name cannot be longer than 50 characters."),
+app.post("/event/:eventId/:there", catchError(
+  async (req, res) => {
+    let store = res.locals.store;
+    let participantId = res.locals.participantId;
+    let eventId = req.params.eventId;
+    let username = req.body.username;
+    let comment = req.body.comment;
+    let there = !!Number(req.params.there);
 
-    body("comment")
-      .trim()
-      .isLength({ max: 150 })
-      .withMessage("Comment cannot be longer than 150 characters.")
-  ], 
-  catchError(
-    async (req, res) => {
-      let store = res.locals.store;
-      let participantId = res.locals.participantId;
-      let eventId = req.params.eventId;
-      let username = req.body.username;
-      let comment = req.body.comment;
-      let there = !!Number(req.params.there);
-
-      let errors = validationResult(req);
-      
-      if (!errors.isEmpty()) {
-        errors.array().forEach(message => req.flash("error", message.msg));
-        res.redirect(`/event/${eventId}`);
-      } else {
-        if (!participantId || ! await store.ifExists(participantId, "participants")) {
-          participantId = await store.newParticipant(username);
-        }
-  
-        await store.updateResponses(eventId, username, there, participantId, comment);
-  
-        req.session.participantId = participantId;
-        req.session.username = username;
-        req.session.lastComment = comment;
-        res.redirect(`/event/${eventId}`);          
-      }
+    if (!participantId || ! await store.ifExists(participantId, "participants")) {
+      participantId = await store.newParticipant(username);
     }
-  )
-);
+
+    await store.updateResponses(eventId, username, there, participantId, comment);
+
+    req.session.participantId = participantId;
+    req.session.username = username;
+    req.session.lastComment = comment;
+    res.redirect(`/event/${eventId}`);          
+  }
+));
 
 
 // Remove response
