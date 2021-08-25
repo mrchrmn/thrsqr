@@ -6,7 +6,7 @@ block title
 block main 
   h1= event.title
   h2= TEXTS.editEventHeading
-  form(action=`/event/edit/${event.id}` method="post")
+  form(action=`/event/${event.id}/edit` method="post")
     dl 
       dt 
         label(for="eventTitle")= TEXTS.eventTitle
