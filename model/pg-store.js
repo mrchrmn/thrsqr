@@ -67,6 +67,7 @@ module.exports = class PgStore {
     if (event.rowCount !== 0) {
       let utcOffset  = await dbQuery(FIND_OFFSET, event.rows[0].timezone);
       event.rows[0].utcoffset = utcOffset.rows[0].utc_offset.hours;
+      event.rows[0].id = event.rows[0].id.trim();
       return event.rows[0];  
     } else {
       return false;
@@ -118,6 +119,9 @@ module.exports = class PgStore {
   async resetResponses(eventId) {
     const RESET_RESPONSES = "DELETE FROM responses WHERE event_id = %L";
     await dbQuery(RESET_RESPONSES, eventId);
+
+    const SET_LASTUPDATE_EVENT = "UPDATE events SET lastupdate = now() WHERE id = %L";
+    await dbQuery(SET_LASTUPDATE_EVENT, eventId);
   }
 
   // check for user authentication
