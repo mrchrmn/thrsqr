@@ -7,6 +7,7 @@ const config = require("./lib/config");
 const HOST = config.HOST;
 const PORT = config.PORT;
 const TEXTS = require("./data/texts.json");
+const isProduction = (config.NODE_ENV === "production");
 
 
 // ###### Express/Postgres modules ######
@@ -22,10 +23,15 @@ const PgSession = require("connect-pg-simple")(session);
 const PgStore = require("./model/pg-store");
 
 
-// ###### Session setup ######
+// ###### App setuo ######
 
-const isProduction = (config.NODE_ENV === "production");
+const app = express();
 
+app.set("view engine", "pug");
+app.set("views", "./views");
+
+
+// Session setup
 let sessionConfig = {
   cookie: {
     httpOnly: true,
@@ -49,14 +55,6 @@ if (isProduction) {
   app.set("trust proxy", 1);
   sessionConfig.cookie.secure = true;
 }
-
-
-// ###### App setuo ######
-
-const app = express();
-
-app.set("view engine", "pug");
-app.set("views", "./views");
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
