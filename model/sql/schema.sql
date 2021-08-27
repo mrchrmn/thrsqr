@@ -1,5 +1,5 @@
 CREATE TABLE events (
-  id char(8) PRIMARY KEY,
+  id varchar(8) PRIMARY KEY,
   title varchar(100) NOT NULL,
   dayOfWeek int NOT NULL,
   eventTime time NOT NULL,
@@ -9,25 +9,39 @@ CREATE TABLE events (
 );
 
 CREATE TABLE participants (
-  id char(8) PRIMARY KEY,
+  id varchar(8) PRIMARY KEY,
   username varchar(50),
   lastUpdate timestamptz DEFAULT now()
 );
 
 CREATE TABLE responses (
   id serial PRIMARY KEY,
-  event_id char(8) REFERENCES events (id) ON DELETE CASCADE, 
-  participant_id char(8) REFERENCES participants (id) ON DELETE CASCADE, 
+  event_id varchar(8) REFERENCES events (id) ON DELETE CASCADE, 
+  participant_id varchar(8) REFERENCES participants (id) ON DELETE CASCADE, 
   there boolean NOT NULL,
   comment varChar(150)
 );
 
 CREATE TABLE admins (
   id serial PRIMARY KEY,
-  username char(16) NOT NULL,
+  username varchar(16) NOT NULL,
   password text NOT NULL
+);
+
+CREATE TABLE subscriptions (
+  endpoint text PRIMARY KEY,
+  p256dh text,
+  auth text
+);
+
+CREATE TABLE events_subscriptions (
+  id serial PRIMARY KEY,
+  event_id varchar(8) REFERENCES events (id) ON DELETE CASCADE,
+  subscription_id text REFERENCES subscriptions (id) ON DELETE CASCADE
 );
 
 DELETE FROM responses;
 DELETE FROM events;
 DELETE FROM participants;
+DELETE FROM subscriptions;
+DELETE FROM events_subscriptions:
