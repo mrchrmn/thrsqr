@@ -5,5 +5,6 @@ session-store.db
 model/sql/users.sql
 model/sql/admins.sql
 model/sql/sampledata.sql
+model/sql/temp.sql
 .vscode
 .env
