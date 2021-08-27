@@ -30,6 +30,6 @@ router.post("/:eventId/edit", catchError(controller.update));
 router.post("/:eventId/:there", catchError(controller.updateResponses));
 
 // Remove response
-router.post("/:eventId/remove/:participantId", catchError(controller.removeResponse))
+router.post("/:eventId/remove/:participantId", catchError(controller.removeResponse));
 
 module.exports = router;
