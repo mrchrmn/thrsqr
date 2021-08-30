@@ -11,3 +11,11 @@ block main
   p= TEXTS.claim
   h3 
     a(href="/event/new")= TEXTS.setup
+
+block footer
+  footer 
+    p!= TEXTS.disclaimer
+    p(id="unsubscribeAll")
+      a(href="/unsubscribe-all")= TEXTS.unsubscribeAll
+    p
+      a(href="/change-language")= TEXTS.changeLanguage

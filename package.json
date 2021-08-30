@@ -30,7 +30,8 @@
     "express-session": "^1.17.2",
     "pg": "^8.6.0",
     "pg-format": "^1.0.4",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "web-push": "^3.4.5"
   },
   "engines": {
     "node": "13.1.0",

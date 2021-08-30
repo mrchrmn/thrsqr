@@ -8,3 +8,4 @@ model/sql/sampledata.sql
 model/sql/temp.sql
 .vscode
 .env
+.vapid
