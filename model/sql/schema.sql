@@ -30,14 +30,15 @@ CREATE TABLE admins (
 
 CREATE TABLE subscriptions (
   endpoint text PRIMARY KEY,
-  p256dh text,
-  auth text
+  expirationTime int,
+  p256dh text NOT NULL,
+  auth text NOT NULL
 );
 
 CREATE TABLE events_subscriptions (
   id serial PRIMARY KEY,
   event_id varchar(8) REFERENCES events (id) ON DELETE CASCADE,
-  subscription_id text REFERENCES subscriptions (id) ON DELETE CASCADE
+  subscription_endpoint text REFERENCES subscriptions (endpoint) ON DELETE CASCADE
 );
 
 DELETE FROM responses;
