@@ -23,14 +23,7 @@ module.exports = {
       await store.newEvent(eventDetails);
       let slug = slugFrom(eventDetails.eventTitle);
 
-      let successView;
-      if (req.session.language === "de") {
-        successView = "new-event-success-de";
-      } else {
-        successView = "new-event-success";
-      }
-
-      res.render(successView, { ...eventDetails, origin: req.headers.origin, slug });  
+      res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });  
     }
   },
 
