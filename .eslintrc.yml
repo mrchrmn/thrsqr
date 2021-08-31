@@ -1,7 +1,7 @@
 # Last update: 11 Feb 2020
 root: true
 parserOptions:
-  ecmaVersion: 6
+  ecmaVersion: 2018
   ecmaFeatures:
     impliedStrict: true
 env:

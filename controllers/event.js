@@ -1,3 +1,7 @@
+/* eslint-disable max-len */
+/* eslint-disable max-statements */
+/* eslint-disable max-lines-per-function */
+
 const { getLast, slugFrom, countGoing, getNext } = require("../lib/thrsqr");
 
 // responses reset after this time has passed after the start of an event
@@ -11,7 +15,7 @@ module.exports = {
 
     if (email.length > 0 || message.length > 0) {
       res.status(200).send("Thank you for registering.");
-    
+
     } else {
       delete req.body.email;
       delete req.body.message;
@@ -23,7 +27,7 @@ module.exports = {
       await store.newEvent(eventDetails);
       let slug = slugFrom(eventDetails.eventTitle);
 
-      res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });  
+      res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });
     }
   },
 
@@ -38,7 +42,7 @@ module.exports = {
     } else {
       // if latest update is older than last previous event reset responses.
       let previous = getLast(event.eventtime, event.dayofweek, event.utcoffset);
-      let lastUpdate = new Date(event.lastupdate); 
+      let lastUpdate = new Date(event.lastupdate);
 
       if (previous.valueOf() > (lastUpdate.valueOf() + WAIT_TIME_IN_MS)) {
         console.log("Resetting responses.");
@@ -50,7 +54,7 @@ module.exports = {
       let nextDate = getNext(event.eventtime, event.dayofweek, event.utcoffset).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
       let going = countGoing(responses);
       let notGoing = responses.length - going;
-      
+
       res.render("event", {
         event,
         responses,
@@ -81,7 +85,7 @@ module.exports = {
     let eventDetails = { ...req.body, eventId };
 
     await store.updateEvent(eventDetails);
-    res.redirect(`/event/${eventId}`);          
+    res.redirect(`/event/${eventId}`);
   },
 
   async updateResponses(req, res) {
@@ -92,7 +96,7 @@ module.exports = {
     let comment = req.body.comment;
     let there = !!Number(req.params.there);
 
-    if (!participantId || ! await store.ifExists(participantId, "participants")) {
+    if (!participantId || !await store.ifExists(participantId, "participants")) {
       participantId = await store.newParticipant(username);
     }
 
@@ -101,7 +105,7 @@ module.exports = {
     req.session.participantId = participantId;
     req.session.username = username;
     req.session.lastComment = comment;
-    res.redirect(`/event/${eventId}`);          
+    res.redirect(`/event/${eventId}`);
   },
 
   async removeResponse(req, res) {
@@ -114,4 +118,4 @@ module.exports = {
     res.redirect(`/event/${eventId}`);
   }
 
-}
+};

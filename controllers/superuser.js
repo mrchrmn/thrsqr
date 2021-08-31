@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const TEXTS = require("../data/texts.json");
 
 module.exports = {
@@ -5,7 +6,7 @@ module.exports = {
   async signin(req, res) {
     let username = req.body.username.trim();
     let password = req.body.password;
-    let authenticated = await res.locals.store.userAuthenticated(username, password)
+    let authenticated = await res.locals.store.userAuthenticated(username, password);
     res.locals.TEXTS = TEXTS["en"];
 
     if (!authenticated) {

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const catchError = require("../lib/catch-error");
 const adminOnly = require("../lib/admin-only");
 const controller = require("../controllers/superuser");

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 module.exports = {
 
   async generateManifest(req, res) {
@@ -32,4 +33,4 @@ module.exports = {
     res.append("Content-Type", "text/html").send(eventManifest);
   }
 
-}
+};
