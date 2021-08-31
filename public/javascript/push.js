@@ -1,30 +1,140 @@
+/* eslint-disable max-statements */
+/* eslint-disable max-lines-per-function */
+
 "use strict";
+
+import { urlBase64ToUint8Array } from "/javascript/base64.mjs";
+
+
+// SERVICE WORKER
+
+async function registerServiceWorker() {
+  try {
+    let registration = await navigator.serviceWorker.register("/service-worker.js");
+    return registration;
+
+  } catch (error) {
+    console.log("Unable to register service worker:\n" + error);
+    return null;
+  }
+}
+
+
+// SUBSCRIPTION HANDLING
 
 const publicVapidKey = 'BJlwITZQd9mrnKedh07Tze13WtSSaqfTzeKT5xx4qpDFzxhHgS4vqbGm_XlAELasf1cCuAU5L9us46GkhOHOyOU';
 
-// Copied from the web-push documentation
-const urlBase64ToUint8Array = (base64String) => {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding)
-    .replace(/\-/g, '+')
-    .replace(/_/g, '/');
+async function subscribe(registration) {
+  try {
+    if (Notification.permission !== "granted") {
+      await Notification.requestPermission();
+    }
 
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
+    if (Notification.permission === "granted") {
+      return await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+      });
+    } else {
+      throw new Error("Permission not granted.");
+    }
 
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
+  } catch (error) {
+    console.log("Unable to subscribe to push notification:\n" + error);
+    return null;
   }
-  return outputArray;
-};
-
-async function subscribe() {
-  if (!("serviceWorker" in navigator)) return;
-
-  let registration = await navigator.serviceWorker.ready;
-
-  let subscription = await registration.pushManager.subscribe({
-    userVisibleOnly: true,
-    applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
-  });
 }
+
+async function unsubscribe(registration) {
+  try {
+    let subscription = await registration.pushManager.getSubscription();
+    return await subscription.unsubscribe();
+
+  } catch (error) {
+    console.log("Unable to unsubscribe from notifications:\n" + error);
+    return null;
+  }
+}
+
+
+// HELPER
+
+function getEventId() {
+  let path = window.location.pathname;
+  if (path.startsWith("/event/")) return path.split("/")[2];
+  return null;
+}
+
+
+function canPush() {
+  if (!("serviceWorker" in navigator) ||
+      !("PushManager" in window) ||
+      !("Notification" in window)) {
+    console.log("This browser does not support push notifications.");
+    return null;
+  }
+
+  if (Notification.permission === "denied") {
+    console.log("The user has denied all push notifications from ThrSqr.");
+    return null;
+  }
+
+  return true;
+}
+
+
+function createSubscriptionLink(parent, text) {
+  let p = document.createElement("P");
+  let a = document.createElement("A");
+  a.setAttribute("href", "#");
+  a.innerHTML = text;
+
+  parent.appendChild(p);
+  p.appendChild(a);
+  return a;
+}
+
+
+// SUBSCRIPTION UI
+
+async function handleSubLinks(registration) {
+
+  if (!canPush()) return null;
+
+  let subscriptionsSection = document.getElementById("subscriptions");
+
+  if (subscriptionsSection) {
+
+    let eventId = getEventId();
+    let subscription = await registration.pushManager.getSubscription();
+
+    if (!subscription && eventId) {
+      let subLink = createSubscriptionLink(subscriptionsSection, "Subscribe to push notifications for this event.");
+
+      subLink.addEventListener("click", async event => {
+        event.preventDefault();
+        let subscription = await subscribe(registration);
+      });
+    }
+
+    if (subscription) {
+      let unsubAllLink = createSubscriptionLink(subscriptionsSection, "Unsubscribe from all ThrSqr notifications.");
+
+      unsubAllLink.addEventListener("click", async event => {
+        event.preventDefault();
+        await unsubscribe(registration);
+      });
+    }
+
+    return true;
+
+  }
+}
+
+
+// LET'S GO!
+
+document.addEventListener("DOMContentLoaded", async () => {
+  let registration = await registerServiceWorker();
+  await handleSubLinks(registration);
+});

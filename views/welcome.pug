@@ -15,7 +15,6 @@ block main
 block footer
   footer 
     p!= TEXTS.disclaimer
-    p(id="unsubscribeAll")
-      a(href="/unsubscribe-all")= TEXTS.unsubscribeAll
+    section(id="subscriptions")
     p
       a(href="/change-language")= TEXTS.changeLanguage

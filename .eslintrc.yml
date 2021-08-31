@@ -4,6 +4,7 @@ parserOptions:
   ecmaVersion: 2018
   ecmaFeatures:
     impliedStrict: true
+  sourceType: module
 env:
   browser: true
   es6: true
