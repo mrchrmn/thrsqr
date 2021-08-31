@@ -127,7 +127,6 @@ async function handleSubLinks(registration) {
       subsSection.style.display = "block";
 
       let subLink = createSubLink(subsSection, TEXTS.subscribeEvent);
-
       subLink.addEventListener("click", async event => {
         event.preventDefault();
         let subscription = await subscribe(registration);
@@ -144,7 +143,6 @@ async function handleSubLinks(registration) {
 
         if (eventSubbed) {
           let unsubLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
-
           unsubLink.addEventListener("click", async event => {
             event.preventDefault();
             await unsubscribeEvent(subscription, eventId);
@@ -153,16 +151,15 @@ async function handleSubLinks(registration) {
 
         } else {
           let subLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
-
           subLink.addEventListener("click", async event => {
             event.preventDefault();
             await subscribeEvent(subscription, eventId);
             await handleSubLinks(registration);
           });
         }
+      }
 
       let unsubAllLink = createSubLink(subsSection, TEXTS.unsubscribeAll);
-
       unsubAllLink.addEventListener("click", async event => {
         event.preventDefault();
         await unsubscribeAll();

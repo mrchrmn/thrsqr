@@ -37,7 +37,7 @@ rules:
   constructor-super: error
   eqeqeq: error
   id-length:
-  - error
+  - warn
   - exceptions:
     - _
     - a
@@ -47,7 +47,7 @@ rules:
     - z
     - i
     - j
-    min: 2
+    min: 1
   keyword-spacing: error
   linebreak-style: 0
   max-depth: error
