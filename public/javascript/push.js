@@ -4,6 +4,10 @@
 "use strict";
 
 import { urlBase64ToUint8Array } from "/javascript/base64.mjs";
+import { texts } from "/locale/texts.mjs";
+
+// eslint-disable-next-line no-undef
+const TEXTS = texts[language];
 
 
 // SERVICE WORKER
@@ -83,7 +87,7 @@ function canPush() {
 }
 
 
-function createSubscriptionLink(parent, text) {
+function createSubLink(parent, text) {
   let p = document.createElement("P");
   let a = document.createElement("A");
   a.setAttribute("href", "#");
@@ -95,40 +99,80 @@ function createSubscriptionLink(parent, text) {
 }
 
 
+function removeChildren(parent) {
+  while (parent.lastChild) {
+    parent.lastChild.remove();
+  }
+}
+
+
 // SUBSCRIPTION UI
 
 async function handleSubLinks(registration) {
 
   if (!canPush()) return null;
 
-  let subscriptionsSection = document.getElementById("subscriptions");
+  let subsSection = document.getElementById("subscriptions");
 
-  if (subscriptionsSection) {
+  if (subsSection) {
+
+    subsSection.style.display = "none";
+    removeChildren(subsSection);
 
     let eventId = getEventId();
     let subscription = await registration.pushManager.getSubscription();
 
+    // On event page with no prior subscriptions
     if (!subscription && eventId) {
-      let subLink = createSubscriptionLink(subscriptionsSection, "Subscribe to push notifications for this event.");
+      subsSection.style.display = "block";
+
+      let subLink = createSubLink(subsSection, TEXTS.subscribeEvent);
 
       subLink.addEventListener("click", async event => {
         event.preventDefault();
         let subscription = await subscribe(registration);
+        await subscribeEvent(subscription, eventId);
+        await handleSubLinks(registration);
       });
     }
 
     if (subscription) {
-      let unsubAllLink = createSubscriptionLink(subscriptionsSection, "Unsubscribe from all ThrSqr notifications.");
+      subsSection.style.display = "block";
+
+      if (eventId) {
+        let eventSubbed = await isEventSubbed(subscription, eventId);
+
+        if (eventSubbed) {
+          let unsubLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
+
+          unsubLink.addEventListener("click", async event => {
+            event.preventDefault();
+            await unsubscribeEvent(subscription, eventId);
+            await handleSubLinks(registration);
+          });
+
+        } else {
+          let subLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
+
+          subLink.addEventListener("click", async event => {
+            event.preventDefault();
+            await subscribeEvent(subscription, eventId);
+            await handleSubLinks(registration);
+          });
+        }
+
+      let unsubAllLink = createSubLink(subsSection, TEXTS.unsubscribeAll);
 
       unsubAllLink.addEventListener("click", async event => {
         event.preventDefault();
+        await unsubscribeAll();
         await unsubscribe(registration);
+        await handleSubLinks(registration);
       });
     }
-
-    return true;
-
   }
+
+  return true;
 }
 
 

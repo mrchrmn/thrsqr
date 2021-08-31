@@ -2,7 +2,7 @@
 const catchError = require("../lib/catch-error");
 const adminOnly = require("../lib/admin-only");
 const controller = require("../controllers/superuser");
-const TEXTS = require("../data/texts.json");
+const TEXTS = require("../locale/texts.json");
 
 const express = require("express");
 const router = express.Router();

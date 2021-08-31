@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-const TEXTS = require("../data/texts.json");
+const TEXTS = require("../locale/texts.json").texts;
 
 module.exports = {
 
