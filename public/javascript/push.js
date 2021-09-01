@@ -35,6 +35,7 @@ async function subscribe(registration) {
     }
 
     if (Notification.permission === "granted") {
+      console.log("Subscribing");
       return await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
@@ -108,66 +109,30 @@ function removeChildren(parent) {
 
 // DATABASE FETCHES
 
-async function isEventSubbed(endpoint, eventId) {
+async function subFetcher(subscription, path) {
   try {
-    let status = await fetch(`/event/${eventId}/check-sub`, {
-      method: "POST",
-      body: endpoint
-    });
-
-    console.log("\n== status ==\n" + !!Number(status) + "\n");
-    return !!Number(status);
-
-  } catch (error) {
-    console.log("Could not check subscription:\n", error);
-    return null;
-  }
-}
-
-
-async function subscribeEvent(subscription, eventId) {
-  try {
-    await fetch(`/event/${eventId}/subscribe`, {
+    let response = await fetch(path, {
       method: "POST",
       body: JSON.stringify(subscription),
       headers: {
         "content-type": "application/json"
       }
     });
-    return true;
-
+    return response;
   } catch (error) {
-    console.log("Could not subscribe to event:\n", error);
+    console.log(`Could not perform subscribe operation at path ${path}`, error);
     return null;
   }
 }
 
 
-async function unsubscribeEvent(endpoint, eventId) {
+async function isEventSubbed(subscription, eventId) {
   try {
-    await fetch(`/event/${eventId}/unsubscribe`, {
-      method: "POST",
-      body: endpoint
-    });
-    return true;
+    let status = await subFetcher(subscription, `/event/${eventId}/check-sub`);
+    return !!Number(status);
 
   } catch (error) {
-    console.log("Could not unsubscribe from event:\n", error);
-    return null;
-  }
-}
-
-
-async function unsubscribeAll(endpoint) {
-  try {
-    await fetch(`/unsubscribe-all`, {
-      method: "POST",
-      body: endpoint
-    });
-    return true;
-
-  } catch (error) {
-    console.log("Could not unsubscribe from ThrSqr:\n", error);
+    console.log("Could not check subscription:\n", error);
     return null;
   }
 }
@@ -191,13 +156,16 @@ async function handleSubLinks(registration) {
 
     // On event page with no prior subscriptions
     if (!subscription && eventId) {
+      console.log("No priors");
       subsSection.style.display = "block";
 
       let subLink = createSubLink(subsSection, TEXTS.subscribeEvent);
+
       subLink.addEventListener("click", async event => {
         event.preventDefault();
+
         let subscription = await subscribe(registration);
-        await subscribeEvent(subscription, eventId);
+        await subFetcher(subscription, `/event/${eventId}/subscribe`);
         await handleSubLinks(registration);
       });
     }
@@ -206,30 +174,36 @@ async function handleSubLinks(registration) {
       subsSection.style.display = "block";
 
       if (eventId) {
-        let eventSubbed = await isEventSubbed(subscription.endpoint, eventId);
+        let eventSubbed = await isEventSubbed(subscription, eventId);
 
         if (eventSubbed) {
           let unsubLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
+
           unsubLink.addEventListener("click", async event => {
             event.preventDefault();
-            await unsubscribeEvent(subscription.endpoint, eventId);
+
+            await subFetcher(subscription, `/event/${eventId}/unsubscribe`);
             await handleSubLinks(registration);
           });
 
         } else {
           let subLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
+
           subLink.addEventListener("click", async event => {
             event.preventDefault();
-            await subscribeEvent(subscription, eventId);
+
+            await subFetcher(subscription, `/event/${eventId}/subscribe`);
             await handleSubLinks(registration);
           });
         }
       }
 
       let unsubAllLink = createSubLink(subsSection, TEXTS.unsubscribeAll);
+
       unsubAllLink.addEventListener("click", async event => {
         event.preventDefault();
-        await unsubscribeAll(subscription.endpoint);
+
+        await subFetcher(subscription, "/unsubscribe-all");
         await unsubscribe(registration);
         await handleSubLinks(registration);
       });

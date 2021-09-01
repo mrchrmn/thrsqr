@@ -62,7 +62,7 @@ module.exports = {
     let message = req.body.message;
 
     if (email.length > 0 || message.length > 0) {
-      res.status(200).send("Thank you for registering.");
+      res.send("Thank you for registering.");
 
     } else {
       delete req.body.email;
@@ -91,21 +91,21 @@ module.exports = {
   async checkSub(req, res) {
     let store = res.locals.store;
     let eventId = req.params.eventId;
-    let endpoint = req.body;
+    let endpoint = req.body.endpoint;
 
     let eventSub = await store.checkEventSub(eventId, endpoint);
 
     if (!eventSub) {
-      res.send(0);
+      res.send("0");
     } else {
-      res.send(1);
+      res.send("1");
     }
   },
 
   async subscribe(req, res) {
     let store = res.locals.store;
     let eventId = req.params.eventId;
-    let subscription = JSON.parse(req.body);
+    let subscription = req.body;
 
     await store.subscribeEvent(subscription, eventId);
 
@@ -115,7 +115,7 @@ module.exports = {
   async unsubscribe(req, res) {
     let store = res.locals.store;
     let eventId = req.params.eventId;
-    let endpoint = req.body;
+    let endpoint = req.body.endpoint;
 
     await store.unsubscribeEvent(endpoint, eventId);
 

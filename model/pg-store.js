@@ -93,12 +93,13 @@ module.exports = class PgStore {
   // Adds event subscription, adds subscription entry if none yet
   async subscribeEvent(subscription, eventId) {
     if (!(await this.checkSub(subscription.endpoint))) {
+      console.log("No sub yet");
       const NEW_SUB = "INSERT INTO subscriptions (endpoint, expirationTime, p256dh, auth) VALUES (%L, %L, %L, %L)";
       await dbQuery(NEW_SUB,
                     subscription.endpoint,
                     subscription.expirationTime,
                     subscription.keys.p256dh,
-                    subscription.auth);
+                    subscription.keys.auth);
     }
 
     const SUBSCRIBE_TO_EVENT = "INSERT INTO events_subscriptions (event_id, subscription_endpoint) VALUES (%L, %L)";

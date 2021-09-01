@@ -57,7 +57,8 @@ if (isProduction) {
 }
 
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(session(sessionConfig));
 app.use(flash());
 

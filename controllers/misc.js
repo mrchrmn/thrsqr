@@ -35,8 +35,8 @@ module.exports = {
 
   async unsubscribeAll(req, res) {
     let store = res.locals.store;
-    let endpoint = req.body;
+    let endpoint = req.body.endpoint;
 
-    await store.unsusbscribeAll(endpoint);
+    await store.unsubscribeAll(endpoint);
   }
 };
