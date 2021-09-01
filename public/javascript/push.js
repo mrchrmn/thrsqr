@@ -35,7 +35,6 @@ async function subscribe(registration) {
     }
 
     if (Notification.permission === "granted") {
-      console.log("Subscribing");
       return await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
@@ -53,7 +52,9 @@ async function subscribe(registration) {
 async function unsubscribe(registration) {
   try {
     let subscription = await registration.pushManager.getSubscription();
-    return await subscription.unsubscribe();
+    console.log(subscription);
+    await subscription.unsubscribe();
+    return true;
 
   } catch (error) {
     console.log("Unable to unsubscribe from notifications:\n" + error);
@@ -111,14 +112,14 @@ function removeChildren(parent) {
 
 async function subFetcher(subscription, path) {
   try {
-    let response = await fetch(path, {
+    let res = await fetch(path, {
       method: "POST",
       body: JSON.stringify(subscription),
       headers: {
         "content-type": "application/json"
       }
     });
-    return response;
+    return res;
   } catch (error) {
     console.log(`Could not perform subscribe operation at path ${path}`, error);
     return null;
@@ -128,9 +129,9 @@ async function subFetcher(subscription, path) {
 
 async function isEventSubbed(subscription, eventId) {
   try {
-    let status = await subFetcher(subscription, `/event/${eventId}/check-sub`);
-    return !!Number(status);
-
+    let res = await subFetcher(subscription, `/event/${eventId}/check-sub`);
+    let body = await res.json();
+    return body;
   } catch (error) {
     console.log("Could not check subscription:\n", error);
     return null;
@@ -156,7 +157,6 @@ async function handleSubLinks(registration) {
 
     // On event page with no prior subscriptions
     if (!subscription && eventId) {
-      console.log("No priors");
       subsSection.style.display = "block";
 
       let subLink = createSubLink(subsSection, TEXTS.subscribeEvent);
@@ -176,7 +176,7 @@ async function handleSubLinks(registration) {
       if (eventId) {
         let eventSubbed = await isEventSubbed(subscription, eventId);
 
-        if (eventSubbed) {
+        if (eventSubbed === true) {
           let unsubLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
 
           unsubLink.addEventListener("click", async event => {
@@ -187,7 +187,7 @@ async function handleSubLinks(registration) {
           });
 
         } else {
-          let subLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
+          let subLink = createSubLink(subsSection, TEXTS.subscribeEvent);
 
           subLink.addEventListener("click", async event => {
             event.preventDefault();

@@ -38,5 +38,7 @@ module.exports = {
     let endpoint = req.body.endpoint;
 
     await store.unsubscribeAll(endpoint);
+
+    res.sendStatus(200);
   }
 };

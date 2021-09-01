@@ -95,11 +95,7 @@ module.exports = {
 
     let eventSub = await store.checkEventSub(eventId, endpoint);
 
-    if (!eventSub) {
-      res.send("0");
-    } else {
-      res.send("1");
-    }
+    res.send(eventSub);
   },
 
   async subscribe(req, res) {

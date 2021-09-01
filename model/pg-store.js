@@ -93,7 +93,7 @@ module.exports = class PgStore {
   // Adds event subscription, adds subscription entry if none yet
   async subscribeEvent(subscription, eventId) {
     if (!(await this.checkSub(subscription.endpoint))) {
-      console.log("No sub yet");
+      console.log(">>> No subs at all, yet, creating new sub...");
       const NEW_SUB = "INSERT INTO subscriptions (endpoint, expirationTime, p256dh, auth) VALUES (%L, %L, %L, %L)";
       await dbQuery(NEW_SUB,
                     subscription.endpoint,
@@ -101,20 +101,25 @@ module.exports = class PgStore {
                     subscription.keys.p256dh,
                     subscription.keys.auth);
     }
-
+    console.log(">>> Creating eventSub now...");
     const SUBSCRIBE_TO_EVENT = "INSERT INTO events_subscriptions (event_id, subscription_endpoint) VALUES (%L, %L)";
     await dbQuery(SUBSCRIBE_TO_EVENT, eventId, subscription.endpoint);
+    return true;
   }
 
   // Removes event subscription, leaves subscriptions table untouched
   async unsubscribeEvent(endpoint, eventId) {
+    console.log(">>> Unsubscribing from event now...");
     const UNSUB_FROM_EVENT = "DELETE FROM events_subscriptions WHERE event_id = %L and subscription_endpoint = %L";
     await dbQuery(UNSUB_FROM_EVENT, eventId, endpoint);
+    return true;
   }
 
   async unsubscribeAll(endpoint) {
+    console.log(">>> Deleting subscription from system...");
     const REMOVE_SUB = "DELETE FROM subscriptions WHERE endpoint = %L";
     await dbQuery(REMOVE_SUB, endpoint);
+    return true;
   }
 
 
