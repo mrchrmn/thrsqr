@@ -1,6 +1,6 @@
 const { dbQuery } = require("./db-query");
 const bcrypt = require("bcrypt");
-const ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 module.exports = class PgStore {
   constructor() {
@@ -22,7 +22,7 @@ module.exports = class PgStore {
       id = "";
       for (let position = 0; position < 4; position += 1) {
         id += ALPHABET[Math.floor(Math.random() * 62)];
-      }   
+      }
     } while (await this.ifExists(id, table));
 
     return id;
@@ -31,22 +31,22 @@ module.exports = class PgStore {
   // Save new event to database
   async newEvent(details) {
     const NEW_EVENT = "INSERT INTO events (id, title, dayOfWeek, eventTime, timeZone, info) VALUES (%L, %L, %s, %L, %L, %L)";
-    await dbQuery(NEW_EVENT, 
-                  details.eventId, 
-                  details.eventTitle, 
-                  details.eventDayOfWeek, 
-                  details.eventTime, 
-                  details.eventTimeZone, 
+    await dbQuery(NEW_EVENT,
+                  details.eventId,
+                  details.eventTitle,
+                  details.eventDayOfWeek,
+                  details.eventTime,
+                  details.eventTimeZone,
                   details.eventInfo);
   }
 
   // Update event details in database
   async updateEvent(details) {
     const UPDATE_EVENT = "UPDATE events SET title = %L, dayOfWeek = %L, eventTime = %L, info = %L, lastupdate = now() WHERE id = %L";
-    await dbQuery(UPDATE_EVENT, 
-                  details.eventTitle, 
-                  details.eventDayOfWeek, 
-                  details.eventTime, 
+    await dbQuery(UPDATE_EVENT,
+                  details.eventTitle,
+                  details.eventDayOfWeek,
+                  details.eventTime,
                   details.eventInfo,
                   details.eventId);
   }
@@ -68,7 +68,7 @@ module.exports = class PgStore {
       let utcOffset  = await dbQuery(FIND_OFFSET, event.rows[0].timezone);
       event.rows[0].utcoffset = utcOffset.rows[0].utc_offset.hours;
       event.rows[0].id = event.rows[0].id.trim();
-      return event.rows[0];  
+      return event.rows[0];
     } else {
       return false;
     }
@@ -115,7 +115,7 @@ module.exports = class PgStore {
     await dbQuery(REMOVE_RESPONSE, eventId, participantId);
   }
 
-  // Delete all responses for an event. 
+  // Delete all responses for an event.
   async resetResponses(eventId) {
     const RESET_RESPONSES = "DELETE FROM responses WHERE event_id = %L";
     await dbQuery(RESET_RESPONSES, eventId);

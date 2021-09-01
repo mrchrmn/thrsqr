@@ -31,6 +31,12 @@ module.exports = {
 }`;
 
     res.append("Content-Type", "text/html").send(eventManifest);
-  }
+  },
 
+  async unsubscribeAll(req, res) {
+    let store = res.locals.store;
+    let endpoint = req.body;
+
+    await store.unsusbscribeAll(endpoint);
+  }
 };

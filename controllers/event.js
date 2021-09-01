@@ -9,25 +9,17 @@ const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000;
 
 module.exports = {
 
-  async new(req, res) {
-    let email = req.body.email;
-    let message = req.body.message;
+  async edit(req, res) {
+    let store = res.locals.store;
+    let eventId = req.params.eventId;
+    let event = await store.getEvent(eventId);
 
-    if (email.length > 0 || message.length > 0) {
-      res.status(200).send("Thank you for registering.");
-
+    if (!event) {
+      throw new Error("Requested event not found.");
     } else {
-      delete req.body.email;
-      delete req.body.message;
-
-      let store = res.locals.store;
-      let eventId = await store.generateId("events");
-      let eventDetails = { ...req.body, eventId };
-
-      await store.newEvent(eventDetails);
-      let slug = slugFrom(eventDetails.eventTitle);
-
-      res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });
+      res.render("edit-event", {
+        event
+      });
     }
   },
 
@@ -65,17 +57,25 @@ module.exports = {
     }
   },
 
-  async edit(req, res) {
-    let store = res.locals.store;
-    let eventId = req.params.eventId;
-    let event = await store.getEvent(eventId);
+  async new(req, res) {
+    let email = req.body.email;
+    let message = req.body.message;
 
-    if (!event) {
-      throw new Error("Requested event not found.");
+    if (email.length > 0 || message.length > 0) {
+      res.status(200).send("Thank you for registering.");
+
     } else {
-      res.render("edit-event", {
-        event
-      });
+      delete req.body.email;
+      delete req.body.message;
+
+      let store = res.locals.store;
+      let eventId = await store.generateId("events");
+      let eventDetails = { ...req.body, eventId };
+
+      await store.newEvent(eventDetails);
+      let slug = slugFrom(eventDetails.eventTitle);
+
+      res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });
     }
   },
 
@@ -86,6 +86,40 @@ module.exports = {
 
     await store.updateEvent(eventDetails);
     res.redirect(`/event/${eventId}`);
+  },
+
+  async checkSub(req, res) {
+    let store = res.locals.store;
+    let eventId = req.params.eventId;
+    let endpoint = req.body;
+
+    let eventSub = await store.checkSub(eventId, endpoint);
+
+    if (!eventSub) {
+      res.send(0);
+    } else {
+      res.send(1);
+    }
+  },
+
+  async subscribeEvent(req, res) {
+    let store = res.locals.store;
+    let eventId = req.params.eventId;
+    let subscription = JSON.parse(req.body);
+
+    await store.subscribeEvent(subscription, eventId);
+
+    res.send("subscribed");
+  },
+
+  async unsubscribeEvent(req, res) {
+    let store = res.locals.store;
+    let eventId = req.params.eventId;
+    let endpoint = req.body;
+
+    await store.unsubscribeEvent(endpoint, eventId);
+
+    res.send("unsubscribed");
   },
 
   async updateResponses(req, res) {

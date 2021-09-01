@@ -29,4 +29,6 @@ router.get("/change-language", (req, res) => {
 // Webmanifest
 router.get("/site/webmanifest/:eventId", catchError(controller.generateManifest));
 
+router.post("/unsubscribe-all", catchError(controller.unsubscribeAll));
+
 module.exports = router;

@@ -30,5 +30,4 @@ module.exports = {
     await res.locals.store.deleteInactiveParticipants();
     res.redirect("/superuser");
   }
-
-}
+};

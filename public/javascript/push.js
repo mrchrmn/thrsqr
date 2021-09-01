@@ -106,6 +106,73 @@ function removeChildren(parent) {
 }
 
 
+// DATABASE FETCHES
+
+async function isEventSubbed(endpoint, eventId) {
+  try {
+    let status = await fetch(`/event/${eventId}/check-sub`, {
+      method: "POST",
+      body: endpoint
+    });
+
+    console.log("\n== status ==\n" + !!Number(status) + "\n");
+    return !!Number(status);
+
+  } catch (error) {
+    console.log("Could not check subscription:\n", error);
+    return null;
+  }
+}
+
+
+async function subscribeEvent(subscription, eventId) {
+  try {
+    await fetch(`/event/${eventId}/subscribe`, {
+      method: "POST",
+      body: JSON.stringify(subscription),
+      headers: {
+        "content-type": "application/json"
+      }
+    });
+    return true;
+
+  } catch (error) {
+    console.log("Could not subscribe to event:\n", error);
+    return null;
+  }
+}
+
+
+async function unsubscribeEvent(endpoint, eventId) {
+  try {
+    await fetch(`/event/${eventId}/unsubscribe`, {
+      method: "POST",
+      body: endpoint
+    });
+    return true;
+
+  } catch (error) {
+    console.log("Could not unsubscribe from event:\n", error);
+    return null;
+  }
+}
+
+
+async function unsubscribeAll(endpoint) {
+  try {
+    await fetch(`/unsubscribe-all`, {
+      method: "POST",
+      body: endpoint
+    });
+    return true;
+
+  } catch (error) {
+    console.log("Could not unsubscribe from ThrSqr:\n", error);
+    return null;
+  }
+}
+
+
 // SUBSCRIPTION UI
 
 async function handleSubLinks(registration) {
@@ -139,13 +206,13 @@ async function handleSubLinks(registration) {
       subsSection.style.display = "block";
 
       if (eventId) {
-        let eventSubbed = await isEventSubbed(subscription, eventId);
+        let eventSubbed = await isEventSubbed(subscription.endpoint, eventId);
 
         if (eventSubbed) {
           let unsubLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
           unsubLink.addEventListener("click", async event => {
             event.preventDefault();
-            await unsubscribeEvent(subscription, eventId);
+            await unsubscribeEvent(subscription.endpoint, eventId);
             await handleSubLinks(registration);
           });
 
@@ -162,7 +229,7 @@ async function handleSubLinks(registration) {
       let unsubAllLink = createSubLink(subsSection, TEXTS.unsubscribeAll);
       unsubAllLink.addEventListener("click", async event => {
         event.preventDefault();
-        await unsubscribeAll();
+        await unsubscribeAll(subscription.endpoint);
         await unsubscribe(registration);
         await handleSubLinks(registration);
       });
