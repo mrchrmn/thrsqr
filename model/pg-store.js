@@ -104,7 +104,6 @@ module.exports = class PgStore {
     console.log(">>> Creating eventSub now...");
     const SUBSCRIBE_TO_EVENT = "INSERT INTO events_subscriptions (event_id, subscription_endpoint) VALUES (%L, %L)";
     await dbQuery(SUBSCRIBE_TO_EVENT, eventId, subscription.endpoint);
-    return true;
   }
 
   // Removes event subscription, leaves subscriptions table untouched
@@ -112,14 +111,12 @@ module.exports = class PgStore {
     console.log(">>> Unsubscribing from event now...");
     const UNSUB_FROM_EVENT = "DELETE FROM events_subscriptions WHERE event_id = %L and subscription_endpoint = %L";
     await dbQuery(UNSUB_FROM_EVENT, eventId, endpoint);
-    return true;
   }
 
   async unsubscribeAll(endpoint) {
     console.log(">>> Deleting subscription from system...");
     const REMOVE_SUB = "DELETE FROM subscriptions WHERE endpoint = %L";
     await dbQuery(REMOVE_SUB, endpoint);
-    return true;
   }
 
 

@@ -52,9 +52,7 @@ async function subscribe(registration) {
 async function unsubscribe(registration) {
   try {
     let subscription = await registration.pushManager.getSubscription();
-    console.log(subscription);
-    await subscription.unsubscribe();
-    return true;
+    return await subscription.unsubscribe();
 
   } catch (error) {
     console.log("Unable to unsubscribe from notifications:\n" + error);
