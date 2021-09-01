@@ -93,7 +93,7 @@ module.exports = {
     let eventId = req.params.eventId;
     let endpoint = req.body;
 
-    let eventSub = await store.checkSub(eventId, endpoint);
+    let eventSub = await store.checkEventSub(eventId, endpoint);
 
     if (!eventSub) {
       res.send(0);
@@ -102,7 +102,7 @@ module.exports = {
     }
   },
 
-  async subscribeEvent(req, res) {
+  async subscribe(req, res) {
     let store = res.locals.store;
     let eventId = req.params.eventId;
     let subscription = JSON.parse(req.body);
@@ -112,7 +112,7 @@ module.exports = {
     res.send("subscribed");
   },
 
-  async unsubscribeEvent(req, res) {
+  async unsubscribe(req, res) {
     let store = res.locals.store;
     let eventId = req.params.eventId;
     let endpoint = req.body;

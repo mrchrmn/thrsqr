@@ -67,6 +67,7 @@ app.use((_req, res, next) => {
   next();
 });
 
+// Detect and set language
 app.use((req, res, next) => {
   if (!req.session.language) {
     req.session.language = req.headers["accept-language"].substring(0,2);
