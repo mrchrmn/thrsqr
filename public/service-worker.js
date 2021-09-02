@@ -1,6 +1,21 @@
+"use strict";
+
 /* eslint-disable max-lines-per-function */
 /* eslint-disable max-len */
-"use strict";
+
+const texts = {
+  en: {
+    there: "There",
+    square: "Square",
+    willBe: "will be"
+  },
+
+  de: {
+    there: "Dabei",
+    square: "Nicht dabei",
+    willBe: "ist"
+  }
+};
 
 // ###### PUSH NOTIFICATIONS
 
@@ -8,12 +23,13 @@ self.addEventListener("push", event => {
   if (event.data) {
     let data = event.data.json();
 
+    let TEXTS = texts[data.language];
     let title = data.title;
-    let body = `There: ${data.going}, Square: ${data.notGoing}\n`;
+    let body = `${TEXTS.there}: ${data.going}, ${TEXTS.square}: ${data.notGoing}\n\n`;
 
     if (data.username) {
-      let there = data.there ? "there" : "square";
-      body += `${data.username} will be ${there}.`;
+      let there = data.there ? TEXTS.there.toLowerCase() : TEXTS.square.toLowerCase();
+      body += `${data.username} ${TEXTS.willBe} ${there}.`;
     }
 
     let options = {
