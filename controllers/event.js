@@ -3,6 +3,7 @@
 /* eslint-disable max-lines-per-function */
 
 const { getLast, slugFrom, countGoing, getNext } = require("../lib/thrsqr");
+const { notifySubscribers } = require("../lib/webpush");
 
 // responses reset after this time has passed after the start of an event
 const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000;
@@ -132,6 +133,8 @@ module.exports = {
 
     await store.updateResponses(eventId, username, there, participantId, comment);
 
+    await notifySubscribers(store, eventId, username, there);
+
     req.session.participantId = participantId;
     req.session.username = username;
     req.session.lastComment = comment;
@@ -144,6 +147,8 @@ module.exports = {
     let participantId = req.params.participantId;
 
     await store.removeResponse(eventId, participantId);
+
+    await notifySubscribers(store, eventId);
 
     res.redirect(`/event/${eventId}`);
   }

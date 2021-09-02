@@ -141,8 +141,6 @@ async function isEventSubbed(subscription, eventId) {
 
 async function handleSubLinks(registration) {
 
-  if (!canPush()) return null;
-
   let subsSection = document.getElementById("subscriptions");
 
   if (subsSection) {
@@ -214,7 +212,10 @@ async function handleSubLinks(registration) {
 
 // LET'S GO!
 
-document.addEventListener("DOMContentLoaded", async () => {
-  let registration = await registerServiceWorker();
-  await handleSubLinks(registration);
-});
+if (canPush()) {
+  document.addEventListener("DOMContentLoaded", async () => {
+    let registration = await registerServiceWorker();
+    await handleSubLinks(registration);
+  });
+}
+
