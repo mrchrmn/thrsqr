@@ -25,7 +25,7 @@ self.addEventListener("push", event => {
 
     let TEXTS = texts[data.language];
     let title = data.title;
-    let body = `${TEXTS.there}: ${data.going}, ${TEXTS.square}: ${data.notGoing}\n\n`;
+    let body = `${TEXTS.there}: ${data.going} | ${TEXTS.square}: ${data.notGoing}\n\n`;
 
     if (data.username) {
       let there = data.there ? TEXTS.there.toLowerCase() : TEXTS.square.toLowerCase();
