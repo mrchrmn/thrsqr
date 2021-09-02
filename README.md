@@ -16,8 +16,9 @@ An RSVP tracker for weekly events and friendly people.
 
 * URL based, no login required
 * Dynamically generated webmanifest for each event
-* Registers and saves client time zone on event creation as event time zone
+* Browser push notifications for individual events
 * Auto-resets responses one hour after the event has begun.
+* Registers and saves client time zone on event creation as event time zone
 * Master admin page to clean up events and users
 
 ### Technologies
@@ -27,10 +28,11 @@ An RSVP tracker for weekly events and friendly people.
 * PostgreSQL
 * Pug
 * Heroku
+* Web APIs:
+  - Service Workers, Push, Notifications
 
 ### On the todo list
 
-* Browser push notifications for events
+* Possibility to upload event logos
 * Database updates without page reloads
 * Streamlined UI
-* Possibility to upload event logos
