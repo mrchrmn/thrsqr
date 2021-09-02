@@ -102,9 +102,10 @@ module.exports = {
   async subscribe(req, res) {
     let store = res.locals.store;
     let eventId = req.params.eventId;
+    let language = req.params.language;
     let subscription = req.body;
 
-    await store.subscribeEvent(subscription, eventId);
+    await store.subscribeEvent(subscription, eventId, language);
 
     res.send("subscribed");
   },

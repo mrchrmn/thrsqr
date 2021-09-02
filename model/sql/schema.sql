@@ -31,8 +31,9 @@ CREATE TABLE admins (
 CREATE TABLE subscriptions (
   endpoint text PRIMARY KEY,
   expirationTime int,
-  p256dh text NOT NULL,
-  auth text NOT NULL
+  p256dh text,
+  auth text,
+  language varchar(8)
 );
 
 CREATE TABLE events_subscriptions (

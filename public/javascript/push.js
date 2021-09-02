@@ -7,7 +7,8 @@ import { urlBase64ToUint8Array } from "/javascript/base64.mjs";
 import { texts } from "/locale/texts.mjs";
 
 // eslint-disable-next-line no-undef
-const TEXTS = texts[language];
+const lang = language;
+const TEXTS = texts[lang];
 
 
 // SERVICE WORKER
@@ -24,7 +25,7 @@ async function registerServiceWorker() {
 }
 
 
-// SUBSCRIPTION HANDLING
+// BROWSER SUBSCRIPTION HANDLING
 
 const publicVapidKey = 'BJlwITZQd9mrnKedh07Tze13WtSSaqfTzeKT5xx4qpDFzxhHgS4vqbGm_XlAELasf1cCuAU5L9us46GkhOHOyOU';
 
@@ -161,7 +162,7 @@ async function handleSubLinks(registration) {
         event.preventDefault();
 
         let subscription = await subscribe(registration);
-        await subFetcher(subscription, `/event/${eventId}/subscribe`);
+        await subFetcher(subscription, `/event/${eventId}/subscribe/${lang}`);
         await handleSubLinks(registration);
       });
     }
@@ -188,7 +189,7 @@ async function handleSubLinks(registration) {
           subLink.addEventListener("click", async event => {
             event.preventDefault();
 
-            await subFetcher(subscription, `/event/${eventId}/subscribe`);
+            await subFetcher(subscription, `/event/${eventId}/subscribe/${lang}`);
             await handleSubLinks(registration);
           });
         }

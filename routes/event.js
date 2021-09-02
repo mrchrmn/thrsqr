@@ -30,7 +30,7 @@ router.post("/:eventId/edit", catchError(controller.update));
 router.post("/:eventId/check-sub", catchError(controller.checkSub));
 
 // Check event for subscription
-router.post("/:eventId/subscribe", catchError(controller.subscribe));
+router.post("/:eventId/subscribe/:language", catchError(controller.subscribe));
 
 // Check event for subscription
 router.post("/:eventId/unsubscribe", catchError(controller.unsubscribe));
