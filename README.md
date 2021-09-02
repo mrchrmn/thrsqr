@@ -20,6 +20,7 @@ An RSVP tracker for weekly events and friendly people.
 * Auto-resets responses one hour after the event has begun.
 * Registers and saves client time zone on event creation as event time zone
 * Master admin page to clean up events and users
+* English and German versions
 
 ### Technologies
 
