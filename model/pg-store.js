@@ -120,6 +120,12 @@ module.exports = class PgStore {
     await dbQuery(REMOVE_SUB, endpoint);
   }
 
+  async getEventSubscriptions(eventId) {
+    const GET_SUBSCRIPTIONS = "SELECT endpoint, expirationTime, p256dh, auth, language FROM events_subscriptions JOIN subscriptions ON events_subscriptions.subscription_endpoint = subscriptions.endpoint WHERE event_id = %L";
+    let result = await dbQuery(GET_SUBSCRIPTIONS, eventId);
+    return result.rows;
+  }
+
 
   // ###### Participants and Responses ######
 
