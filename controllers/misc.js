@@ -27,6 +27,7 @@ module.exports = {
 "background_color": "#174117",
 "display": "standalone",
 "start_url": "/event/${event.id}",
+"scope": "/event/${event.id}",
 "description": "ThrSqr - Your RSVP tracker for weekly events and friendly people."
 }`;
 
