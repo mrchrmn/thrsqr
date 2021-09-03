@@ -3,24 +3,21 @@ extends layout
 block title 
   title=`${eventTitle} | ThrSqr`
 
-block script
+block script-push
+
+block script-application
 
 block main 
   h1= eventTitle 
-  h2 Share this link to your event:
+  h2= TEXTS.shareLink
   p
     a(href=`/event/${slug}/${eventId}`)= `${origin}/event/${slug}/${eventId}`
-  h3 Please note:
-  ul 
-    li Anyone with the link can read and modify the list of responses, and potentially edit the event details.
-    li Don't forget to copy the link somewhere safe or bookmark it for yourself. 
-    li The list of responses clears automatically one hour after the event has begun. 
-    li The event will be deleted after three months of inactivity.
-  h3 Editing event details 
-  p To change your event (instead of setting up a new one) use this link:
+  h3= TEXTS.pleaseNote
+  ul!= TEXTS.caveats
+  h3= TEXTS.editEventHeading
+  p= TEXTS.editEventLink
   p
     a(href=`/event/edit/${eventId}`)= `${origin}/event/${eventId}/edit`
-  p Caution: Strange things may happen to your current list of responses if you change the time or day of the event. Or maybe not.
 
   h2 
-    a(href=`/event/${eventId}`) Go to event.
+    a(href=`/event/${eventId}`)= TEXTS.goTOEvent

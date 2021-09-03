@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 module.exports = {
 
   async generateManifest(req, res) {
@@ -26,10 +27,19 @@ module.exports = {
 "background_color": "#174117",
 "display": "standalone",
 "start_url": "/event/${event.id}",
+"scope": "/event/${event.id}",
 "description": "ThrSqr - Your RSVP tracker for weekly events and friendly people."
 }`;
 
     res.append("Content-Type", "text/html").send(eventManifest);
-  }
+  },
 
-}
+  async unsubscribeAll(req, res) {
+    let store = res.locals.store;
+    let endpoint = req.body.endpoint;
+
+    await store.unsubscribeAll(endpoint);
+
+    res.sendStatus(200);
+  }
+};

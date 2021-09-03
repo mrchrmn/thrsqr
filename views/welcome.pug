@@ -2,7 +2,7 @@ extends layout
 
 block headerlinks
 
-block script
+block script-application
 
 block main 
   p 
@@ -11,3 +11,10 @@ block main
   p= TEXTS.claim
   h3 
     a(href="/event/new")= TEXTS.setup
+
+block footer
+  footer 
+    p!= TEXTS.disclaimer
+    section(id="subscriptions")
+    p
+      a(href="/change-language")= TEXTS.changeLanguage

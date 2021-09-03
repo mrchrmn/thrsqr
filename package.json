@@ -1,6 +1,6 @@
 {
   "name": "thrsqr",
-  "version": "1.1.0",
+  "version": "0.7.0",
   "description": "",
   "main": "app.js",
   "directories": {
@@ -30,13 +30,15 @@
     "express-session": "^1.17.2",
     "pg": "^8.6.0",
     "pg-format": "^1.0.4",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "web-push": "^3.4.5"
   },
   "engines": {
     "node": "13.1.0",
     "npm": "6.12.1"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
     "nodemon": "^2.0.7"
   }
 }

@@ -1,11 +1,12 @@
-const TEXTS = require("../data/texts.json");
+/* eslint-disable max-len */
+const TEXTS = require("../locale/texts.json").texts;
 
 module.exports = {
 
   async signin(req, res) {
     let username = req.body.username.trim();
     let password = req.body.password;
-    let authenticated = await res.locals.store.userAuthenticated(username, password)
+    let authenticated = await res.locals.store.userAuthenticated(username, password);
     res.locals.TEXTS = TEXTS["en"];
 
     if (!authenticated) {
@@ -29,5 +30,4 @@ module.exports = {
     await res.locals.store.deleteInactiveParticipants();
     res.redirect("/superuser");
   }
-
-}
+};

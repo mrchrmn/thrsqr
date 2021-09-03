@@ -26,10 +26,19 @@ router.post("/new", catchError(controller.new));
 // Update existing event details
 router.post("/:eventId/edit", catchError(controller.update));
 
+// Check event for subscription
+router.post("/:eventId/check-sub", catchError(controller.checkSub));
+
+// Check event for subscription
+router.post("/:eventId/subscribe/:language", catchError(controller.subscribe));
+
+// Check event for subscription
+router.post("/:eventId/unsubscribe", catchError(controller.unsubscribe));
+
 // Update responses (there or square)
 router.post("/:eventId/:there", catchError(controller.updateResponses));
 
 // Remove response
-router.post("/:eventId/remove/:participantId", catchError(controller.removeResponse))
+router.post("/:eventId/remove/:participantId", catchError(controller.removeResponse));
 
 module.exports = router;

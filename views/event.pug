@@ -1,7 +1,7 @@
 extends layout 
 
 block title 
-  title=`${event.title} | ThrSqr`
+  title= `${event.title} | ThrSqr`
 
 block manifest 
   link(rel="manifest" href=`/site/webmanifest/${event.id}`)
@@ -51,3 +51,4 @@ block main
     dd
       button(formaction=`/event/${event.id}/1` id="there")=TEXTS.there
       button(formaction=`/event/${event.id}/0` id="square")=TEXTS.square
+  section(id="subscriptions")

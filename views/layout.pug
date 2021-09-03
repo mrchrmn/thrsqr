@@ -8,7 +8,13 @@ html(lang="en-UK")
 
     meta(charset="UTF-8")
 
-    block script
+    script. 
+      const language = "#{language}";
+
+    block script-push
+      script(src="/javascript/push.js" type="module") 
+
+    block script-application
       script(src="/javascript/application.js")
 
     link(rel="stylesheet" href="/fonts/stylesheet.css")

@@ -6,7 +6,7 @@
 const config = require("./lib/config");
 const HOST = config.HOST;
 const PORT = config.PORT;
-const TEXTS = require("./data/texts.json");
+const TEXTS = require("./locale/texts.json").texts;
 const isProduction = (config.NODE_ENV === "production");
 
 
@@ -36,7 +36,7 @@ let sessionConfig = {
   cookie: {
     httpOnly: true,
     maxAge: 180 * 24 * 3600000,
-    path: "/", 
+    path: "/",
     secret: false
   },
   name: "thrsqr-session-id",
@@ -49,7 +49,7 @@ let sessionConfig = {
       ssl: isProduction ? { rejectUnauthorized: false } : false
     }
   })
-}
+};
 
 if (isProduction) {
   app.set("trust proxy", 1);
@@ -57,7 +57,8 @@ if (isProduction) {
 }
 
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(session(sessionConfig));
 app.use(flash());
 
@@ -67,6 +68,7 @@ app.use((_req, res, next) => {
   next();
 });
 
+// Detect and set language
 app.use((req, res, next) => {
   if (!req.session.language) {
     req.session.language = req.headers["accept-language"].substring(0,2);
@@ -79,7 +81,7 @@ app.use((req, res, next) => {
   }
 
   next();
-})
+});
 
 // Extract session datastore
 app.use((req, res, next) => {
@@ -88,6 +90,7 @@ app.use((req, res, next) => {
   res.locals.participantId = req.session.participantId;
   res.locals.lastComment = req.session.lastComment;
   res.locals.flash = req.session.flash;
+  res.locals.language = req.session.language;
   delete req.session.flash;
   next();
 });
