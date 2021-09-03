@@ -2,7 +2,12 @@
 
 # ThrSqr - Will you be there or be square?
 
-An RSVP tracker for weekly events and friendly people.
+## An RSVP tracker for weekly events and friendly people.
+
+So you and your group meet once a week, eg. five-a-side football, choir rehearsal, book club etc. _If enough people attend_ that is. As the event approach your WhatsApp group is flooded with "I'm going", "Not this week.", and - crucially - "So, are we enough, yet?!" messages. Every week the same ruckus. 
+
+Not any longe, thanks to ThrSqr! 
+
 [Click here](https://thrsqr.hrmn.dev) to see it in action and use it.
 
 ### Simple workflow
@@ -14,13 +19,14 @@ An RSVP tracker for weekly events and friendly people.
 
 ### Features
 
-* URL based, no login required
+* URL based, no login required; session saves user's name for next time 
+* Auto-resets responses one hour after the event has begun
 * Dynamically generated webmanifest for each event
 * Browser push notifications for individual events
-* Auto-resets responses one hour after the event has begun.
+  - Tested with Android Chrome and Firefox, and with Windows Edge, Chrome and Firefox
+* English and German versions
 * Registers and saves client time zone on event creation as event time zone
 * Master admin page to clean up events and users
-* English and German versions
 
 ### Technologies
 
@@ -35,5 +41,7 @@ An RSVP tracker for weekly events and friendly people.
 ### On the todo list
 
 * Possibility to upload event logos
+* Improved timezone handling
+* Add minimum attendance goal a event property
 * Database updates without page reloads
 * Streamlined UI

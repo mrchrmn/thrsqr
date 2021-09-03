@@ -20,32 +20,36 @@ const texts = {
 // ###### PUSH NOTIFICATIONS
 
 self.addEventListener("push", event => {
-  if (event.data) {
-    let data = event.data.json();
+  try {
+    if (event.data) {
+      let data = event.data.json();
 
-    let TEXTS = texts[data.language];
-    let title = data.title;
-    let body = `${TEXTS.there}: ${data.going} | ${TEXTS.square}: ${data.notGoing}\n\n`;
+      let TEXTS = texts[data.language];
+      let title = data.title;
+      let body = `${TEXTS.there}: ${data.going} | ${TEXTS.square}: ${data.notGoing}\n\n`;
 
-    if (data.username) {
-      let there = data.there ? TEXTS.there.toLowerCase() : TEXTS.square.toLowerCase();
-      body += `${data.username} ${TEXTS.willBe} ${there}.`;
-    }
-
-    let options = {
-      body: body,
-      icon: "/android-chrome-192x192.png",
-      tag: "thrsqr",
-      renotify: true,
-      vibrate: [67, 33, 67],
-      data: {
-        clickURL: `/event/${data.eventId}`
+      if (data.username) {
+        let there = data.there ? TEXTS.there.toLowerCase() : TEXTS.square.toLowerCase();
+        body += `${data.username} ${TEXTS.willBe} ${there}.`;
       }
-    };
-    console.log("Trying to show notification:", title, body);
-    event.waitUntil(
-      self.registration.showNotification(title, options)
-    );
+
+      let options = {
+        body: body,
+        icon: "/android-chrome-192x192.png",
+        tag: "thrsqr",
+        renotify: true,
+        vibrate: [67, 33, 67],
+        data: {
+          clickURL: `/event/${data.eventId}`
+        }
+      };
+      console.log("Trying to show notification:", title, body);
+      event.waitUntil(
+        self.registration.showNotification(title, options)
+      );
+    }
+  } catch (error) {
+    console.log("Could not process push event:\n", error);
   }
 });
 
