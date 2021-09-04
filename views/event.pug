@@ -28,27 +28,28 @@ block main
             p <strong>#{response.username}</strong> #{response.comment}
               button
   form(action=`/event/${event.id}` method="post")
-    dt 
-      label(for="username") Name
-    dd 
-      input(type="text" 
-            id="username" 
-            name="username" 
-            placeholder="Name" 
-            value=username 
-            maxlength=50 
-            required)
-    dt 
-      label(for="comment") #{TEXTS.comment} (optional)
-    dd
-      textarea(rows=3 
-                maxlength=150
-                id="comment" 
-                name="comment" 
-                placeholder=TEXTS.comment)
-    dt 
-      label= TEXTS.illBe
-    dd
-      button(formaction=`/event/${event.id}/1` id="there")=TEXTS.there
-      button(formaction=`/event/${event.id}/0` id="square")=TEXTS.square
+    dl
+      dt 
+        label(for="username") Name
+      dd 
+        input(type="text" 
+              id="username" 
+              name="username" 
+              placeholder="Name" 
+              value=username 
+              maxlength=50 
+              required)
+      dt 
+        label(for="comment") #{TEXTS.comment} (optional)
+      dd
+        textarea(rows=3 
+                  maxlength=150
+                  id="comment" 
+                  name="comment" 
+                  placeholder=TEXTS.comment)
+      dt 
+        label= TEXTS.illBe
+      dd
+        button(formaction=`/event/${event.id}/1` id="there")=TEXTS.there
+        button(formaction=`/event/${event.id}/0` id="square")=TEXTS.square
   section(id="subscriptions")

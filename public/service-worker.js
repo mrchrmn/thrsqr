@@ -39,11 +39,12 @@ self.addEventListener("push", event => {
         tag: "thrsqr",
         renotify: true,
         vibrate: [67, 33, 67],
+        requireInteraction: true,
         data: {
           clickURL: `/event/${data.eventId}`
         }
       };
-      console.log("Trying to show notification:", title, body);
+
       event.waitUntil(
         self.registration.showNotification(title, options)
       );
