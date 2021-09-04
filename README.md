@@ -24,6 +24,7 @@ Not any longe, thanks to ThrSqr!
 * Dynamically generated webmanifest for each event
 * Browser push notifications for individual events
   - Tested with Android Chrome and Firefox, and with Windows Edge, Chrome and Firefox
+* Individual event logos which are also used in web manifest and notifications
 * English and German versions
 * Registers and saves client time zone on event creation as event time zone
 * Master admin page to clean up events and users
@@ -40,7 +41,6 @@ Not any longe, thanks to ThrSqr!
 
 ### On the todo list
 
-* Possibility to upload event logos
 * Improved timezone handling
 * Add minimum attendance goal a event property
 * Database updates without page reloads
