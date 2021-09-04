@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/mrchrmn/thrsqr#readme",
   "dependencies": {
+    "aws-sdk": "^2.983.0",
     "bcrypt": "^5.0.1",
     "connect-pg-simple": "^6.2.1",
     "dotenv": "^10.0.0",
