@@ -44,7 +44,7 @@ block main
                  id="eventInfo" 
                  name="eventInfo" 
                  placeholder=TEXTS.eventInfoPlaceholder)
-        input(type="text" id="email" name="email" placeholder="email address" maxlength=100)
-        input(type="text" id="message" name="message" placeholder="message" maxlength=100)
+      input(type="email" id="email" name="email" placeholder="email address" autocomplete="off")
+      input(type="text" id="message" name="message" placeholder="message" autocomplete="off")
 
     input(type="submit" value=TEXTS.createEvent)
