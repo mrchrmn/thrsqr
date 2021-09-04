@@ -4,11 +4,19 @@
 
 const { getLast, slugFrom, countGoing, getNext } = require("../lib/thrsqr");
 const { notifySubscribers } = require("../lib/webpush");
+// S3 IMPORT HERE
 
 // responses reset after this time has passed after the start of an event
 const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000;
 
 module.exports = {
+
+  async getNew(_req, res) {
+    let store = res.locals.store;
+    let eventId = await store.generateId("events");
+
+    res.render("new-event", { eventId });
+  },
 
   async edit(req, res) {
     let store = res.locals.store;
@@ -58,7 +66,7 @@ module.exports = {
     }
   },
 
-  async new(req, res) {
+  async postNew(req, res) {
     let email = req.body.email;
     let message = req.body.message;
 
@@ -70,11 +78,12 @@ module.exports = {
       delete req.body.message;
 
       let store = res.locals.store;
-      let eventId = await store.generateId("events");
-      let eventDetails = { ...req.body, eventId };
+      let eventDetails = { ...req.body };
 
       await store.newEvent(eventDetails);
       let slug = slugFrom(eventDetails.eventTitle);
+
+      // LOGO UPLOAD HERE
 
       res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });
     }

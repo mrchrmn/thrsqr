@@ -5,9 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 // Display new event form
-router.get("/new", (_req, res) => {
-  res.render("new-event");
-});
+router.get("/new", catchError(controller.getNew));
 
 // Edit existing event
 router.get("/:eventId/edit", catchError(controller.edit));
@@ -21,7 +19,7 @@ router.get("/:slug/:eventId", (req, res) => {
 });
 
 // Successfully registered new event
-router.post("/new", catchError(controller.new));
+router.post("/new", catchError(controller.postNew));
 
 // Update existing event details
 router.post("/:eventId/edit", catchError(controller.update));
