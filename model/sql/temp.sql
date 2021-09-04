@@ -12,3 +12,6 @@ ALTER COLUMN participant_id TYPE varchar(8);
 
 ALTER TABLE admins
 ALTER COLUMN username TYPE varchar(16);
+
+ALTER TABLE events 
+ADD COLUMN logoURL text;

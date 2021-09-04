@@ -5,7 +5,8 @@ CREATE TABLE events (
   eventTime time NOT NULL,
   timeZone varchar NOT NULL,
   info varchar(303), 
-  lastUpdate timestamptz DEFAULT now()
+  lastUpdate timestamptz DEFAULT now(),
+  logoURL text
 );
 
 CREATE TABLE participants (

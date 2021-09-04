@@ -4,7 +4,6 @@ const controller = require("../controllers/misc");
 const express = require("express");
 const router = express.Router();
 
-// Welcome page
 router.get("/", (_req, res) => {
   res.render("welcome");
 });
@@ -20,14 +19,14 @@ router.get("/reset/user", (req, res) => {
   res.redirect(req.headers.referer);
 });
 
-// Swap German and English via session
 router.get("/change-language", (req, res) => {
   req.session.language = req.session.language === "en" ? "de" : "en";
   res.redirect(req.headers.referer);
 });
 
-// Webmanifest
 router.get("/site/webmanifest/:eventId", catchError(controller.generateManifest));
+
+router.get("/s3request", catchError(controller.getS3Request));
 
 router.post("/unsubscribe-all", catchError(controller.unsubscribeAll));
 

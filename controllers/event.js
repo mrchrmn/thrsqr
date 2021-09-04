@@ -23,6 +23,8 @@ module.exports = {
     let eventId = req.params.eventId;
     let event = await store.getEvent(eventId);
 
+    if (!event.logourl) event.logourl = "/images/thrsqrlogo.png";
+
     if (!event) {
       throw new Error("Requested event not found.");
     } else {
@@ -56,6 +58,8 @@ module.exports = {
       let going = countGoing(responses);
       let notGoing = responses.length - going;
 
+      if (!event.logourl) event.logourl = "/images/thrsqrlogo.png";
+
       res.render("event", {
         event,
         responses,
@@ -82,8 +86,6 @@ module.exports = {
 
       await store.newEvent(eventDetails);
       let slug = slugFrom(eventDetails.eventTitle);
-
-      // LOGO UPLOAD HERE
 
       res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });
     }

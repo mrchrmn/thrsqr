@@ -3,13 +3,22 @@ extends layout
 block title 
   title= `${event.title} | ThrSqr`
 
+block script
+  script. 
+    const language = "#{language}";
+  script(src="/javascript/push.js" type="module") 
+  script(src="/javascript/application.js")
+
 block manifest 
   link(rel="manifest" href=`/site/webmanifest/${event.id}`)
 
 block main 
   - var week = TEXTS.weekArray
-  h1= event.title
-  h2 #{TEXTS.eventEvery} #{week[event.dayofweek]} #{TEXTS.eventAt} #{event.eventtime.substring(0,5)}<br /><span id="timezoneinfo">(#{TEXTS.timezone}: #{event.timezone})</span>
+  div#eventTitleBlock
+    img(src=event.logourl id="eventLogo" width="125px")
+    div#headings
+      h1= event.title
+      h2 #{TEXTS.eventEvery} #{week[event.dayofweek]} #{TEXTS.eventAt} #{event.eventtime.substring(0,5)}<br /><span id="timezoneinfo">(#{TEXTS.timezone}: #{event.timezone})</span>
   h3 #{TEXTS.nextOn} #{nextDate}
   p= event.info ? event.info : ""
   section(id="responses")

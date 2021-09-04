@@ -3,11 +3,22 @@ extends layout
 block title 
   title=`${event.title} | ${TEXTS.editEventHeading} | ThrSqr`
 
-block script-push
+block script
+  script(src="/javascript/application.js")
+  script(src="/javascript/form-handling.js")
 
 block main 
   h1= event.title
   h2= TEXTS.editEventHeading
+
+  p 
+    img(src=event.logourl id="eventLogo" width="125px")
+  dl 
+    dt 
+      label(for="eventLogoFile")= TEXTS.eventLogo
+    dd 
+      input(type="file" id="eventLogoFile" name="eventLogoFile" accept="image/*")
+
   form(action=`/event/${event.id}/edit` method="post")
     dl 
       dt 
@@ -52,5 +63,7 @@ block main
                  id="eventInfo" 
                  name="eventInfo" 
                  placeholder=TEXTS.eventInfoPlaceholder)=event.info
+    input(type="hidden" id="eventId" name="eventId" value=event.id)
+    input(type="hidden" id="eventLogoURL" name="eventLogoURL" value="/images/thrsqrlogo.png")
 
     input(type="submit" value=TEXTS.updateEvent)

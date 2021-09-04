@@ -2,7 +2,10 @@ extends layout
 
 block headerlinks
 
-block script-application
+block script
+  script. 
+    const language = "#{language}";
+  script(src="/javascript/push.js" type="module") 
 
 block main 
   p 

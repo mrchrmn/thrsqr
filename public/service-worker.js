@@ -35,11 +35,10 @@ self.addEventListener("push", event => {
 
       let options = {
         body: body,
-        icon: "/android-chrome-192x192.png",
+        icon: data.iconURL,
         tag: "thrsqr",
         renotify: true,
         vibrate: [67, 33, 67],
-        requireInteraction: true,
         data: {
           clickURL: `/event/${data.eventId}`
         }

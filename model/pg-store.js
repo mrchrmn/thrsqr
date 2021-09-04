@@ -50,24 +50,26 @@ module.exports = class PgStore {
 
   // Save new event to database
   async newEvent(details) {
-    const NEW_EVENT = "INSERT INTO events (id, title, dayOfWeek, eventTime, timeZone, info) VALUES (%L, %L, %s, %L, %L, %L)";
+    const NEW_EVENT = "INSERT INTO events (id, title, dayOfWeek, eventTime, timeZone, info, logoURL) VALUES (%L, %L, %s, %L, %L, %L, %L)";
     await dbQuery(NEW_EVENT,
                   details.eventId,
                   details.eventTitle,
                   details.eventDayOfWeek,
                   details.eventTime,
                   details.eventTimeZone,
-                  details.eventInfo);
+                  details.eventInfo,
+                  details.eventLogoURL);
   }
 
   // Update event details in database
   async updateEvent(details) {
-    const UPDATE_EVENT = "UPDATE events SET title = %L, dayOfWeek = %L, eventTime = %L, info = %L, lastupdate = now() WHERE id = %L";
+    const UPDATE_EVENT = "UPDATE events SET title = %L, dayOfWeek = %L, eventTime = %L, info = %L, logoURL = %L, lastupdate = now() WHERE id = %L";
     await dbQuery(UPDATE_EVENT,
                   details.eventTitle,
                   details.eventDayOfWeek,
                   details.eventTime,
                   details.eventInfo,
+                  details.eventLogoURL,
                   details.eventId);
   }
 

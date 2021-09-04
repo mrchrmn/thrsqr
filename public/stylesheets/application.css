@@ -32,19 +32,29 @@ main {
   padding-bottom: 40px;
 }
 
+#eventTitleBlock {
+  display: flex;
+  align-items: center;
+}
+
+#eventLogo {
+  margin-right: 20px;
+  border-radius: 5%;
+}
+
 section {
   padding: 20px 0;
 }
 
 main > form {
-  margin-top: 25px;
+  margin-top: 0px;
 }
 
-form dt {
+dt {
   padding-bottom: 5px;
 }
 
-form dd {
+dd {
   margin-left: 0px;
   padding-bottom: 20px;
 }
@@ -142,7 +152,7 @@ a:hover {
   width: 0;
   z-index: -1;}
 
-.headerlinks {
+.smalllinks {
   font-size: smaller;
 }
 
@@ -151,8 +161,18 @@ a:hover {
     max-width: 95%;
     width: 95%;
     margin: 10px;
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
+
+  #eventTitleBlock {
+    display: flex;
+  }
+  
+  #eventLogo {
+    display: none;    
+    margin-right: 0px;
+    border-radius: 5%;
+  }  
 
   form input[type="text"],
   form input[type="password"],

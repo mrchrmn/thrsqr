@@ -3,19 +3,12 @@ doctype html
 html(lang="en-UK")
 
   head 
+    meta(charset="UTF-8")
+
     block title
       title ThrSqr - Are you There or are you Square?
 
-    meta(charset="UTF-8")
-
-    script. 
-      const language = "#{language}";
-
-    block script-push
-      script(src="/javascript/push.js" type="module") 
-
-    block script-application
-      script(src="/javascript/application.js")
+    block script
 
     link(rel="stylesheet" href="/fonts/stylesheet.css")
     link(rel="stylesheet" href="/stylesheets/normalize.css")
@@ -33,7 +26,7 @@ html(lang="en-UK")
   body 
     header 
       block headerlinks 
-        <a href="/">Home</a> | <span class="headerlinks"><a href="/reset/user">#{TEXTS.resetUserData}</a> | <a href="/change-language">#{TEXTS.changeLanguage}</a></span>
+        <a href="/">Home</a> | <a class="smalllinks" href="/change-language">#{TEXTS.changeLanguage}</a>
 
     main 
       - let msgTypes = Object.keys(flash || {});
@@ -49,4 +42,4 @@ html(lang="en-UK")
     footer 
       p!= TEXTS.disclaimer
       p
-        a(href="/change-language")= TEXTS.changeLanguage
+        <a href="/change-language">#{TEXTS.changeLanguage}</a> | <a class="smalllinks" href="/reset/user">#{TEXTS.resetUserData}</a>
