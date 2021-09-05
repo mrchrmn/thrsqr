@@ -2,22 +2,22 @@
 const catchError = require("../lib/catch-error");
 const adminOnly = require("../lib/admin-only");
 const controller = require("../controllers/superuser");
-const TEXTS = require("../locale/texts.json");
 
 const express = require("express");
 const router = express.Router();
 
 // Display admin page
 router.get("/", adminOnly, (_req, res) => {
-  res.locals.TEXTS = TEXTS["en"];
   res.render("superuser");
 });
 
 // Display signin form
 router.get("/signin", (_req, res) => {
-  res.locals.TEXTS = TEXTS["en"];
   res.render("signin");
 });
+
+// Display admin page
+router.get("/logout", catchError(controller.logout));
 
 // Signing in
 router.post("/signin", catchError(controller.signin));

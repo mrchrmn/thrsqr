@@ -20,4 +20,4 @@ block footer
     p!= TEXTS.disclaimer
     section(id="subscriptions")
     p
-      a(href="/change-language")= TEXTS.changeLanguage
+      <a href="/change-language">#{TEXTS.changeLanguage}</a> | <a class="smalllinks" href="/reset/user">#{TEXTS.resetUserData}</a> | <a class="smalllinks" href="/superuser">Admin</a>

@@ -21,6 +21,11 @@ module.exports = {
     }
   },
 
+  logout(req, res) {
+    req.session.superuser = false;
+    res.redirect("/");
+  },
+
   async deleteInactiveEvents(_req, res) {
     await res.locals.store.deleteInactiveEvents();
     res.redirect("/superuser");

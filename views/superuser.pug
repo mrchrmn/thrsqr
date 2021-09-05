@@ -3,6 +3,9 @@ extends layout
 block script
   script(src="/javascript/application.js")
 
+block headerlinks 
+  <a href="/">Home</a> | <a href="/superuser/logout">Log out</a>
+
 block main 
   h1 Danger zone!
   
@@ -16,3 +19,5 @@ block main
 
   h3 
     a(href="/signout")
+
+block footer
