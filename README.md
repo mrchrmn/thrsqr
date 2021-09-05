@@ -36,6 +36,7 @@ Not any longe, thanks to ThrSqr!
 * PostgreSQL
 * Pug
 * Heroku
+* AWS S3
 * Web APIs:
   - Service Workers, Push, Notifications
 
