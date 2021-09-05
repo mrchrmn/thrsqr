@@ -38,6 +38,7 @@ self.addEventListener("push", event => {
         icon: data.iconURL,
         tag: "thrsqr",
         renotify: true,
+        requireInteraction: true,
         vibrate: [67, 33, 67],
         data: {
           clickURL: `/event/${data.eventId}`
