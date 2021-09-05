@@ -6,7 +6,7 @@
 
 So you and your group meet once a week, eg. five-a-side football, choir rehearsal, book club etc. _If enough people attend_ that is. As the event approach your WhatsApp group is flooded with "I'm going", "Not this week.", and - crucially - "So, are we enough, yet?!" messages. Every week the same ruckus. 
 
-Not any longe, thanks to ThrSqr! 
+Not any longer, thanks to ThrSqr! 
 
 [Click here](https://thrsqr.hrmn.dev) to see it in action and use it.
 
