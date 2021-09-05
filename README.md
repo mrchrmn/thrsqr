@@ -42,7 +42,6 @@ Not any longer, thanks to ThrSqr!
 
 ### On the todo list
 
-* Improved timezone handling
-* Add minimum attendance goal a event property
 * Database updates without page reloads
 * Streamlined UI
+* Improved timezone handling
