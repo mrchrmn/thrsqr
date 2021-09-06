@@ -13,7 +13,7 @@ block main
   h3= TEXTS.editEventHeading
   p= TEXTS.editEventLink
   p
-    a(href=`/event/edit/${eventId}`)= `${origin}/event/${eventId}/edit`
+    a(href=`/event/${eventId}/edit`)= `${origin}/event/${eventId}/edit`
 
   h2 
     a(href=`/event/${eventId}`)= TEXTS.goTOEvent
