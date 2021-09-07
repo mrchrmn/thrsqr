@@ -37,7 +37,6 @@ module.exports = {
   async display(req, res) {
     let store = res.locals.store;
     let eventId = req.params.eventId;
-    let locale = req.headers["accept-language"].substring(0,5);
     let event = await store.getEvent(eventId);
 
     if (!event) {
@@ -53,8 +52,7 @@ module.exports = {
       }
 
       let responses = await store.getResponses(eventId);
-      if (req.session.language === "de") locale = "de-DE";
-      let nextDate = getNext(event.eventtime, event.dayofweek, event.utcoffset).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+      let nextEventTime = getNext(previous).valueOf();
       let going = countGoing(responses);
       let notGoing = responses.length - going;
 
@@ -65,7 +63,7 @@ module.exports = {
         responses,
         going,
         notGoing,
-        nextDate
+        nextEventTime
       });
     }
   },

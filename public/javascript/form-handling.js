@@ -21,8 +21,6 @@ function getS3Request(file, eventId) {
 
 
 function uploadFile(file, s3request, url) {
-  console.log(url);
-
   let xhr = new XMLHttpRequest();
 
   xhr.open("PUT", s3request);

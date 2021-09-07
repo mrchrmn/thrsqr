@@ -39,9 +39,9 @@ module.exports = class PgStore {
     const FIND_OFFSET = "SELECT utc_offset FROM pg_timezone_names WHERE name = %L";
     let event = await dbQuery(FIND_EVENT, id);
     if (event.rowCount !== 0) {
-      let utcOffset  = await dbQuery(FIND_OFFSET, event.rows[0].timezone);
-      event.rows[0].utcoffset = utcOffset.rows[0].utc_offset.hours;
-      event.rows[0].id = event.rows[0].id.trim();
+      let timezoneInfo  = await dbQuery(FIND_OFFSET, event.rows[0].timezone);
+      event.rows[0].utcoffset = timezoneInfo.rows[0].utc_offset.hours;
+      event.rows[0].id = event.rows[0].id.trim(); // necessary after switching to 4-character code
       return event.rows[0];
     } else {
       return false;

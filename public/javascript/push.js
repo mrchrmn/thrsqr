@@ -7,7 +7,7 @@ import { urlBase64ToUint8Array } from "/javascript/base64.mjs";
 import { texts } from "/locale/texts.mjs";
 
 // eslint-disable-next-line no-undef
-const lang = language;
+const lang = document.body.dataset.language;
 const TEXTS = texts[lang];
 
 
