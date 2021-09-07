@@ -26,7 +26,7 @@ Not any longer, thanks to ThrSqr!
   * Tested with Android Chrome and Firefox, and with Windows Edge, Chrome and Firefox
 * Individual event logos which are also used in web manifest and notifications
 * English and German versions
-* Saves client timezone on event creation as event timezone. Displays event time and day according to client timezone.
+* Saves browser timezone on event creation as event timezone. Displays event time and day of the week according to browser timezone.
 * Master admin page to clean up events and users
 
 ### Technologies
