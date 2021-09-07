@@ -23,10 +23,10 @@ Not any longer, thanks to ThrSqr!
 * Auto-resets responses one hour after the event has begun
 * Dynamically generated webmanifest for each event
 * Browser push notifications for individual events
-  - Tested with Android Chrome and Firefox, and with Windows Edge, Chrome and Firefox
+  * Tested with Android Chrome and Firefox, and with Windows Edge, Chrome and Firefox
 * Individual event logos which are also used in web manifest and notifications
 * English and German versions
-* Registers and saves client time zone on event creation as event time zone
+* Saves client timezone on event creation as event timezone. Displays event time and day according to client timezone.
 * Master admin page to clean up events and users
 
 ### Technologies
@@ -38,10 +38,9 @@ Not any longer, thanks to ThrSqr!
 * Heroku
 * AWS S3
 * Web APIs:
-  - Service Workers, Push, Notifications
+  * Service Workers, Push, Notifications
 
 ### On the todo list
 
 * Database updates without page reloads
 * Streamlined UI
-* Improved timezone handling
