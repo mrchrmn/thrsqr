@@ -143,7 +143,7 @@ module.exports = {
 
     await store.updateResponses(eventId, username, there, participantId, comment);
 
-    await notifySubscribers(store, eventId, username, there);
+    await notifySubscribers(store, eventId, username, there, comment);
 
     req.session.participantId = participantId;
     req.session.username = username;
