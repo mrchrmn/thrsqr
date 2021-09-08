@@ -163,7 +163,6 @@ footer {
 
 @media only screen and (max-width: 750px) {
   header {
-    flex-direction: column;
     margin-top: 40px;
     margin-bottom: 40px;
   }
@@ -172,8 +171,22 @@ footer {
     margin: 20px;
   }
   
+  #logoimg img {
+    width: 112px;
+  }
+
   #logotext {
     margin: 20px;
+  }
+
+  h1 {
+    font-size: 90px;
+  }
+  
+  #there-or-square {
+    font-size: 14px;
+    top: 78px;
+    left: 16px;
   }
   
   main, footer {
@@ -198,25 +211,29 @@ footer {
 
   header {
     margin-top: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 0;
   }
 
   #logoimg {
     margin: 15px;
   }
    
+  #logoimg img {
+    width: 75px;
+  }
+
   #logotext {
     margin: 15px;
   }
   
   h1 {
-    font-size: 90px;
+    font-size: 60px;
   }
   
   #there-or-square {
-    font-size: 14px;
-    top: 78px;
-    left: 16px;
+    position: static;
+    text-align: center;
+    font-size: 13px;
   }
   
   main, footer, #quote {
@@ -224,13 +241,13 @@ footer {
   }
 
   main > p {
-    font-size: 24px;
+    font-size: 21px;
     text-align: center;
   }
 
   .btn-new {
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 40px;
     padding: 18px 72px;
   }
 
@@ -255,6 +272,7 @@ footer {
   }
 
   header {
+    flex-direction: column;
     margin-top: 20px;
     margin-bottom: 15px;
   }
@@ -278,7 +296,7 @@ footer {
   #there-or-square {
     position: static;
     text-align: center;
-    font-size: 13px;
+    font-size: 15px;
   }
   
   main, footer, #quote {
