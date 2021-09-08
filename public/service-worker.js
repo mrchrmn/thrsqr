@@ -30,7 +30,13 @@ self.addEventListener("push", event => {
 
       if (data.username) {
         let there = data.there ? TEXTS.there.toLowerCase() : TEXTS.square.toLowerCase();
-        body += `${data.username} ${TEXTS.willBe} ${there}.`;
+        body += `${data.username} ${TEXTS.willBe} ${there}`;
+      }
+
+      if (data.comment) {
+        body += `:\n${data.comment}`;
+      } else {
+        body += `.`;
       }
 
       let options = {
