@@ -89,13 +89,13 @@ function canPush() {
 
 
 function createSubLink(parent, text) {
-  let p = document.createElement("P");
+  // let p = document.createElement("P");
   let a = document.createElement("A");
   a.setAttribute("href", "#");
   a.innerHTML = text;
 
-  parent.appendChild(p);
-  p.appendChild(a);
+  parent.appendChild(a);
+  // p.appendChild(a);
   return a;
 }
 
@@ -142,6 +142,25 @@ async function isEventSubbed(subscription, eventId) {
 
 async function handleSubLinks(registration) {
 
+  let subscription = await registration.pushManager.getSubscription();
+
+  if (subscription) {
+    let unsubscribeAllLi = document.getElementById("unsubscribeAll");
+
+    let unsubAllLink = createSubLink(unsubscribeAllLi, TEXTS.unsubscribeAll);
+
+    unsubscribeAllLi.style.display = "list-item";
+
+    unsubAllLink.addEventListener("click", async event => {
+      event.preventDefault();
+
+      await subFetcher(subscription, "/unsubscribe-all");
+      await unsubscribe(registration);
+      await handleSubLinks(registration);
+    });
+
+  }
+
   let subsSection = document.getElementById("subscriptions");
 
   if (subsSection) {
@@ -150,7 +169,6 @@ async function handleSubLinks(registration) {
     removeChildren(subsSection);
 
     let eventId = getEventId();
-    let subscription = await registration.pushManager.getSubscription();
 
     // On event page with no prior subscriptions
     if (!subscription && eventId) {
@@ -194,16 +212,6 @@ async function handleSubLinks(registration) {
           });
         }
       }
-
-      let unsubAllLink = createSubLink(subsSection, TEXTS.unsubscribeAll);
-
-      unsubAllLink.addEventListener("click", async event => {
-        event.preventDefault();
-
-        await subFetcher(subscription, "/unsubscribe-all");
-        await unsubscribe(registration);
-        await handleSubLinks(registration);
-      });
     }
   }
 

@@ -2,7 +2,7 @@ const texts = {
   en: {
     subscribeEvent: "Subscribe to push notifications for this event.",
     unsubscribeEvent: "Unsubscribe from push notifications for this event.",
-    unsubscribeAll: "Unsubscribe from all ThrSqr notifications.",
+    unsubscribeAll: "Stop all ThrSqr notifications.",
   },
 
   de: {

@@ -1,21 +1,44 @@
-extends layout 
-
-block headerlinks
+extends skeleton 
 
 block script
   script(src="/javascript/push.js" type="module") 
 
-block main 
-  p 
-    img(src="images/thrsqrlogo.png" width="125")
-  h1 ThrSqr
-  p= TEXTS.claim
-  h3 
-    a(href="/event/new")= TEXTS.setup
+block stylesheet 
+  link(rel="stylesheet" href="/stylesheets/welcome.css")
 
-block footer
-  footer 
-    p!= TEXTS.disclaimer
-    section(id="subscriptions")
-    p
-      <a href="/change-language">#{TEXTS.changeLanguage}</a> | <a class="smalllinks" href="/reset/user">#{TEXTS.resetUserData}</a> | <a class="smalllinks" href="/superuser">Admin</a>
+block body 
+  #flexwrap
+
+    header
+      #logoimg 
+        img(src="images/thrsqrlogo3.png" width="150" border="0")
+      #logotext
+        h1 <span class="thr-green">Thr</span><span class="sqr-red">Sqr</span>
+        p#there-or-square Will you be <span class="thr-green">there</span> or be <span class="sqr-red">square</span>?
+
+    main
+
+      p.bold-text= TEXTS.claim
+      p No registration required, and 100% free to use.
+
+      a(href="/event/new")
+        button.btn-new New event
+
+      ol 
+        li Set up event
+        li Send link
+        li Be there or be square
+        li Check who's attending
+
+      #quote     
+        p 
+          | "So you and your group meet once a week - five-a-side football, choir rehearsal, book club, you name it. 
+          | But only if enough people attend. As the next meeting approaches, your WhatsApp group is flooded with 'I'm going', 
+          | 'Not this week.', and -crucially- 'Are there enough of us, yet?!' messages. <br/>Every week the same ruckus."
+        p.quotegiver
+          | - Marc Hermann on why he created ThrSqr
+
+    footer 
+
+      p.disclaimer!= TEXTS.disclaimer
+      +links

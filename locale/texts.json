@@ -3,7 +3,7 @@
     "en": {
       "caveats": "<li>Anyone with the link can read and modify the list of responses, and potentially edit the event details.</li><li>Don't forget to copy the link somewhere safe or bookmark it for yourself.</li><li>The list of responses clears automatically one hour after the event has begun.</li><li>The event will be deleted after three months of inactivity.</li>",
       "changeLanguage": "auf deutsch",
-      "claim": "your RSVP tracker for weekly events and friendly people.",
+      "claim": "Your RSVP tracker for weekly events and friendly people.",
       "comment": "Comment", 
       "createEvent": "Create Event",
       "disclaimer": "PS: <strong>ThrSqr</strong> is still in development, nothing is set in stone, and things may change at a whim. <strong>This may lead to a loss of data</strong>.",
@@ -36,7 +36,7 @@
     "de": {
       "caveats": "<li>Jeder, der diesen Link hat, kann die Liste der Zu- und Absagen lesen und verändern und gegebenenfalls auch die Angaben zur Veranstaltung ändern.</li><li>Kopiere Dir den Link an einen sicheren Ort, oder setze Dir ein Lesezeichen dorthin.</li><li>Die Zu- und Absagen werden eine Stunde nach Beginn der Veranstaltung gelöscht.</li><li>Die Veranstaltung wird gelöscht, wenn drei Monate lang keine Aktivität bemerkt wird.</li>",
       "changeLanguage": "in English",
-      "claim": "dein Teilnahme-Tracker für wöchentliche Veranstaltungen und nette Leute.",
+      "claim": "Dein Teilnahme-Tracker für wöchentliche Veranstaltungen und nette Leute.",
       "comment": "Anmerkung",
       "createEvent": "Erstellen",
       "disclaimer": " PS: An <strong>ThrSqr</strong> wird noch gearbeitet, nichts ist in Stein gemeißelt, und alles kann sich ändern. <strong>Das kann zu Datenverlust führen</strong>.",

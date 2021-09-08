@@ -1,0 +1,304 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+:root {
+  --thr-green: #00840D;
+  --sqr-red: #BE0000;
+  --regular-font: "biorhymeregular", Georgia, 'Times New Roman', Times, serif;
+  --light-font: "biorhymelight", Georgia, 'Times New Roman', Times, serif;
+  --bold-font: "biorhymebold", Georgia, 'Times New Roman', Times, serif;
+
+}
+
+.thr-green {
+  color: var(--thr-green);
+}
+
+.sqr-red {
+  color: var(--sqr-red);
+}
+
+.bold-text {
+  font-family: var(--bold-font);
+}
+
+html {
+  height: 100%;
+  font-size: 18px;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  font-family: var(--regular-font);
+  font-kerning: none;
+  background: linear-gradient(180deg, #FFFEE4 18.23%, #38B7A0 100%) fixed no-repeat;
+}
+
+#flexwrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+#logoimg {
+  margin: 30px;
+}
+
+#logotext {
+  position: relative;
+  margin: 30px;
+}
+
+h1 {
+  font-size: 120px;
+  margin: 0px;
+  padding: 0px;
+}
+
+#there-or-square {
+  position: absolute;
+  font-size: 18.5px;
+  top: 105px;
+  left: 22px;
+}
+
+main, footer {
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main > p {
+  font-size: 36px;
+  text-align: center;
+}
+
+.btn-new {
+  color: white;
+  background-color: #127D6A;
+  padding: 18px 120px;
+  font-size: 21px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  border: none;
+}
+
+.btn-new:hover {
+  background-color: #1ec8a9;
+}
+
+.btn-new:active {
+  background-color: #1ec8a9;
+  box-shadow: none;
+}
+
+ol {
+  color: #127D6A;
+  padding: 0;
+  margin: 0;
+}
+
+#quote {
+  display: none;
+  font-size: 15px;
+  text-align: left;
+  max-width: 450px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.quotegiver {
+  text-align: right;
+  font-style: italic;
+}
+
+footer {
+  margin: 60px auto 30px;
+}
+
+#unsubscribeAll {
+  display: none;
+}
+
+.disclaimer {
+  display: none;
+  color: #127D6A;
+  font-size: 15px;
+}
+
+#links {
+  width: 100%;
+  font-family: var(--bold-font);
+  font-size: 15px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+#links li {
+  margin-bottom: 6px;
+}
+
+#links a {
+  color: #127D6A;
+}
+
+@media only screen and (max-width: 750px) {
+  header {
+    flex-direction: column;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  #logoimg {
+    margin: 20px;
+  }
+  
+  #logotext {
+    margin: 20px;
+  }
+  
+  main, footer {
+    max-width: 500px;
+  }
+
+  main > p {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  #quote {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  body {
+    padding: 18px;
+  }
+
+  header {
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }
+
+  #logoimg {
+    margin: 15px;
+  }
+   
+  #logotext {
+    margin: 15px;
+  }
+  
+  h1 {
+    font-size: 90px;
+  }
+  
+  #there-or-square {
+    font-size: 14px;
+    top: 78px;
+    left: 16px;
+  }
+  
+  main, footer, #quote {
+    max-width: 400px;
+  }
+
+  main > p {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .btn-new {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding: 18px 72px;
+  }
+
+  #quote {
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  #links li {
+    margin-bottom: 12px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  html {
+    background: linear-gradient(180deg, #FFFEE4 0%, #38B7A0 100%) fixed no-repeat;
+    font-size: 15px;
+  }
+
+  body {
+    padding: 10px;
+  }
+
+  header {
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
+  #logoimg {
+    margin: 10px;
+  }
+   
+  #logoimg img {
+    width: 75px;
+  }
+
+  #logotext {
+    margin: 0px;
+  }
+  
+  h1 {
+    font-size: 60px;
+  }
+  
+  #there-or-square {
+    position: static;
+    text-align: center;
+    font-size: 13px;
+  }
+  
+  main, footer, #quote {
+    max-width: 300px;
+  }
+
+  main > p {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  #quote {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .btn-new {
+    font-size: 18px;
+    padding: 18px 72px;
+    border-radius: 12px;
+  }
+}

@@ -28,7 +28,7 @@ const PgStore = require("./model/pg-store");
 const app = express();
 
 app.set("view engine", "pug");
-app.set("views", "./views");
+app.set("views", ["./views", "./views/beta"]);
 
 
 // Session setup

@@ -1,0 +1,52 @@
+doctype html 
+
+
+mixin links
+  ul(id="links")
+    li
+      a(href="/change-language")= TEXTS.changeLanguage
+    li
+      a(href="/reset/user")= TEXTS.resetUserData
+    li#unsubscribeAll 
+    li
+      a(href="/superuser") Admin
+
+mixin flash 
+  - let msgTypes = Object.keys(flash || {});
+  if msgTypes.length > 0
+  ul 
+    each msgType in msgTypes 
+      each message in flash[msgType] 
+        li.flash(class=type)= message 
+
+mixin homelink 
+  p 
+    a(href="/")
+      span.green-text Thr
+      span.red-text Sqr
+
+html(lang="en-UK")
+
+  head 
+    meta(charset="UTF-8")
+    meta(content="width=device-width, initial-scale=1" name="viewport")
+    meta(name="author" content="Marc Hermann")
+    meta(name="description" content="ThrSqr - RSVP tracker for weekly events and friendly people.")
+
+    block script
+
+    link(rel="stylesheet" href="/fonts/stylesheet.css")
+    link(rel="stylesheet" href="/stylesheets/normalize.css")
+    block stylesheet
+
+    link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
+    block manifest
+
+    block title
+      title ThrSqr - Are you There or are you Square?
+
+  body(data-language=language)
+
+  block body

@@ -26,13 +26,19 @@ module.exports = {
     res.redirect("/");
   },
 
-  async deleteInactiveEvents(_req, res) {
+  async deleteInactiveEvents(req, res) {
     await res.locals.store.deleteInactiveEvents();
-    res.redirect("/superuser");
+    req.flash("message", "Inactive events deleted.");
+    res.render("/superuser", {
+      flash: req.flash(),
+    });
   },
 
-  async deleteInactiveParticipants(_req, res) {
+  async deleteInactiveParticipants(req, res) {
     await res.locals.store.deleteInactiveParticipants();
-    res.redirect("/superuser");
+    req.flash("message", "Inactive participants deleted.");
+    res.render("/superuser", {
+      flash: req.flash(),
+    });
   }
 };

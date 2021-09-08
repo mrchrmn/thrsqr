@@ -1,0 +1,21 @@
+extends layout 
+
+block headerlinks
+
+block script
+  script(src="/javascript/push.js" type="module") 
+
+block main 
+  p 
+    img(src="images/thrsqrlogo.png" width="125")
+  h1 ThrSqr
+  p= TEXTS.claim
+  h3 
+    a(href="/event/new")= TEXTS.setup
+
+block footer
+  footer 
+    p!= TEXTS.disclaimer
+    section(id="subscriptions")
+    p
+      <a href="/change-language">#{TEXTS.changeLanguage}</a> | <a class="smalllinks" href="/reset/user">#{TEXTS.resetUserData}</a> | <a class="smalllinks" href="/superuser">Admin</a>
