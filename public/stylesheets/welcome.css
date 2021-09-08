@@ -32,8 +32,7 @@ html {
 }
 
 body {
-  height: 100%;
-  width: 100%;
+  min-height: 100%;
   font-family: var(--regular-font);
   font-kerning: none;
   background: linear-gradient(180deg, #FFFEE4 18.23%, #38B7A0 100%) fixed no-repeat;
