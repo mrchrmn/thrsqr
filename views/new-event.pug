@@ -1,0 +1,73 @@
+extends header-footer 
+
+append script 
+  script(src="/javascript/application.js")
+  script(src="/javascript/logo-handling.js" type="module")
+
+append stylesheet 
+  link(rel="stylesheet" href="/stylesheets/forms.css")
+
+block main 
+  main 
+    h2= TEXTS.newEventHeading
+
+    form(action="/event/new" method="post")
+      dl 
+        dt 
+          label.bold-text(for="eventTitle")= TEXTS.eventTitle
+        dd 
+          input.bold-text(type="text" 
+                id="eventTitle" 
+                name="eventTitle"
+                placeholder=TEXTS.eventTitlePlaceholder
+                maxlength=100 
+                required)    
+
+        dt 
+          label.bold-text(for="eventDayOfWeek")= TEXTS.eventDayOfWeek
+        dd 
+          select(name="eventDayOfWeek" required)
+            each val, index in TEXTS.weekArray
+              option(value=index)= val 
+
+        dt 
+          label.bold-text(for="eventTime")= TEXTS.eventTime
+        dd 
+          input(type="time" 
+                id="eventTime" 
+                name="eventTime" 
+                required)
+
+        dt 
+          label.bold-text(for="eventTimeZone")= TEXTS.eventTimeZone
+        dd
+          input(type="text"
+                id="eventTimeZone"
+                name="eventTimeZone"
+                value=""
+                readonly)
+
+        dt 
+          label.bold-text(for="eventInfo")= TEXTS.eventInfo
+        dd 
+          textarea(rows=4 
+                  maxlength=300
+                  id="eventInfo" 
+                  name="eventInfo" 
+                  placeholder=TEXTS.eventInfoPlaceholder)
+
+      #logoselection
+        dl
+          dt 
+            label.bold-text(for="eventLogoFile") #{TEXTS.eventLogo}
+          dd 
+            input(type="file" id="eventLogoFile" accept="image/*")
+        img(src="/images/thrsqrlogo3.png" id="eventLogo" width="125")
+
+      input(type="hidden" id="eventId" name="eventId" value=eventId)
+      input(type="hidden" id="eventLogoURL" name="eventLogoURL" value="/images/thrsqrlogo.png")
+
+      input(type="email" id="email" name="email" placeholder="email address" autocomplete="off")
+      input(type="text" id="message" name="message" placeholder="message" autocomplete="off")
+
+      input(type="submit" value=TEXTS.createEvent class="btn")

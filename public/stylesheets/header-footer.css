@@ -42,14 +42,14 @@ h1 {
 footer {
   align-items: center;
   width: 100%;
-  margin: 30px auto 30px;
+  margin: 60px auto 30px;
 }
 
 #unsubscribeAll {
   display: none;
 }
 
-#links {
+ul.links {
   font-size: 15px;
   list-style-type: none;
   display: flex;
@@ -58,7 +58,7 @@ footer {
   padding: 0;
 }
 
-#links li {
+ul.links li {
   margin-bottom: 9px;
   flex-basis: 20%;
 }
@@ -126,9 +126,10 @@ footer {
   
   footer {
     max-width: 400px;
+    margin-bottom: 30px;
   }
 
-  #links li {
+  ul.links li {
     margin-bottom: 15px;
   }
 }

@@ -5,11 +5,16 @@ main {
   flex-direction: column;
   align-items: center;
 }
-main h2, main h3 {
+
+h2, h3 {
   font-size: 36px;
-  text-align: center;
   margin: 0.5em auto;
   padding: 0;
+}
+
+h3 {
+  font-size: 27px;
+  font-family: var(--light-font);
 }
 
 form {
@@ -33,7 +38,7 @@ dt {
   padding-left: 9px;
 }
 
-dd input {
+input, textarea, select {
   width: 100%;
   padding: 9px 9px;
   border-radius: 9px;
@@ -41,6 +46,35 @@ dd input {
   margin-bottom: 20px;
   border: none;
   box-shadow:  0px 3px 3px rgba(0, 0, 0, 0.05) inset;
+}
+
+input[type="file"] {
+  background-color: white;
+}
+
+#eventTimeZone {
+  background-color: rgba(0, 0, 0, 0.0);
+}
+
+#email, #message {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  z-index: -1;
+}
+
+#logoselection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#logoselection img {
+  width: 125px;
+  margin-left: 30px;
 }
 
 .btn {
@@ -69,8 +103,12 @@ dd input {
     max-width: 600px;
   }
 
-  main > h2, h3 {
+  h2 {
     font-size: 30px;
+  } 
+
+  h3 {
+    font-size: 21px;
   }
 
   form {
@@ -84,8 +122,12 @@ dd input {
     max-width: 500px;
   }
 
-  main > h2, h3 {
-    font-size: 21px;
+  h2 {
+    font-size: 30px;
+  } 
+
+  h3 {
+    font-size: 18px;
   }
   
   form {
@@ -95,6 +137,11 @@ dd input {
 
   dd input {
     margin-bottom: 15px;
+  }
+
+  #logoselection img {
+    width: 100px;
+    margin-left: 20px;
   }
   
   .btn {
@@ -110,8 +157,13 @@ dd input {
     max-width: 320px;
   }
 
-  main > h2, h3 {
+  h2 {
     font-size: 18px;
+  } 
+
+  #logoselection img {
+    width: 75px;
+    margin-left: 15px;
   }
 
   .btn {

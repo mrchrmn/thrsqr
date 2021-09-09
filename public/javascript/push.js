@@ -89,13 +89,13 @@ function canPush() {
 
 
 function createSubLink(parent, text) {
-  // let p = document.createElement("P");
+  let p = document.createElement("P");
   let a = document.createElement("A");
   a.setAttribute("href", "#");
   a.innerHTML = text;
 
-  parent.appendChild(a);
-  // p.appendChild(a);
+  parent.appendChild(p);
+  p.appendChild(a);
   return a;
 }
 
@@ -145,11 +145,13 @@ async function handleSubLinks(registration) {
   let subscription = await registration.pushManager.getSubscription();
 
   if (subscription) {
-    let unsubscribeAllLi = document.getElementById("unsubscribeAll");
+    let unsubAllLink = document.createElement("A");
+    unsubAllLink.setAttribute("href", "#");
+    unsubAllLink.innerHTML = TEXTS.unsubscribeAll;
 
-    let unsubAllLink = createSubLink(unsubscribeAllLi, TEXTS.unsubscribeAll);
-
-    unsubscribeAllLi.style.display = "list-item";
+    let unsubAllElement = document.getElementById("unsubscribeAll");
+    unsubAllElement.appendChild(unsubAllLink);
+    unsubAllElement.style.display = "list-item";
 
     unsubAllLink.addEventListener("click", async event => {
       event.preventDefault();

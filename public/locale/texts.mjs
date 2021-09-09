@@ -1,6 +1,6 @@
 const texts = {
   en: {
-    subscribeEvent: "Get notifications",
+    subscribeEvent: "Receive notifications",
     unsubscribeEvent: "Stop notifications",
     unsubscribeAll: "Stop all notifications",
   },

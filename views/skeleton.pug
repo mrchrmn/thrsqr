@@ -1,7 +1,7 @@
 doctype html 
 
 mixin links
-  ul#links
+  ul.links
     li
       a(href="/change-language")= TEXTS.changeLanguage
     li
@@ -11,7 +11,7 @@ mixin links
       a(href="/superuser") Admin page
     if superuser === true 
       li
-        a(href="superuser/logout") Log out
+        a(href="/superuser/logout") Log out
 
 
 mixin flash 
@@ -25,8 +25,8 @@ mixin flash
 mixin homelink 
   p#homelink 
     a(href="/")
-      span.green-text Thr
-      span.red-text Sqr
+      span.thr-green Thr
+      span.sqr-red Sqr
 
 html(lang="en-UK")
 

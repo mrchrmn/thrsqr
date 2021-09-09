@@ -36,6 +36,7 @@
         "Check who's attending"
       ],
       "there": "There",
+      "thereOrSquare": "Will you be there or square?",
       "timezone": "Timezone",
       "updateEvent": "Update Event",
       "weekArray": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -76,6 +77,7 @@
         "Gucken, wer kommt"
       ],
       "there": "Dabei",
+      "thereOrSquare": "Dabei oder nicht dabei?",
       "timezone": "Zeitzone",
       "updateEvent": "Speichern",
       "weekArray": ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
