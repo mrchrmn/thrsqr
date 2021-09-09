@@ -29,7 +29,7 @@ module.exports = {
   async deleteInactiveEvents(req, res) {
     await res.locals.store.deleteInactiveEvents();
     req.flash("message", "Inactive events deleted.");
-    res.render("/superuser", {
+    res.render("superuser", {
       flash: req.flash(),
     });
   },
@@ -37,7 +37,7 @@ module.exports = {
   async deleteInactiveParticipants(req, res) {
     await res.locals.store.deleteInactiveParticipants();
     req.flash("message", "Inactive participants deleted.");
-    res.render("/superuser", {
+    res.render("superuser", {
       flash: req.flash(),
     });
   }

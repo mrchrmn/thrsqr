@@ -1,8 +1,9 @@
 {
   "texts":  {
     "en": {
+      "benefits": "No registration required,<br/>and 100% free to use.",
       "caveats": "<li>Anyone with the link can read and modify the list of responses, and potentially edit the event details.</li><li>Don't forget to copy the link somewhere safe or bookmark it for yourself.</li><li>The list of responses clears automatically one hour after the event has begun.</li><li>The event will be deleted after three months of inactivity.</li>",
-      "changeLanguage": "auf deutsch",
+      "changeLanguage": "Auf deutsch",
       "claim": "Your RSVP tracker for weekly events and friendly people.",
       "comment": "Comment", 
       "createEvent": "Create Event",
@@ -24,18 +25,25 @@
       "newEventHeading": "Set up a new event",
       "nextOn": "Next on",
       "pleaseNote": "Please note:",
-      "resetUserData": "Reset user data for this browser",
-      "setup": "Set up new event.",
+      "resetUserData": "Reset user data",
+      "setup": "New event",
       "shareLink": "Share this link to your event:",
       "square": "Square",
+      "steps": [
+        "Set up event",
+        "Send link",
+        "Be there or be square",
+        "Check who's attending"
+      ],
       "there": "There",
       "timezone": "Timezone",
       "updateEvent": "Update Event",
       "weekArray": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     },
     "de": {
+      "benefits": "Keine Registrierung nötig und 100% kostenlose Nutzung.",
       "caveats": "<li>Jeder, der diesen Link hat, kann die Liste der Zu- und Absagen lesen und verändern und gegebenenfalls auch die Angaben zur Veranstaltung ändern.</li><li>Kopiere Dir den Link an einen sicheren Ort, oder setze Dir ein Lesezeichen dorthin.</li><li>Die Zu- und Absagen werden eine Stunde nach Beginn der Veranstaltung gelöscht.</li><li>Die Veranstaltung wird gelöscht, wenn drei Monate lang keine Aktivität bemerkt wird.</li>",
-      "changeLanguage": "in English",
+      "changeLanguage": "In English",
       "claim": "Dein Teilnahme-Tracker für wöchentliche Veranstaltungen und nette Leute.",
       "comment": "Anmerkung",
       "createEvent": "Erstellen",
@@ -57,10 +65,16 @@
       "newEventHeading": "Neue Veranstaltung",
       "nextOn": "Das nächstes Mal am",
       "pleaseNote": "Bitte beachten:",
-      "resetUserData": "Nutzerdaten für diesen Browser zurücksetzen",
+      "resetUserData": "Nutzerdaten zurücksetzen",
       "setup": "Neue Veranstaltung",
       "shareLink": "Verbreite diesen Link zu deiner Veranstaltung:",
       "square": "Nicht dabei",
+      "steps": [
+        "Veranstaltung einrichten",
+        "Link verschicken",
+        "Dabei oder nicht dabei sein",
+        "Gucken, wer kommt"
+      ],
       "there": "Dabei",
       "timezone": "Zeitzone",
       "updateEvent": "Speichern",

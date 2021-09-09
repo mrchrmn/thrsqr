@@ -1,0 +1,20 @@
+extends header-footer 
+
+append stylesheet 
+  link(rel="stylesheet" href="/stylesheets/success.css")
+
+block main 
+  main
+    h2= eventTitle 
+    h3= TEXTS.shareLink
+    p
+      a(href=`/event/${slug}/${eventId}`)= `${origin}/event/${slug}/${eventId}`
+    h4= TEXTS.pleaseNote
+    ul!= TEXTS.caveats
+    h4= TEXTS.editEventHeading
+    p= TEXTS.editEventLink
+    p
+      a(href=`/event/${eventId}/edit`)= `${origin}/event/${eventId}/edit`
+
+    h3 
+      a(href=`/event/${eventId}`)= TEXTS.goTOEvent

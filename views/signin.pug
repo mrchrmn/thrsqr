@@ -1,0 +1,32 @@
+extends header-footer 
+
+append stylesheet 
+  link(rel="stylesheet" href="/stylesheets/forms.css")
+
+block main 
+  main 
+    h2 Sign in for superuser privileges
+    form(action="/superuser/signin" method="post")
+      dl 
+        dt 
+          label(for="username" class="bold-text") Username
+        dd 
+          input(type="text" 
+                id="username" 
+                name="username"
+                placeholder="Username"
+                maxlength=100 
+                value=username 
+                required)    
+      dl 
+        dt 
+          label(for="password" class="bold-text") Password
+        dd 
+          input(type="password" 
+                id="password" 
+                name="password"
+                placeholder="Password"
+                maxlength=100 
+                required)    
+
+      input(type="submit" value="Sign in" class="btn")

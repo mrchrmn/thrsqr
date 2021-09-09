@@ -1,0 +1,21 @@
+extends skeleton
+
+append stylesheet 
+  link(rel="stylesheet" href="/stylesheets/header-footer.css")
+
+block body 
+    #flexwrap
+
+      header 
+        a(href="/")
+          #logoimg 
+            img(src="/images/thrsqrlogo3.png" width="150" border="0")
+        a(href="/")
+          #logotext
+            h1 <span class="thr-green">Thr</span><span class="sqr-red">Sqr</span>
+            p#there-or-square Will you be <span class="thr-green">there</span> or be <span class="sqr-red">square</span>?
+
+      block main
+
+      footer 
+        +links

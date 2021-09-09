@@ -1,21 +1,46 @@
 main {
-  max-width: 600px;
+  max-width: 700px;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-main > h2, h3 {
+main h2, main h3 {
   font-size: 36px;
   text-align: center;
   margin: 0.5em auto;
   padding: 0;
 }
 
-main > h3 {
-  font-family: var(--regular-font);
-  font-weight: normal;
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  width: 75%;
+}
+
+dl, dt, dd {
+  padding: 0;
+  margin: 0;
+}
+
+dl {
+  flex-direction: column;
+  display: flex;
+}
+
+dt {
+  padding-left: 9px;
+}
+
+dd input {
+  width: 100%;
+  padding: 9px 9px;
+  border-radius: 9px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: none;
+  box-shadow:  0px 3px 3px rgba(0, 0, 0, 0.05) inset;
 }
 
 .btn {
@@ -25,7 +50,7 @@ main > h3 {
   font-size: 21px;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
   border-radius: 18px;
-  margin-top: 60px;
+  margin-top: 15px;
   margin-bottom: 30px;
   border: none;
 }
@@ -39,41 +64,50 @@ main > h3 {
   box-shadow: none;
 }
 
-ol {
-  color: #127D6A;
-  padding: 0;
-  margin: 0;
-}
-
 @media only screen and (max-width: 750px) {
   main {
-    max-width: 500px;
+    max-width: 600px;
   }
 
   main > h2, h3 {
     font-size: 30px;
   }
+
+  form {
+    margin-top: 40px;
+  }
+  
 }
 
 @media only screen and (max-width: 550px) {
   main {
-    max-width: 400px;
+    max-width: 500px;
   }
 
   main > h2, h3 {
     font-size: 21px;
   }
-
-  .btn {
+  
+  form {
     margin-top: 30px;
-    margin-bottom: 40px;
+    width: 100%;
+  }
+
+  dd input {
+    margin-bottom: 15px;
+  }
+  
+  .btn {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 0px;
     padding: 18px 60px;
   }
 }
 
 @media only screen and (max-width: 400px) {
   main {
-    max-width: 300px;
+    max-width: 320px;
   }
 
   main > h2, h3 {
@@ -81,7 +115,6 @@ ol {
   }
 
   .btn {
-    font-size: 18px;
     padding: 18px 36px;
     border-radius: 12px;
   }

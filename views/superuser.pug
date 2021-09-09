@@ -1,0 +1,27 @@
+extends header-footer 
+
+append script 
+  script(src="/javascript/application.js")
+
+append stylesheet 
+  link(rel="stylesheet" href="/stylesheets/forms.css")
+
+block main 
+  main 
+    h2 Danger zone!
+  
+    +flash
+
+    form(action="/superuser/delete-inactive-events" method="post" class="delete")
+      dl 
+        dt 
+          label Delete events with no activity in the past three months
+        dd 
+          input(type="submit" value="Delete events" class="btn") 
+
+    form(action="/superuser/delete-inactive-participants" method="post" class="delete")
+      dl 
+        dt 
+          label Delete participants with no activity in the past six months
+        dd 
+          input(type="submit" value="Delete participants" class="btn")
