@@ -78,7 +78,8 @@ block body
             dd#buttons
               button.btn-thr(formaction=`/event/${event.id}/1`)=TEXTS.there
               button.btn-sqr(formaction=`/event/${event.id}/0`)=TEXTS.square
-        p.smaller= TEXTS.howToRemove 
+        if going > 0 || notGoing > 0
+          p.smaller= TEXTS.howToRemove 
 
       #responses
 
