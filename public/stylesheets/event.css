@@ -266,6 +266,10 @@ footer .links li {
 }
 
 @media only screen and (max-width: 400px) {
+  html {
+    font-size: 18px;;
+  }
+  
   body {
     padding: 10px;
   } 
@@ -291,11 +295,23 @@ footer .links li {
   }
   
   h4 {
-    font-size: 15px;
+    font-size: 18px;
   }
 
+  dt {
+    padding-left: 0px;
+  }
+  
+  dd#buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }  
+
   .btn-thr, .btn-sqr {
-    font-size: 15px;
+    width: 100%;
+    font-size: 18px;
     padding: 15px 30px;
+    margin: 9px 0;
   }
 }
