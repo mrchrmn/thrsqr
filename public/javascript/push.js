@@ -6,9 +6,8 @@
 import { urlBase64ToUint8Array } from "/javascript/base64.mjs";
 import { texts } from "/locale/texts.mjs";
 
-// eslint-disable-next-line no-undef
-const lang = document.body.dataset.language;
-const TEXTS = texts[lang];
+let lang;
+let TEXTS;
 
 
 // SERVICE WORKER
@@ -225,6 +224,9 @@ async function handleSubLinks(registration) {
 
 if (canPush()) {
   document.addEventListener("DOMContentLoaded", async () => {
+    lang = document.body.dataset.language;
+    TEXTS = texts[lang];
+
     let registration = await registerServiceWorker();
     await handleSubLinks(registration);
   });

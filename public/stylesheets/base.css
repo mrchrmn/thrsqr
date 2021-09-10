@@ -46,7 +46,7 @@ a {
   }
 
   body {
-    background: linear-gradient(180deg, #FFFEE4 0%, #38B7A0 100%) fixed no-repeat;
+    /* background: linear-gradient(180deg, #FFFEE4 0%, #38B7A0 100%) fixed no-repeat; */
     padding: 10px;
   }
 }
@@ -61,4 +61,8 @@ a {
 
 .bold-text {
   font-family: var(--bold-font);
+}
+
+.smaller {
+  font-size: smaller;
 }
