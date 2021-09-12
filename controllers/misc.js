@@ -28,8 +28,8 @@ module.exports = {
         "sizes": "192x192, 512x512"
     }
 ],
-"theme_color": "#c8f3c8",
-"background_color": "#174117",
+"theme_color": "#FFFEE4",
+"background_color": "#FFFEE4",
 "display": "standalone",
 "start_url": "/event/${event.id}",
 "scope": "/event/${event.id}",
