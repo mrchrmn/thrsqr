@@ -1,4 +1,4 @@
-![ThrSqr logo](./public/images/thrsqrlogo.png)
+![ThrSqr logo](./public/images/thrsqrlogo-250.png)
 
 # ThrSqr - Will you be there or be square?
 
