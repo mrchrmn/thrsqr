@@ -149,6 +149,8 @@ async function handleSubLinks(registration) {
     unsubAllLink.innerHTML = TEXTS.unsubscribeAll;
 
     let unsubAllElement = document.getElementById("unsubscribeAll");
+    removeChildren(unsubAllElement);
+
     unsubAllElement.appendChild(unsubAllLink);
     unsubAllElement.style.display = "list-item";
 
@@ -171,47 +173,30 @@ async function handleSubLinks(registration) {
 
     let eventId = getEventId();
 
-    // On event page with no prior subscriptions
-    if (!subscription && eventId) {
+    if (eventId) {
       subsSection.style.display = "block";
 
-      let subLink = createSubLink(subsSection, TEXTS.subscribeEvent);
+      let eventSubbed = await isEventSubbed(subscription, eventId);
 
-      subLink.addEventListener("click", async event => {
-        event.preventDefault();
+      if (eventSubbed === true) {
+        let unsubLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
 
-        let subscription = await subscribe(registration);
-        await subFetcher(subscription, `/event/${eventId}/subscribe/${lang}`);
-        await handleSubLinks(registration);
-      });
-    }
+        unsubLink.addEventListener("click", async event => {
+          event.preventDefault();
 
-    if (subscription) {
-      subsSection.style.display = "block";
+          await subFetcher(subscription, `/event/${eventId}/unsubscribe`);
+          await handleSubLinks(registration);
+        });
 
-      if (eventId) {
-        let eventSubbed = await isEventSubbed(subscription, eventId);
+      } else {
+        let subLink = createSubLink(subsSection, TEXTS.subscribeEvent);
 
-        if (eventSubbed === true) {
-          let unsubLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
+        subLink.addEventListener("click", async event => {
+          event.preventDefault();
 
-          unsubLink.addEventListener("click", async event => {
-            event.preventDefault();
-
-            await subFetcher(subscription, `/event/${eventId}/unsubscribe`);
-            await handleSubLinks(registration);
-          });
-
-        } else {
-          let subLink = createSubLink(subsSection, TEXTS.subscribeEvent);
-
-          subLink.addEventListener("click", async event => {
-            event.preventDefault();
-
-            await subFetcher(subscription, `/event/${eventId}/subscribe/${lang}`);
-            await handleSubLinks(registration);
-          });
-        }
+          await subFetcher(subscription, `/event/${eventId}/subscribe/${lang}`);
+          await handleSubLinks(registration);
+        });
       }
     }
   }
