@@ -40,6 +40,3 @@ Not any longer, thanks to ThrSqr!
 * Web APIs:
   * Service Workers, Push, Notifications
 
-### On the todo list
-
-* Database updates without page reloads
