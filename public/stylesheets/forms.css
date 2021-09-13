@@ -1,0 +1,175 @@
+main {
+  max-width: 700px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2, h3 {
+  font-size: 36px;
+  margin: 0.5em auto;
+  padding: 0;
+}
+
+h3 {
+  font-size: 27px;
+  font-family: var(--light-font);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  width: 75%;
+}
+
+dl, dt, dd {
+  padding: 0;
+  margin: 0;
+}
+
+dl {
+  flex-direction: column;
+  display: flex;
+}
+
+dt {
+  padding-left: 9px;
+}
+
+input, textarea, select {
+  -moz-appearance: none; -webkit-appearance: none; appearance: none;
+  background-color: white;
+  width: 100%;
+  padding: 9px 9px;
+  border-radius: 9px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: none;
+  box-shadow:  0px 3px 3px rgba(0, 0, 0, 0.05) inset;
+}
+
+input[type="file"] {
+  background: none;
+}
+
+#eventTimeZone {
+  background-color: rgba(0, 0, 0, 0.0);
+}
+
+#email, #message {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  z-index: -1;
+}
+
+#logoselection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#logoselection img {
+  width: 125px;
+  margin-left: 30px;
+}
+
+.btn {
+  color: white;
+  background-color: var(--link-turquoise);
+  padding: 18px 90px;
+  font-size: 21px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  border: none;
+}
+
+.btn:hover {
+  background-color: #1ec8a9;
+}
+
+.btn:active {
+  background-color: #1ec8a9;
+  box-shadow: none;
+}
+
+@media only screen and (max-width: 750px) {
+  main {
+    max-width: 600px;
+  }
+
+  h2 {
+    font-size: 30px;
+  } 
+
+  h3 {
+    font-size: 21px;
+  }
+
+  form {
+    margin-top: 40px;
+  }
+  
+}
+
+@media only screen and (max-width: 550px) {
+  main {
+    max-width: 500px;
+  }
+
+  h2 {
+    font-size: 30px;
+  } 
+
+  h3 {
+    font-size: 18px;
+  }
+  
+  form {
+    margin-top: 30px;
+    width: 100%;
+  }
+
+  dd input {
+    margin-bottom: 15px;
+  }
+
+  #logoselection img {
+    width: 100px;
+    margin-left: 20px;
+  }
+  
+  .btn {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding: 18px 60px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  main {
+    max-width: 320px;
+  }
+
+  h2 {
+    font-size: 18px;
+  } 
+
+  #logoselection img {
+    width: 75px;
+    margin-left: 15px;
+  }
+
+  .btn {
+    padding: 18px 36px;
+    border-radius: 12px;
+  }
+}

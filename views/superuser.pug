@@ -1,23 +1,27 @@
-extends layout 
+extends header-footer 
 
-block script
-  script(src="/javascript/application.js")
+append script 
+  script(src="/javascript/application.js" type="module")
 
-block headerlinks 
-  <a href="/">Home</a> | <a href="/superuser/logout">Log out</a>
+append stylesheet 
+  link(rel="stylesheet" href="/stylesheets/forms.css")
 
 block main 
-  h1 Danger zone!
+  main 
+    h2 Danger zone!
   
-  form(action="/superuser/delete-inactive-events" method="post" class="delete")
-    h3 Delete events with no activity in the past three months
-    input(type="submit" value="Delete events" class="delete") 
+    +flash
 
-  form(action="/superuser/delete-inactive-participants" method="post" class="delete")
-    h3 Delete participants with no activity in the past six months
-    input(type="submit" value="Delete participants" class="delete")
+    form(action="/superuser/delete-inactive-events" method="post" class="delete")
+      dl 
+        dt 
+          label Delete events with no activity in the past three months
+        dd 
+          input(type="submit" value="Delete events" class="btn") 
 
-  h3 
-    a(href="/signout")
-
-block footer
+    form(action="/superuser/delete-inactive-participants" method="post" class="delete")
+      dl 
+        dt 
+          label Delete participants with no activity in the past six months
+        dd 
+          input(type="submit" value="Delete participants" class="btn")

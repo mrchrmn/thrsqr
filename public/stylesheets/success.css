@@ -1,0 +1,57 @@
+main {
+  max-width: 600px;
+  margin: auto;
+}
+
+h2, h3 {
+  font-size: 36px;
+  margin: 0.5em auto;
+  padding: 0;
+}
+
+h3 {
+  font-size: 27px;
+  font-family: var(--light-font);
+}
+
+ul {
+  text-align: left;
+}
+
+@media only screen and (max-width: 750px) {
+  main {
+    max-width: 500px;
+  }
+
+  h2 {
+    font-size: 30px;
+  } 
+
+  h3 {
+    font-size: 21px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  main {
+    max-width: 400px;
+  }
+
+  h2 {
+    font-size: 30px;
+  } 
+
+  h3 {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  main {
+    max-width: 320px;
+  }
+
+  h2 {
+    font-size: 18px;
+  } 
+}

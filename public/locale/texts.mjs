@@ -1,14 +1,16 @@
 const texts = {
   en: {
-    subscribeEvent: "Subscribe to push notifications for this event.",
-    unsubscribeEvent: "Unsubscribe from push notifications for this event.",
-    unsubscribeAll: "Unsubscribe from all ThrSqr notifications.",
+    subscribeEvent: "Receive notifications",
+    unsubscribeEvent: "Stop notifications",
+    unsubscribeAll: "Stop all notifications",
+    confirmRemoveResponse: "Do you really want to delete this entry?"
   },
 
   de: {
-    subscribeEvent: "Benachrichtigungen für diese Veranstaltung erhalten.",
-    unsubscribeEvent: "Benachrichtigungen für diese Veranstaltungen ausschalten.",
-    unsubscribeAll: "Alle Benachrichtigungen von ThrSqr ausschalten.",
+    subscribeEvent: "Benachrichtigungen einschalten",
+    unsubscribeEvent: "Benachrichtigungen ausschalten",
+    unsubscribeAll: "Alle Benachrichtigungen ausschalten",
+    confirmRemoveResponse: "Möchten Sie diesen Eintrag wirklich löschen?"
   }
 };
 

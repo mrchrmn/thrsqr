@@ -1,19 +1,20 @@
-extends layout 
+extends header-footer 
 
-block title 
-  title=`${eventTitle} | ThrSqr`
+append stylesheet 
+  link(rel="stylesheet" href="/stylesheets/success.css")
 
 block main 
-  h1= eventTitle 
-  h2= TEXTS.shareLink
-  p
-    a(href=`/event/${slug}/${eventId}`)= `${origin}/event/${slug}/${eventId}`
-  h3= TEXTS.pleaseNote
-  ul!= TEXTS.caveats
-  h3= TEXTS.editEventHeading
-  p= TEXTS.editEventLink
-  p
-    a(href=`/event/${eventId}/edit`)= `${origin}/event/${eventId}/edit`
+  main
+    h2= eventTitle 
+    h3= TEXTS.shareLink
+    p
+      a(href=`/event/${slug}/${eventId}`)= `${origin}/event/${slug}/${eventId}`
+    h4= TEXTS.pleaseNote
+    ul!= TEXTS.caveats
+    h4= TEXTS.editEventHeading
+    p= TEXTS.editEventLink
+    p
+      a(href=`/event/${eventId}/edit`)= `${origin}/event/${eventId}/edit`
 
-  h2 
-    a(href=`/event/${eventId}`)= TEXTS.goTOEvent
+    h3 
+      a(href=`/event/${eventId}`)= TEXTS.goTOEvent

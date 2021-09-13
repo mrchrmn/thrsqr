@@ -1,65 +1,102 @@
-extends layout 
+extends skeleton
 
 block title 
   title= `${event.title} | ThrSqr`
 
-block script
+append script 
+  script(src="/javascript/application.js" type="module")
   script(src="/javascript/push.js" type="module") 
-  script(src="/javascript/application.js")
+
+append stylesheet 
+  link(rel="stylesheet" href="/stylesheets/event.css")
 
 block manifest 
   link(rel="manifest" href=`/site/webmanifest/${event.id}`)
 
-block main 
+block body 
   - var week = TEXTS.weekArray
-  div#eventTitleBlock
-    img(src=event.logourl id="eventLogo" width="125px")
-    div#headings
-      h1= event.title
-      h2 #{TEXTS.eventEvery} <span id="eventDay"></span> #{TEXTS.eventAt} <span id="eventTime"></span>
 
-  h3(data-nexteventtime=nextEventTime) #{TEXTS.nextOn} <span id="nextDate"></span>
-  p= event.info ? event.info : ""
+  #flexwrap 
 
-  section(id="responses")
-    if going > 0
-      h2.there #{TEXTS.there} - #{going}
-      each response in responses 
-        if response.there === true 
-          form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
-            p <strong>#{response.username}</strong> #{response.comment}
-              button
-    if notGoing > 0
-      h2.square #{TEXTS.square} - #{notGoing}
-      each response in responses 
-        if response.there === false 
-          form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
-            p <strong>#{response.username}</strong> #{response.comment}
-              button
+    header
+      +homelink 
+      #rightcorner
+        +links 
+        #headerlogo
+          img(src=event.logourl id="eventLogo" width="100px")
 
-  form(action=`/event/${event.id}` method="post")
-    dl
-      dt 
-        label(for="username") Name
-      dd 
-        input(type="text" 
-              id="username" 
-              name="username" 
-              placeholder="Name" 
-              value=username 
-              maxlength=50 
-              required)
-      dt 
-        label(for="comment") #{TEXTS.comment} (optional)
-      dd
-        textarea(rows=3 
-                  maxlength=150
-                  id="comment" 
-                  name="comment" 
-                  placeholder=TEXTS.comment)
-      dt 
-        label= TEXTS.illBe
-      dd
-        button(formaction=`/event/${event.id}/1` id="there")=TEXTS.there
-        button(formaction=`/event/${event.id}/0` id="square")=TEXTS.square
-  section(id="subscriptions")
+    main 
+
+      #logo
+        img(src=event.logourl id="eventLogo" width="250px")
+
+      #info
+        h1= event.title
+        h2 #{TEXTS.eventEvery} <span id="eventDay"></span> #{TEXTS.eventAt} <span id="eventTime"></span>
+        p= event.info ? event.info : ""
+        #subscriptions
+
+      #form
+        h3(data-nexteventtime=nextEventTime) #{TEXTS.nextOn} <span id="nextDate"></span>
+        #responsePeek 
+          if going > 0 || notGoing > 0
+            h4
+              if going > 0
+                span.thr-green #{TEXTS.there} - #{going} 
+              if going > 0 && notGoing > 0
+                | | 
+              if notGoing > 0
+                span.sqr-red #{TEXTS.square} - #{notGoing}
+          if going === 0 && notGoing === 0
+            h4= TEXTS.thereOrSquare
+
+        h4#thereOrSquare= TEXTS.thereOrSquare
+        form(action=`/event/${event.id}` method="post")
+          dl
+            dt 
+              label.bold-text(for="username") Name
+            dd 
+              input(type="text" 
+                    id="username" 
+                    name="username" 
+                    placeholder="Name" 
+                    value=username 
+                    maxlength=50 
+                    required)
+
+            dt 
+              label.bold-text(for="comment") #{TEXTS.comment} (optional)
+            dd
+              textarea(rows=3 
+                        maxlength=150
+                        id="comment" 
+                        name="comment" 
+                        placeholder=TEXTS.comment)
+
+            dt 
+              label.bold-text= TEXTS.illBe
+            dd#buttons
+              button.btn-thr(formaction=`/event/${event.id}/1`)=TEXTS.there
+              button.btn-sqr(formaction=`/event/${event.id}/0`)=TEXTS.square
+        if going > 0 || notGoing > 0
+          p.smaller= TEXTS.howToRemove 
+
+      #responses
+
+        if going > 0
+          h2.thr-green #{TEXTS.there} - #{going}
+          each response in responses 
+            if response.there === true 
+              form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
+                p <a href="#">#{response.username}</a> 
+                  span.smaller #{response.comment}
+
+        if notGoing > 0
+          h2.sqr-red #{TEXTS.square} - #{notGoing}
+          each response in responses 
+            if response.there === false 
+              form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
+                p <a href="#">#{response.username}</a> #{response.comment}
+
+    footer 
+      +links

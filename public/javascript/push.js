@@ -6,9 +6,8 @@
 import { urlBase64ToUint8Array } from "/javascript/base64.mjs";
 import { texts } from "/locale/texts.mjs";
 
-// eslint-disable-next-line no-undef
-const lang = document.body.dataset.language;
-const TEXTS = texts[lang];
+let lang;
+let TEXTS;
 
 
 // SERVICE WORKER
@@ -142,6 +141,27 @@ async function isEventSubbed(subscription, eventId) {
 
 async function handleSubLinks(registration) {
 
+  let subscription = await registration.pushManager.getSubscription();
+
+  if (subscription) {
+    let unsubAllLink = document.createElement("A");
+    unsubAllLink.setAttribute("href", "#");
+    unsubAllLink.innerHTML = TEXTS.unsubscribeAll;
+
+    let unsubAllElement = document.getElementById("unsubscribeAll");
+    unsubAllElement.appendChild(unsubAllLink);
+    unsubAllElement.style.display = "list-item";
+
+    unsubAllLink.addEventListener("click", async event => {
+      event.preventDefault();
+
+      await subFetcher(subscription, "/unsubscribe-all");
+      await unsubscribe(registration);
+      await handleSubLinks(registration);
+    });
+
+  }
+
   let subsSection = document.getElementById("subscriptions");
 
   if (subsSection) {
@@ -150,7 +170,6 @@ async function handleSubLinks(registration) {
     removeChildren(subsSection);
 
     let eventId = getEventId();
-    let subscription = await registration.pushManager.getSubscription();
 
     // On event page with no prior subscriptions
     if (!subscription && eventId) {
@@ -194,16 +213,6 @@ async function handleSubLinks(registration) {
           });
         }
       }
-
-      let unsubAllLink = createSubLink(subsSection, TEXTS.unsubscribeAll);
-
-      unsubAllLink.addEventListener("click", async event => {
-        event.preventDefault();
-
-        await subFetcher(subscription, "/unsubscribe-all");
-        await unsubscribe(registration);
-        await handleSubLinks(registration);
-      });
     }
   }
 
@@ -215,6 +224,9 @@ async function handleSubLinks(registration) {
 
 if (canPush()) {
   document.addEventListener("DOMContentLoaded", async () => {
+    lang = document.body.dataset.language;
+    TEXTS = texts[lang];
+
     let registration = await registerServiceWorker();
     await handleSubLinks(registration);
   });

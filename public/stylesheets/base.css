@@ -1,0 +1,68 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+:root {
+  --thr-green: #00840D;
+  --sqr-red: #BE0000;
+  --link-turquoise: #127D6A;
+  --regular-font: "biorhymeregular", Georgia, 'Times New Roman', Times, serif;
+  --light-font: "biorhymelight", Georgia, 'Times New Roman', Times, serif;
+  --bold-font: "biorhymebold", Georgia, 'Times New Roman', Times, serif;
+}
+
+html {
+  height: 100%;
+  font-size: 18px;
+}
+
+body {
+  min-height: 100%;
+  font-family: var(--regular-font);
+  font-kerning: none;
+  background: linear-gradient(180deg, #FFFEE4 18.23%, #38B7A0 100%) fixed no-repeat;
+}
+
+a {
+  color: var(--link-turquoise);
+  font-family: var(--bold-font);
+}
+
+@media only screen and (max-width: 750px) {
+}
+
+@media only screen and (max-width: 550px) {
+  body {
+    padding: 18px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    /* background: linear-gradient(180deg, #FFFEE4 0%, #38B7A0 100%) fixed no-repeat; */
+    padding: 10px;
+  }
+}
+
+.thr-green {
+  color: var(--thr-green);
+}
+
+.sqr-red {
+  color: var(--sqr-red);
+}
+
+.bold-text {
+  font-family: var(--bold-font);
+}
+
+.smaller {
+  font-size: smaller;
+}

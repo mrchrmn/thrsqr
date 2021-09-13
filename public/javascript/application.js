@@ -1,5 +1,10 @@
 "use strict";
 
+import { texts } from "/locale/texts.mjs";
+
+let lang;
+let TEXTS;
+
 function replaceTimeDate() {
   let locale = document.body.dataset.language === "en" ? "en-GB" : "de-DE";
   let nextDateSpan = document.getElementById("nextDate");
@@ -39,8 +44,25 @@ function setDeleteAlerts() {
   });
 }
 
+function removeResponseHandler() {
+  let responseLinks = document.querySelectorAll("#responses a");
+  responseLinks.forEach(link => {
+    let form = link.parentElement.parentElement;
+    link.addEventListener("click", event => {
+      event.preventDefault();
+      if (confirm(TEXTS.confirmRemoveResponse)) {
+        form.submit();
+      }
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  lang = document.body.dataset.language;
+  TEXTS = texts[lang];
+
   replaceTimeDate();
   setDeleteAlerts();
   replaceTimeZone();
+  removeResponseHandler();
 });

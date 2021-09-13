@@ -1,14 +1,14 @@
-![ThrSqr logo](./public/images/thrsqrlogo.png)
+![ThrSqr logo](./public/images/thrsqrlogo-250.png)
 
 # ThrSqr - Will you be there or be square?
 
 ## An RSVP tracker for weekly events and friendly people
 
-So you and your group meet once a week, eg. five-a-side football, choir rehearsal, book club etc. _If enough people attend_ that is. As the event approaches, your WhatsApp group is flooded with "I'm going", "Not this week.", and - crucially - "So, are we enough, yet?!" messages. Every week the same ruckus.
+So you and your group meet once a week, eg. five-a-side football, band or choir rehearsal, book club etc. _But only if enough people attend_ that is. As the event approaches, your WhatsApp group is flooded with "I'm going", "Not this week.", and - crucially - "So, are we enough, yet?!" messages. Every week the same ruckus.
 
 Not any longer, thanks to ThrSqr!
 
-[Click here](https://thrsqr.hrmn.dev) to see it in action and use it.
+[Click here](https://thrsqr.hrmn.dev) to see it in action and to actually use it like my football team and I have been doing for weeks now.
 
 ### Simple workflow
 
@@ -43,4 +43,3 @@ Not any longer, thanks to ThrSqr!
 ### On the todo list
 
 * Database updates without page reloads
-* Streamlined UI

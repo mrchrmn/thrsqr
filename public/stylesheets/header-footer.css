@@ -1,0 +1,169 @@
+#flexwrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+header a {
+  text-decoration: none;
+  color: initial;
+}
+
+#logoimg {
+  margin: 30px;
+}
+
+#logotext {
+  position: relative;
+  margin: 30px;
+}
+
+h1 {
+  font-size: 120px;
+  margin: 0px;
+  padding: 0px;
+}
+
+#there-or-square {
+  position: absolute;
+  font-size: 18.5px;
+  top: 103px;
+  left: 24px;
+}
+
+footer {
+  align-items: center;
+  width: 100%;
+  margin: 60px auto 30px;
+}
+
+#unsubscribeAll {
+  display: none;
+}
+
+ul.links {
+  font-size: 15px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+ul.links li {
+  margin-bottom: 9px;
+  flex-basis: 20%;
+}
+
+@media only screen and (max-width: 750px) {
+  header {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  #logoimg {
+    margin: 20px;
+  }
+  
+  #logoimg img {
+    width: 112px;
+  }
+
+  #logotext {
+    margin: 20px;
+  }
+
+  h1 {
+    font-size: 90px;
+  }
+  
+  #there-or-square {
+    font-size: 14px;
+    top: 78px;
+    left: 16px;
+  }
+  
+  footer {
+    max-width: 500px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  header {
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
+
+  #logoimg {
+    margin: 15px;
+  }
+   
+  #logoimg img {
+    width: 75px;
+  }
+
+  #logotext {
+    margin: 15px;
+  }
+  
+  h1 {
+    font-size: 60px;
+  }
+  
+  #there-or-square {
+    position: static;
+    text-align: center;
+    font-size: 13px;
+  }
+  
+  footer {
+    max-width: 400px;
+    margin-bottom: 30px;
+  }
+
+  ul.links li {
+    margin-bottom: 15px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  header {
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
+  #logoimg {
+    margin: 10px;
+  }
+   
+  #logoimg img {
+    width: 75px;
+  }
+
+  #logotext {
+    margin: 0px;
+  }
+  
+  h1 {
+    font-size: 60px;
+  }
+  
+  #there-or-square {
+    position: static;
+    text-align: center;
+    font-size: 15px;
+  }
+  
+  footer {
+    max-width: 300px;
+  }
+}

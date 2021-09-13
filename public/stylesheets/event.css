@@ -1,0 +1,317 @@
+body {
+  padding: 18px;
+}
+
+#flexwrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-basis: auto;
+  margin-bottom: 15px;
+}
+
+#homelink a {
+  color: initial;
+  font-size: 36px;
+  text-decoration: none;
+}
+
+header .links {
+  font-size: 15px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+
+#unsubscribeAll {
+  display: none;
+}
+
+#headerlogo {
+  display: none;
+}
+
+#responsePeek {
+  display: none;
+}
+
+main {
+  max-width: 850px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  grid-auto-rows: auto;
+  grid-template-areas: 
+    "logo info"
+    "responses form";
+}
+
+#logo {
+  grid-area: logo;
+}
+
+#info {
+  grid-area: info;
+}
+
+#form {
+  grid-area: form;
+}
+
+#responses {
+  grid-area: responses;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 39px;
+  padding-bottom: 3px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+#eventLogo {
+  border-radius: 9px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+dl, dt, dd {
+  padding: 0;
+  margin: 0;
+}
+
+dl {
+  flex-direction: column;
+  display: flex;
+}
+
+dt {
+  padding-left: 9px;
+}
+
+input, textarea {
+  -moz-appearance: none; -webkit-appearance: none; appearance: none;
+  width: 100%;
+  padding: 9px 9px;
+  border-radius: 9px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: none;
+  box-shadow:  0px 3px 3px rgba(0, 0, 0, 0.05) inset;
+}
+
+dd#buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-thr, .btn-sqr {
+  color: white;
+  padding: 18px 36px;
+  font-size: 21px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  min-width: 45%;
+  border: none;
+}
+
+.btn-thr:active, .btn-sqr:active {
+  box-shadow: none;
+}
+
+.btn-thr {
+  background-color: var(--thr-green);
+}
+
+.btn-thr:hover, .btn-thr:active {
+  background-color: #00d930;
+}
+
+.btn-sqr {
+  background-color: var(--sqr-red);
+}
+
+.btn-sqr:hover, .btn-sqr:active {
+  background-color: #f21818;
+}
+
+#form p {
+  color: var(--link-turquoise)
+}
+
+#responses p {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 9px;
+}
+
+#responses h2 {
+  padding-bottom: 9px;
+}
+
+footer {
+  display: none;
+  align-items: center;
+  width: 100%;
+  margin: 60px auto 30px;
+}
+
+footer .links {
+  font-size: 15px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+footer .links li {
+  margin-bottom: 9px;
+  flex-basis: 20%;
+}
+
+@media only screen and (max-width: 750px) {
+  main {
+    gap: 18px;
+  }
+
+  #logo img {
+    width: 200px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+  
+  h2 {
+    font-size: 21px;
+  }
+  
+  h3 {
+    font-size: 21px;
+  }
+  
+  h4 {
+    font-size: 18px;
+  }
+
+  .btn-thr, .btn-sqr {
+    font-size: 18px;
+    padding: 18px 30px;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "info"
+      "form"
+      "responses";
+  }
+
+  #logo {
+    display: none;
+  }
+  
+  #thereOrSquare {
+    display: none;
+  }
+  
+  #headerlogo {
+    display: block;
+  }
+
+  #responsePeek {
+    display: block;
+  }
+  
+  footer {
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  header .links {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  html {
+    font-size: 18px;;
+  }
+  
+  body {
+    padding: 10px;
+  } 
+
+  #flexwrap {
+    min-width: 250px;
+  }
+
+  main {
+    gap: 18px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+  
+  h2 {
+    font-size: 18px;
+  }
+  
+  h3 {
+    font-size: 18px;
+  }
+  
+  h4 {
+    font-size: 18px;
+  }
+
+  dt {
+    padding-left: 0px;
+  }
+  
+  dd#buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }  
+
+  .btn-thr, .btn-sqr {
+    width: 100%;
+    font-size: 18px;
+    padding: 15px 30px;
+    margin: 9px 0;
+  }
+}
