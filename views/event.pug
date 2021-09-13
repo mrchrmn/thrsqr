@@ -32,7 +32,7 @@ block body
 
       #info
         h1= event.title
-        h2 #{TEXTS.eventEvery} <span id="eventDay"></span> #{TEXTS.eventAt} <span id="eventTime"></span>
+        h2 #{TEXTS.eventEvery} <span id="eventDay"></span> #{TEXTS.eventAt} <span id="eventTime"></span> <span class="smaller" id="localTimezone"></span>
         p= event.info ? event.info : ""
         #subscriptions
 
@@ -96,7 +96,8 @@ block body
           each response in responses 
             if response.there === false 
               form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
-                p <a href="#">#{response.username}</a> #{response.comment}
+                p <a href="#">#{response.username}</a> 
+                  span.smaller #{response.comment}
 
     footer 
       +links

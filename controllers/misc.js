@@ -76,5 +76,14 @@ module.exports = {
       res.write(JSON.stringify(returnData));
       return res.end();
     });
+  },
+
+  async getTimezoneAbbrev(req, res) {
+    let store = res.locals.store;
+    let timezone = req.body.timezone;
+
+    let abbrev = await store.getTimezoneAbbreviation(timezone);
+
+    res.end(abbrev);
   }
 };

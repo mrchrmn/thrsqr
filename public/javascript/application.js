@@ -1,3 +1,5 @@
+/* eslint-disable max-statements */
+/* eslint-disable max-lines-per-function */
 "use strict";
 
 import { texts } from "/locale/texts.mjs";
@@ -5,7 +7,24 @@ import { texts } from "/locale/texts.mjs";
 let lang;
 let TEXTS;
 
-function replaceTimeDate() {
+async function replaceTimeDate() {
+  let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  let abbrev;
+
+  try {
+    let response = await fetch("/timezone-abbrev", {
+      method: "POST",
+      body: JSON.stringify({ timezone }),
+      headers: {
+        "content-type": "application/json"
+      }
+    });
+    abbrev = await response.text() || "";
+
+  } catch (error) {
+    console.log(`Could not get timezone abbreviaton: `, error);
+  }
+
   let locale = document.body.dataset.language === "en" ? "en-GB" : "de-DE";
   let nextDateSpan = document.getElementById("nextDate");
 
@@ -19,6 +38,11 @@ function replaceTimeDate() {
     eventTimeSpan.innerHTML = date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
     eventDaySpan.innerHTML = date.toLocaleDateString(locale, { weekday: "long" });
     nextDateSpan.innerHTML = date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+
+    if (lang === "en") {
+      let localTimezoneSpan = document.getElementById("localTimezone");
+      localTimezoneSpan.innerHTML = `(${abbrev})`;
+    }
   }
 }
 

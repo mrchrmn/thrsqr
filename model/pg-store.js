@@ -30,6 +30,16 @@ module.exports = class PgStore {
     return id;
   }
 
+  async getTimezoneAbbreviation(timezone) {
+    const FIND_ABBREV = "SELECT abbrev FROM pg_timezone_names WHERE name = %L";
+    let result = await dbQuery(FIND_ABBREV, timezone);
+    if (result.rowCount !== 0) {
+      return result.rows[0].abbrev;
+    } else {
+      return null;
+    }
+  }
+
 
   // ###### Events ######
 

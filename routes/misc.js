@@ -30,4 +30,6 @@ router.get("/s3request", catchError(controller.getS3Request));
 
 router.post("/unsubscribe-all", catchError(controller.unsubscribeAll));
 
+router.post("/timezone-abbrev", catchError(controller.getTimezoneAbbrev));
+
 module.exports = router;
