@@ -161,7 +161,6 @@ async function handleSubLinks(registration) {
       await unsubscribe(registration);
       await handleSubLinks(registration);
     });
-
   }
 
   let subsSection = document.getElementById("subscriptions");
@@ -193,6 +192,8 @@ async function handleSubLinks(registration) {
 
         subLink.addEventListener("click", async event => {
           event.preventDefault();
+
+          if (!subscription) subscription = await subscribe(registration);
 
           await subFetcher(subscription, `/event/${eventId}/subscribe/${lang}`);
           await handleSubLinks(registration);
