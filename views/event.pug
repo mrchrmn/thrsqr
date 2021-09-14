@@ -42,11 +42,13 @@ block body
           if going > 0 || notGoing > 0
             h4
               if going > 0
-                span.thr-green #{TEXTS.there} - #{going} 
+                span.thr-green
+                  a(href="#there") #{TEXTS.there} - #{going}
               if going > 0 && notGoing > 0
-                | | 
+                |  | 
               if notGoing > 0
-                span.sqr-red #{TEXTS.square} - #{notGoing}
+                span.sqr-red
+                  a(href="#square") #{TEXTS.square} - #{notGoing}
           if going === 0 && notGoing === 0
             h4= TEXTS.thereOrSquare
 
@@ -84,7 +86,7 @@ block body
       #responses
 
         if going > 0
-          h2.thr-green #{TEXTS.there} - #{going}
+          h2#there(class="thr-green") #{TEXTS.there} - #{going}
           each response in responses 
             if response.there === true 
               form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
@@ -92,7 +94,7 @@ block body
                   span.smaller #{response.comment}
 
         if notGoing > 0
-          h2.sqr-red #{TEXTS.square} - #{notGoing}
+          h2#square(class="sqr-red") #{TEXTS.square} - #{notGoing}
           each response in responses 
             if response.there === false 
               form(action=`/event/${event.id}/remove/${response.part_id}` method="post" class="delete")
