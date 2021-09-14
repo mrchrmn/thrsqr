@@ -97,10 +97,6 @@ h4 {
   border-radius: 9px;
 }
 
-h4 a {
-  color: inherit;
-}
-
 form {
   display: flex;
   flex-direction: column;
@@ -179,7 +175,7 @@ dd#buttons {
 }
 
 #responses p a {
-  color: initial;
+  color: black;
 }
 
 #responses h2 {

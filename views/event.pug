@@ -42,13 +42,11 @@ block body
           if going > 0 || notGoing > 0
             h4
               if going > 0
-                span.thr-green
-                  a(href="#there") #{TEXTS.there} - #{going}
+                a.thr-green(href="#there") #{TEXTS.there} - #{going}
               if going > 0 && notGoing > 0
                 |  | 
               if notGoing > 0
-                span.sqr-red
-                  a(href="#square") #{TEXTS.square} - #{notGoing}
+                a.sqr-red(href="#square") #{TEXTS.square} - #{notGoing}
           if going === 0 && notGoing === 0
             h4= TEXTS.thereOrSquare
 
