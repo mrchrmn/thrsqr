@@ -25,7 +25,7 @@ async function replaceTimeDate() {
     console.log(`Could not get timezone abbreviaton: `, error);
   }
 
-  let locale = document.body.dataset.language === "en" ? "en-GB" : "de-DE";
+  let locale = document.body.dataset.language === "de" ? "de-DE" : "en-GB";
   let nextDateSpan = document.getElementById("nextDate");
 
   if (nextDateSpan) {
