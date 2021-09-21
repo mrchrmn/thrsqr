@@ -8,6 +8,27 @@ let lang;
 let TEXTS;
 
 async function replaceTimeDate() {
+  let locale = document.body.dataset.language === "de" ? "de-DE" : "en-GB";
+  let nextDateSpan = document.getElementById("nextDate");
+
+  if (nextDateSpan) {
+    let eventTimeSpan = document.getElementById("eventTime");
+    let eventDaySpan = document.getElementById("eventDay");
+
+    let nextEventTime = nextDateSpan.parentElement.dataset.nexteventtime;
+    let date = new Date(Number(nextEventTime));
+
+    eventTimeSpan.innerHTML = date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
+    eventDaySpan.innerHTML = date.toLocaleDateString(locale, { weekday: "long" });
+    nextDateSpan.innerHTML = date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+
+    if (lang === "en") {
+      await addTimezoneAbbreviation();
+    }
+  }
+}
+
+async function addTimezoneAbbreviation () {
   let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   let abbrev;
 
@@ -25,28 +46,12 @@ async function replaceTimeDate() {
     console.log(`Could not get timezone abbreviaton: `, error);
   }
 
-  let locale = document.body.dataset.language === "de" ? "de-DE" : "en-GB";
-  let nextDateSpan = document.getElementById("nextDate");
-
-  if (nextDateSpan) {
-    let eventTimeSpan = document.getElementById("eventTime");
-    let eventDaySpan = document.getElementById("eventDay");
-
-    let nextEventTime = nextDateSpan.parentElement.dataset.nexteventtime;
-    let date = new Date(Number(nextEventTime));
-
-    eventTimeSpan.innerHTML = date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
-    eventDaySpan.innerHTML = date.toLocaleDateString(locale, { weekday: "long" });
-    nextDateSpan.innerHTML = date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
-
-    if (lang === "en") {
-      let localTimezoneSpan = document.getElementById("localTimezone");
-      localTimezoneSpan.innerHTML = `(${abbrev})`;
-    }
-  }
+  let localTimezoneSpan = document.getElementById("localTimezone");
+  localTimezoneSpan.innerHTML = `(${abbrev})`;
 }
 
-function replaceTimeZone() {
+
+function replaceTimezoneInputs() {
   let eventTimeZone = document.getElementById("eventTimeZone");
   let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -54,6 +59,7 @@ function replaceTimeZone() {
     eventTimeZone.value = timeZone;
   }
 }
+
 
 function setDeleteAlerts() {
   let forms = document.querySelectorAll("form.delete");
@@ -68,6 +74,7 @@ function setDeleteAlerts() {
   });
 }
 
+
 function removeResponseHandler() {
   let responseLinks = document.querySelectorAll("#responses a");
   responseLinks.forEach(link => {
@@ -81,12 +88,13 @@ function removeResponseHandler() {
   });
 }
 
+
 document.addEventListener("DOMContentLoaded", () => {
   lang = document.body.dataset.language;
   TEXTS = texts[lang];
 
   replaceTimeDate();
   setDeleteAlerts();
-  replaceTimeZone();
+  replaceTimezoneInputs();
   removeResponseHandler();
 });

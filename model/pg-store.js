@@ -46,11 +46,8 @@ module.exports = class PgStore {
   // Retrieve event information
   async getEvent(id) {
     const FIND_EVENT = "SELECT * FROM events WHERE id = %L";
-    const FIND_OFFSET = "SELECT utc_offset FROM pg_timezone_names WHERE name = %L";
     let event = await dbQuery(FIND_EVENT, id);
     if (event.rowCount !== 0) {
-      let timezoneInfo  = await dbQuery(FIND_OFFSET, event.rows[0].timezone);
-      event.rows[0].utcoffset = timezoneInfo.rows[0].utc_offset.hours;
       event.rows[0].id = event.rows[0].id.trim(); // necessary after switching to 4-character code
       return event.rows[0];
     } else {
@@ -69,6 +66,12 @@ module.exports = class PgStore {
                   details.eventTimeZone,
                   details.eventInfo,
                   details.eventLogoURL);
+
+    const UPDATE_OFFSET = "UPDATE events SET utcoffset = (SELECT utc_offset FROM pg_timezone_names WHERE name = %L) WHERE id = %L";
+    await dbQuery(UPDATE_OFFSET,
+      details.eventTimeZone,
+      details.eventId);
+
   }
 
   // Update event details in database
@@ -174,14 +177,11 @@ module.exports = class PgStore {
       await dbQuery(NEW_RESPONSE, eventId, participantId, there, comment);
     }
 
-    const UPDATE_NAME = "UPDATE participants SET username = %L WHERE id = %L";
-    await dbQuery(UPDATE_NAME, username, participantId);
+    const UPDATE_PARTICIPANTS = "UPDATE participants SET username = %L, lastupdate = now() WHERE id = %L";
+    await dbQuery(UPDATE_PARTICIPANTS, username, participantId);
 
     const SET_LASTUPDATE_EVENT = "UPDATE events SET lastupdate = now() WHERE id = %L";
     await dbQuery(SET_LASTUPDATE_EVENT, eventId);
-
-    const SET_LASTUPDATE_USER = "UPDATE participants SET lastupdate = now() WHERE id = %L";
-    await dbQuery(SET_LASTUPDATE_USER, participantId);
 }
 
   // Remove a response from responses table

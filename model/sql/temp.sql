@@ -15,3 +15,10 @@ ALTER COLUMN username TYPE varchar(16);
 
 ALTER TABLE events 
 ADD COLUMN logoURL text;
+
+ALTER TABLE events 
+ADD COLUMN utcoffset interval;
+
+UPDATE events SET utcoffset = (
+  SELECT utc_offset FROM pg_timezone_names WHERE name = events.timezone
+);
