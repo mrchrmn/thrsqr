@@ -28,9 +28,9 @@ async function replaceTimeDate() {
     if ( (date.getUTCDay() === now.getUTCDay()) &&
          ( (date.valueOf() - now.valueOf() < ONEDAYINMS) ||
            (date.valueOf() - now.valueOf() > SIXDAYS23HOURSINMS) ) ) {
-      nextDateSpan.innerHTML = TEXTS.today + ".";
+      nextDateSpan.innerHTML = TEXTS.today;
     } else {
-      nextDateSpan.innerHTML = TEXTS.on + " " + date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" }) + ".";
+      nextDateSpan.innerHTML = TEXTS.on + " " + date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
     }
 
     if (lang === "en") {

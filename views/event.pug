@@ -32,12 +32,12 @@ block body
 
       #info
         h1= event.title
-        h2 #{TEXTS.eventEvery} <span id="eventDay"></span> #{TEXTS.eventAt} <span id="eventTime"></span> <span class="smaller" id="localTimezone"></span>
+        h2 #{TEXTS.eventEvery} <span id="eventDay"></span> #{TEXTS.eventAt} <span id="eventTime"></span> <span class="smaller" id="localTimezone"></span>.
         p= event.info ? event.info : ""
         #subscriptions
 
       #form
-        h3(data-nexteventtime=nextEventTime) #{TEXTS.nextTime} <span id="nextDate"></span>
+        h3(data-nexteventtime=nextEventTime) #{TEXTS.nextTime} <span id="nextDate"></span>.
         #responsePeek 
           if going > 0 || notGoing > 0
             h4
