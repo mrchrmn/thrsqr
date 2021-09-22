@@ -2,7 +2,7 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 
-const { getLast, slugFrom, countGoing, getNext } = require("../lib/thrsqr");
+const { getLast, slugFrom, countGoing, getNext, capitalize } = require("../lib/thrsqr");
 const { notifySubscribers } = require("../lib/webpush");
 // S3 IMPORT HERE
 
@@ -52,6 +52,10 @@ module.exports = {
       }
 
       let responses = await store.getResponses(eventId);
+      responses.forEach(response => {
+        response.username = capitalize(response.username);
+      });
+
       let nextEventTime = getNext(previous).valueOf();
       let going = countGoing(responses);
       let notGoing = responses.length - going;
