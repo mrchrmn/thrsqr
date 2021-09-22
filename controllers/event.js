@@ -2,7 +2,7 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 
-const { getLast, slugFrom, countGoing, getNext, capitalize } = require("../lib/thrsqr");
+const { getPrevious, slugFrom, countGoing, getNext, capitalize } = require("../lib/thrsqr");
 const { notifySubscribers } = require("../lib/webpush");
 // S3 IMPORT HERE
 
@@ -43,12 +43,12 @@ module.exports = {
       throw new Error("Requested event not found.");
     } else {
       // if latest update is older than last previous event reset responses.
-      let previous = getLast(event.eventtime, event.dayofweek, event.utcoffset);
-      console.log(new Date(previous));
-      let lastUpdate = new Date(event.lastupdate);
-      console.log(lastUpdate);
+      let previous = getPrevious(event.eventtime, event.dayofweek, event.utcoffset);
+      // let lastUpdate = new Date(event.lastupdate);
 
-      if (previous.valueOf() > (lastUpdate.valueOf() + WAIT_TIME_IN_MS)) {
+      let now = new Date();
+
+      if ((previous.valueOf() + WAIT_TIME_IN_MS) < now.valueOf()) {
         console.log("Resetting responses.");
         await store.resetResponses(eventId);
       }
