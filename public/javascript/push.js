@@ -127,6 +127,7 @@ async function subFetcher(subscription, path) {
 
 async function isEventSubbed(subscription, eventId) {
   try {
+    console.log("checking event subscription");
     let res = await subFetcher(subscription, `/event/${eventId}/check-sub`);
     let body = await res.json();
     return body;
@@ -160,6 +161,7 @@ async function handleSubLinks(registration) {
       await subFetcher(subscription, "/unsubscribe-all");
       await unsubscribe(registration);
       await handleSubLinks(registration);
+      unsubAllElement.style.display = "none";
     });
   }
 
@@ -175,7 +177,12 @@ async function handleSubLinks(registration) {
     if (eventId) {
       subsSection.style.display = "block";
 
-      let eventSubbed = await isEventSubbed(subscription, eventId);
+      let eventSubbed = false;
+      if (subscription) {
+        eventSubbed = await isEventSubbed(subscription, eventId);
+      }
+
+      console.log("\n== eventSubbed ==\n" + eventSubbed + "\n");
 
       if (eventSubbed === true) {
         let unsubLink = createSubLink(subsSection, TEXTS.unsubscribeEvent);
