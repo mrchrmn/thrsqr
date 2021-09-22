@@ -44,11 +44,12 @@ module.exports = {
     } else {
       // if latest update is older than last previous event reset responses.
       let previous = getPrevious(event.eventtime, event.dayofweek, event.utcoffset);
-      // let lastUpdate = new Date(event.lastupdate);
+      let lastUpdate = new Date(event.lastupdate);
 
       let now = new Date();
 
-      if ((previous.valueOf() + WAIT_TIME_IN_MS) < now.valueOf()) {
+      if ( (now.valueOf() > (previous.valueOf() + WAIT_TIME_IN_MS)) &&
+           (lastUpdate.valueOf() < (previous.valueOf() + WAIT_TIME_IN_MS)) ) {
         console.log("Resetting responses.");
         await store.resetResponses(eventId);
       }
