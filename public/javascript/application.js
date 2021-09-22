@@ -8,6 +8,9 @@ let lang;
 let TEXTS;
 
 async function replaceTimeDate() {
+  const ONEDAYINMS = 24 * 60 * 60 * 1000;
+  const SIXDAYS23HOURSINMS = ((6 * 24) + 23) * 60 * 60 * 1000;
+
   let locale = document.body.dataset.language === "de" ? "de-DE" : "en-GB";
   let nextDateSpan = document.getElementById("nextDate");
 
@@ -17,10 +20,18 @@ async function replaceTimeDate() {
 
     let nextEventTime = nextDateSpan.parentElement.dataset.nexteventtime;
     let date = new Date(Number(nextEventTime));
+    let now = new Date();
 
     eventTimeSpan.innerHTML = date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
     eventDaySpan.innerHTML = date.toLocaleDateString(locale, { weekday: "long" });
-    nextDateSpan.innerHTML = date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+
+    if ( (date.getUTCDay() === now.getUTCDay()) &&
+         ( (date.valueOf() - now.valueOf() < ONEDAYINMS) ||
+           (date.valueOf() - now.valueOf() > SIXDAYS23HOURSINMS) ) ) {
+      nextDateSpan.innerHTML = TEXTS.today + ".";
+    } else {
+      nextDateSpan.innerHTML = TEXTS.on + " " + date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" }) + ".";
+    }
 
     if (lang === "en") {
       await addTimezoneAbbreviation();
