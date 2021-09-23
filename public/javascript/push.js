@@ -105,6 +105,19 @@ function removeChildren(parent) {
   }
 }
 
+function createUnsubAllLink(parent) {
+  let unsubAllLink = document.createElement("A");
+  unsubAllLink.setAttribute("href", "#");
+  unsubAllLink.innerHTML = TEXTS.unsubscribeAll;
+
+  removeChildren(parent);
+
+  parent.appendChild(unsubAllLink);
+  parent.style.display = "list-item";
+
+  return unsubAllLink;
+}
+
 
 // DATABASE FETCHES
 
@@ -139,28 +152,26 @@ async function isEventSubbed(subscription, eventId) {
 
 // SUBSCRIPTION UI
 
-async function handleSubLinks(registration) {
+async function displaySubLinks(registration) {
 
   let subscription = await registration.pushManager.getSubscription();
 
+  let unsubAllElements = document.querySelectorAll(".unsubscribeAll");
+
   if (subscription) {
-    let unsubAllLink = document.createElement("A");
-    unsubAllLink.setAttribute("href", "#");
-    unsubAllLink.innerHTML = TEXTS.unsubscribeAll;
+    [...unsubAllElements].forEach(element => {
+      let unsubAllLink = createUnsubAllLink(element);
 
-    let unsubAllElement = document.getElementById("unsubscribeAll");
-    removeChildren(unsubAllElement);
-
-    unsubAllElement.appendChild(unsubAllLink);
-    unsubAllElement.style.display = "list-item";
-
-    unsubAllLink.addEventListener("click", async event => {
-      event.preventDefault();
-
-      await subFetcher(subscription, "/unsubscribe-all");
-      await unsubscribe(registration);
-      await handleSubLinks(registration);
-      unsubAllElement.style.display = "none";
+      unsubAllLink.addEventListener("click", async event => {
+        event.preventDefault();
+        await subFetcher(subscription, "/unsubscribe-all");
+        await unsubscribe(registration);
+        await displaySubLinks(registration);
+      });
+    });
+  } else {
+    [...unsubAllElements].forEach(element => {
+      element.style.display = "none";
     });
   }
 
@@ -188,7 +199,7 @@ async function handleSubLinks(registration) {
           event.preventDefault();
 
           await subFetcher(subscription, `/event/${eventId}/unsubscribe`);
-          await handleSubLinks(registration);
+          await displaySubLinks(registration);
         });
 
       } else {
@@ -200,7 +211,7 @@ async function handleSubLinks(registration) {
           if (!subscription) subscription = await subscribe(registration);
 
           await subFetcher(subscription, `/event/${eventId}/subscribe/${lang}`);
-          await handleSubLinks(registration);
+          await displaySubLinks(registration);
         });
       }
     }
@@ -218,7 +229,7 @@ if (canPush()) {
     TEXTS = texts[lang];
 
     let registration = await registerServiceWorker();
-    await handleSubLinks(registration);
+    await displaySubLinks(registration);
   });
 }
 

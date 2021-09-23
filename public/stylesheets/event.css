@@ -31,7 +31,7 @@ header .links {
   text-align: right;
 }
 
-#unsubscribeAll {
+.unsubscribeAll {
   display: none;
 }
 

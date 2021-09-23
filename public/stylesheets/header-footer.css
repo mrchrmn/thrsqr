@@ -45,7 +45,7 @@ footer {
   margin: 60px auto 30px;
 }
 
-#unsubscribeAll {
+.unsubscribeAll {
   display: none;
 }
 
