@@ -161,7 +161,7 @@ module.exports = class PgStore {
 
   // Retrieve responses for given event
   async getResponses(eventId) {
-    const FIND_RESPONSES = "SELECT p.id AS part_id, there, username, comment FROM participants AS p JOIN responses AS ep ON p.id = ep.participant_id WHERE event_id = %L ORDER BY username ASC";
+    const FIND_RESPONSES = "SELECT p.id AS part_id, there, username, comment FROM participants AS p JOIN responses AS ep ON p.id = ep.participant_id WHERE event_id = %L ORDER BY lastupdate ASC";
     let result = await dbQuery(FIND_RESPONSES, eventId);
     return result.rows;
   }
