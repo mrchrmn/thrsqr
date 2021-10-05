@@ -65,6 +65,8 @@ module.exports = {
 
       if (!event.logourl) event.logourl = "/images/thrsqrlogo-250.png";
 
+      req.session.event = event;
+
       res.render("event", {
         event,
         responses,

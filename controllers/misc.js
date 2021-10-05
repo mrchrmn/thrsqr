@@ -10,14 +10,9 @@ aws.config.region = config.AWS_REGION;
 /* eslint-disable max-lines-per-function */
 module.exports = {
 
-  async generateManifest(req, res) {
-    let store = res.locals.store;
-    let eventId = req.params.eventId;
-    let event = await store.getEvent(eventId);
-
-    if (!event.logourl) event.logourl = "/images/thrsqrlogo.png";
-
+  generateManifest(req, res) {
     let eventManifest = "";
+    let event = req.session.event;
 
     if (event) eventManifest = `{
 "name": "${event.title}",

@@ -1,7 +1,7 @@
 {
   "texts":  {
     "en": {
-      "benefits": "No registration required,<br/>and 100% free to use.",
+      "benefits": "No registration required,<br/>easy to set up and use.",
       "caveats": "<li>Anyone with the link can read and modify the list of responses, and potentially edit the event details.</li><li>Don't forget to copy the link somewhere safe or bookmark it for yourself.</li><li>The list of responses clears automatically one hour after the event has begun.</li><li>The event will be deleted after three months of inactivity.</li>",
       "changeLanguage": "Auf deutsch",
       "claim": "Your RSVP tracker for weekly events and friendly people.",
@@ -34,7 +34,8 @@
         "Set up event",
         "Send link",
         "Be there or be square",
-        "Check who's attending"
+        "Check who's attending, or",
+        "Turn on notifications"
       ],
       "there": "There",
       "thereOrSquare": "Will you be there or square?",
@@ -43,7 +44,7 @@
       "weekArray": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     },
     "de": {
-      "benefits": "Keine Registrierung nötig und 100% kostenlose Nutzung.",
+      "benefits": "Keine Registrierung nötig,<br/> schnell eingerichtet und<br/> einfach zu nutzen.",
       "caveats": "<li>Jeder, der diesen Link hat, kann die Liste der Zu- und Absagen lesen und verändern und gegebenenfalls auch die Angaben zur Veranstaltung ändern.</li><li>Kopiere Dir den Link an einen sicheren Ort, oder setze Dir ein Lesezeichen dorthin.</li><li>Die Zu- und Absagen werden eine Stunde nach Beginn der Veranstaltung gelöscht.</li><li>Die Veranstaltung wird gelöscht, wenn drei Monate lang keine Aktivität bemerkt wird.</li>",
       "changeLanguage": "In English",
       "claim": "Dein Teilnahme-Tracker für wöchentliche Veranstaltungen und nette Leute.",
@@ -76,7 +77,8 @@
         "Veranstaltung einrichten",
         "Link verschicken",
         "Dabei oder nicht dabei sein",
-        "Gucken, wer kommt"
+        "Gucken, wer kommt, oder",
+        "Benachrichtigungen einschalten"
       ],
       "there": "Dabei",
       "thereOrSquare": "Dabei oder nicht dabei?",

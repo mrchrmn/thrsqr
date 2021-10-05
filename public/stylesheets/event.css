@@ -19,7 +19,7 @@ header {
 
 #homelink a {
   color: initial;
-  font-size: 36px;
+  font-size: 30px;
   text-decoration: none;
 }
 
@@ -277,6 +277,16 @@ footer .links li {
   body {
     padding: 10px;
   } 
+
+  header {
+    display: flex;
+    align-items: flex-start;
+  }  
+
+  #homelink {
+    margin: 0;
+    padding: 0;
+  }
 
   #flexwrap {
     min-width: 250px;
