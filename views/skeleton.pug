@@ -7,8 +7,8 @@ mixin links
     li
       a(href="/reset/user")= TEXTS.resetUserData
     li.unsubscribeAll 
-    li
-      a(href="/superuser") Admin page
+    //- li
+    //-   a(href="/superuser") Admin page
     if superuser === true 
       li
         a(href="/superuser/logout") Log out
