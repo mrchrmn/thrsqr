@@ -4,7 +4,6 @@ CREATE TABLE events (
   dayOfWeek int NOT NULL,
   eventTime time NOT NULL,
   timeZone varchar NOT NULL,
-  utcOffset interval,
   info varchar(303), 
   lastUpdate timestamptz DEFAULT now(),
   logoURL text
