@@ -50,8 +50,9 @@ module.exports = class PgStore {
 
     if (event.rowCount !== 0) {
       const FIND_UTC_OFFSET = "SELECT utc_offset FROM pg_timezone_names WHERE name = %L";
-      event.rows[0].utcoffset = await dbQuery(FIND_UTC_OFFSET,
-                                             event.rows[0].timezone);
+      let result = await dbQuery(FIND_UTC_OFFSET, event.rows[0].timezone);
+      event.rows[0].utcoffset = result.rows[0].utc_offset;
+
       event.rows[0].id = event.rows[0].id.trim(); // necessary after switching to 4-character code
       return event.rows[0];
     } else {
@@ -70,12 +71,6 @@ module.exports = class PgStore {
                   details.eventTimeZone,
                   details.eventInfo,
                   details.eventLogoURL);
-
-    // const UPDATE_OFFSET = "UPDATE events SET utcoffset = (SELECT utc_offset FROM pg_timezone_names WHERE name = %L) WHERE id = %L";
-    // await dbQuery(UPDATE_OFFSET,
-    //   details.eventTimeZone,
-    //   details.eventId);
-
   }
 
   // Update event details in database
