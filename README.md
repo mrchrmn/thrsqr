@@ -24,7 +24,7 @@ Not any longer, thanks to ThrSqr!
 * Auto-resets responses one hour after the event has begun
 * Dynamically generated webmanifest for each event
 * Browser push notifications for individual events
-  * Works with Chrome, Edge and Firefox on Android an Windows
+  * Works with Chrome, Edge and Firefox on Android, Windows and Linux.
 * Individual event logos
   * which are also used in web manifest and notifications
 * Time zone handling:
