@@ -20,7 +20,8 @@ module.exports = {
 "icons": [
     {
         "src": "${event.logourl}",
-        "sizes": "192x192, 512x512"
+        "sizes": "192x192, 512x512",
+        "type": "image/png"
     }
 ],
 "theme_color": "#FFFEE4",
@@ -31,7 +32,7 @@ module.exports = {
 "description": "ThrSqr - Your RSVP tracker for weekly events and friendly people."
 }`;
 
-    res.append("Content-Type", "text/html").send(eventManifest);
+    res.append("Content-Type", "application/manifest+json").send(eventManifest);
   },
 
   async unsubscribeAll(req, res) {
