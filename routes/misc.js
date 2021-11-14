@@ -24,7 +24,9 @@ router.get("/change-language", (req, res) => {
   res.redirect(req.headers.referer);
 });
 
-router.get("/site/webmanifest/:eventId", catchError(controller.generateManifest));
+// router.get("/site/webmanifest/:eventId", catchError(controller.generateManifest));
+
+router.get(/.*webmanifest$/, catchError(controller.generateManifest));
 
 router.get("/s3request", catchError(controller.getS3Request));
 

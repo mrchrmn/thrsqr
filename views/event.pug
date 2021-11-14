@@ -11,7 +11,7 @@ append stylesheet
   link(rel="stylesheet" href="/stylesheets/event.css")
 
 block manifest 
-  link(rel="manifest" href=`/site/webmanifest/${event.id}`)
+  link(rel="manifest" href=`/${event.id}.webmanifest`)
 
 block body 
   - var week = TEXTS.weekArray
