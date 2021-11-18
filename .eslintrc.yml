@@ -33,7 +33,7 @@ rules:
   - allowSingleLine: true
   camelcase: error
   complexity: error
-  consistent-return: error
+  consistent-return: off
   constructor-super: error
   eqeqeq: error
   id-length:

@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 function getS3Request(file, eventId) {
   let xhr = new XMLHttpRequest();
@@ -48,16 +49,19 @@ document.addEventListener("DOMContentLoaded", () => {
   logoFileInput.addEventListener("change", event => {
     let file = event.target.files[0];
 
-    if (!file) return alert("No file selected");
-
-    if (file.size > 524288) {
-      alert("File size must not exceed 500kB.");
-      event.target.value = "";
+    if (!file) {
+      alert("No file selected");
       return null;
     }
 
     if (file.type.indexOf("image") === -1) {
       alert("File must be an image.");
+      event.target.value = "";
+      return null;
+    }
+
+    if (file.size > 252144) {
+      alert("File size must not exceed 256kB.");
       event.target.value = "";
       return null;
     }
@@ -69,18 +73,16 @@ document.addEventListener("DOMContentLoaded", () => {
       image.src = reader.result;
 
       image.addEventListener("load", () => {
-        if (image.height > 500 || image.width > 500) {
-          alert("Image dimensions must not exceed 500x500px.");
+        if (image.height > 512 || image.width > 512) {
+          alert("Image dimensions must not exceed 512x512px.");
           event.target.value = "";
           return null;
         }
-        return true;
+
+        getS3Request(file, eventId);
       });
 
+
     });
-
-    getS3Request(file, eventId);
-
-    return true;
   });
 });
