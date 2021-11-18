@@ -24,7 +24,7 @@ router.get("/change-language", (req, res) => {
   res.redirect(req.headers.referer);
 });
 
-router.get("/e/:evenId", (req, res) => {
+router.get("/e/:eventId", (req, res) => {
   res.redirect(303, `/event/${req.params.eventId}`);
 });
 
