@@ -2,7 +2,7 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 
-const { getPrevious, slugFrom, countGoing, getNext, capitalize } = require("../lib/thrsqr");
+const { getPrevious, countGoing, getNext, capitalize } = require("../lib/thrsqr");
 const { notifySubscribers } = require("../lib/webpush");
 // S3 IMPORT HERE
 
@@ -92,9 +92,8 @@ module.exports = {
       let eventDetails = { ...req.body };
 
       await store.newEvent(eventDetails);
-      let slug = slugFrom(eventDetails.eventTitle);
 
-      res.render("new-event-success", { ...eventDetails, origin: req.headers.origin, slug });
+      res.render("new-event-success", { ...eventDetails, origin: req.headers.origin });
     }
   },
 

@@ -24,7 +24,9 @@ router.get("/change-language", (req, res) => {
   res.redirect(req.headers.referer);
 });
 
-// router.get("/site/webmanifest/:eventId", catchError(controller.generateManifest));
+router.get("/e/:evenId", (req, res) => {
+  res.redirect(303, `/event/${req.params.eventId}`);
+});
 
 router.get(/.*webmanifest$/, catchError(controller.generateManifest));
 
