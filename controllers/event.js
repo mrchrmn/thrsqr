@@ -67,10 +67,10 @@ module.exports = {
       let going = countGoing(responses);
       let notGoing = responses.length - going;
       let icons = {
-        "144": "/images/thrsqrlogo-250.png",
-        "192": "/images/thrsqrlogo-250.png",
-        "256": "/images/thrsqrlogo-250.png",
-        "512": "/images/thrsqrlogo-250.png"
+        144: "/images/thrsqrlogo-250.png",
+        192: "/images/thrsqrlogo-250.png",
+        256: "/images/thrsqrlogo-250.png",
+        512: "/images/thrsqrlogo-250.png"
       };
 
       if (!event.logourl) {

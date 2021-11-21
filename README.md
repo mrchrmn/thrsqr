@@ -26,7 +26,7 @@ Not any longer, thanks to ThrSqr!
 * Browser push notifications for individual events
   * Works with Chrome, Edge and Firefox on Android, Windows and Linux.
 * Individual event logos
-  * which are also used in web manifest and notifications
+  * which are also used for web manifest and notifications and home scree logos.
 * Time zone handling:
   * Saves browser timezone on event creation as event timezone. 
   * Displays event time, day of the week and date of next event according to browser timezone.
@@ -41,4 +41,4 @@ Not any longer, thanks to ThrSqr!
 * Web APIs:
   * Service Workers, Push, Notifications
 * Heroku
-* AWS S3
+* AWS S3 + Lambda
