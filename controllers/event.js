@@ -2,9 +2,9 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 
-const { getPrevious, countGoing, getNext, capitalize } = require("../lib/thrsqr");
+const { getPrevious, countGoing, getNext, capitalize, getResizedLogoURL } = require("../lib/thrsqr");
 const { notifySubscribers } = require("../lib/webpush");
-// S3 IMPORT HERE
+const config = require("../lib/config");
 
 // responses reset after this time has passed after the start of an event
 const WAIT_TIME_IN_MS = 1 * 60 * 60 * 1000;
@@ -23,7 +23,11 @@ module.exports = {
     let eventId = req.params.eventId;
     let event = await store.getEvent(eventId);
 
-    if (!event.logourl) event.logourl = "/images/thrsqrlogo-250.png";
+    if (!event.logourl) {
+      event.logourl = "/images/thrsqrlogo-250.png";
+    } else {
+      event.logourl = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 125);
+    }
 
     if (!event) {
       throw new Error("Requested event not found.");
@@ -62,13 +66,29 @@ module.exports = {
       let nextEventTime = getNext(previous).valueOf();
       let going = countGoing(responses);
       let notGoing = responses.length - going;
+      let icons = {
+        "144": "/images/thrsqrlogo-250.png",
+        "192": "/images/thrsqrlogo-250.png",
+        "256": "/images/thrsqrlogo-250.png",
+        "512": "/images/thrsqrlogo-250.png"
+      };
 
-      if (!event.logourl) event.logourl = "/images/thrsqrlogo-250.png";
+      if (!event.logourl) {
+        event.logourl = "/images/thrsqrlogo-250.png";
+      } else if (event.logourl.startsWith("https")) {
+        event.logourl = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 250);
+        icons[144] = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 144);
+        icons[192] = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 192);
+        icons[256] = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 256);
+        icons[512] = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 512);
+      }
 
       req.session.event = event;
 
+      res.set("Cache-Control", "no-cache");
       res.render("event", {
         event,
+        icons,
         responses,
         going,
         notGoing,

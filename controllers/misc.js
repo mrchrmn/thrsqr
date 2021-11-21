@@ -2,6 +2,7 @@
 
 const config = require("../lib/config");
 const aws = require('aws-sdk');
+const { getResizedLogoURL } = require("../lib/thrsqr");
 
 const S3_BUCKET_NAME = config.S3_BUCKET_NAME;
 
@@ -14,15 +15,39 @@ module.exports = {
     let eventManifest = "";
     let event = req.session.event;
 
-    if (event) eventManifest = `{
+    if (event) {
+      eventManifest = `{
 "name": "${event.title}",
 "short_name": "${event.title}",
 "icons": [
-    {
-        "src": "${event.logourl}",
-        "sizes": "192x192, 512x512",
-        "type": "image/png"
-    }
+  {
+    "src": "${event.logourl.startsWith("https") === true ?
+              getResizedLogoURL(S3_BUCKET_NAME, event.id, 144) :
+              '/images/thrsqrlogo-250.png'}",
+    "sizes": "144x144",
+    "type": "image/png"
+  },
+  {
+    "src": "${event.logourl.startsWith("https") === true ?
+              getResizedLogoURL(S3_BUCKET_NAME, event.id, 192) :
+              '/images/thrsqrlogo-250.png'}",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "${event.logourl.startsWith("https") === true ?
+              getResizedLogoURL(S3_BUCKET_NAME, event.id, 256) :
+              '/images/thrsqrlogo-250.png'}",
+    "sizes": "256x256",
+    "type": "image/png"
+  },
+  {
+    "src": "${event.logourl.startsWith("https") === true ?
+              getResizedLogoURL(S3_BUCKET_NAME, event.id, 512) :
+              '/images/thrsqrlogo-250.png'}",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
 ],
 "theme_color": "#FFFEE4",
 "background_color": "#FFFEE4",
@@ -31,6 +56,7 @@ module.exports = {
 "scope": "/event/${event.id}",
 "description": "ThrSqr - Your RSVP tracker for weekly events and friendly people."
 }`;
+    }
 
     res.append("Content-Type", "application/manifest+json").send(eventManifest);
   },

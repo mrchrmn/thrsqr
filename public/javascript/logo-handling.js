@@ -60,8 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return null;
     }
 
-    if (file.size > 252144) {
-      alert("File size must not exceed 256kB.");
+    if (file.size > 10485760) {
+      alert("File size must not exceed 10MB.");
       event.target.value = "";
       return null;
     }
@@ -73,15 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
       image.src = reader.result;
 
       image.addEventListener("load", () => {
-        if (image.height > 512 || image.width > 512) {
-          alert("Image dimensions must not exceed 512x512px.");
-          event.target.value = "";
-          return null;
-        }
+        // if (image.height > 512 || image.width > 512) {
+        //   alert("Image dimensions must not exceed 512x512px.");
+        //   event.target.value = "";
+        //   return null;
+        // }
 
         getS3Request(file, eventId);
       });
-
 
     });
   });

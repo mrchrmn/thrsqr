@@ -10,6 +10,14 @@ append script
 append stylesheet 
   link(rel="stylesheet" href="/stylesheets/event.css")
 
+append icons 
+  link(rel="apple-touch-icon" sizes="144x144" href=icons[144])
+  link(rel="apple-touch-icon" sizes="192x192" href=icons[192])
+  link(rel="apple-touch-icon" sizes="256x256" href=icons[256])
+  link(rel="icon" type="image/png" sizes="192x192"  href=icons[192])
+  link(rel="icon" type="image/png" sizes="256x256"  href=icons[256])
+
+
 block manifest 
   link(rel="manifest" href=`/${event.id}.webmanifest` crossorigin="use-credentials")
 
