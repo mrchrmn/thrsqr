@@ -26,7 +26,7 @@ module.exports = {
     if (!event.logourl) {
       event.logourl = "/images/thrsqrlogo-250.png";
     } else {
-      event.logourl = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 125);
+      event.logourl = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 250);
     }
 
     if (!event) {
@@ -76,7 +76,7 @@ module.exports = {
       if (!event.logourl) {
         event.logourl = "/images/thrsqrlogo-250.png";
       } else if (event.logourl.startsWith("https")) {
-        event.logourl = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 250);
+        event.logourl = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 500);
         icons[144] = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 144);
         icons[192] = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 192);
         icons[256] = getResizedLogoURL(config.S3_BUCKET_NAME, eventId, 256);
