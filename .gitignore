@@ -10,4 +10,3 @@ model/sql/temp.sql
 .vscode
 .env
 temp
-cypress/examples
