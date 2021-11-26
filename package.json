@@ -8,7 +8,8 @@
   },
   "scripts": {
     "heroku-postbuild": "npm install --production",
-    "start": "npx nodemon app.js",
+    "start": "cross-env NODE_ENV=production node app.js",
+    "dev": "cross-env NODE_ENV=development npx nodemon app.js --ignore cypress/",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "cypress:open": "cypress open",
     "test:e2e": "cypress run"
