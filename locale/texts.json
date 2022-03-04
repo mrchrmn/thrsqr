@@ -23,6 +23,21 @@
       "goToEvent": "Go to event.",
       "howToRemove": "To remove an entry just click on the name in the list.",
       "illBe": "I'll be...",
+      "legal": {
+        "link": "Privacy & Imprint",
+        "privacy": {
+          "heading": "Privacy",
+          "body": "<p>ThrSqr needs and uses exactly one cookie. Its purpose is to remember your preferred language and the name you enter when you respond to an event. This information is stored on the ThrSqr server. You can reset this data using the link on each page.</p><p>If you set up a new event, all event details are stored on the ThrSqr server. Events are subject to deletion after three months of inactivity. If you respond to an event, name, comment and time of response are stored on the ThrSqr server. Participant data is subject to deletion after six months of inactivity.</p><p>If you upload a custom event logo it will be stored on Amazon Web Services (AWS). Visiting the page of an event with a custom logo will transmit the visitor's IP address and anonymous browser information to AWS.</p><p>If you enable browser push notifications ThrSqr stores an anonymous identifier of your browser on the ThrSqr server to be able to later send notifications to the browser.</p><p>ThrSqr is currently hosted by Heroku on a US server. None of the data that is stored to for ThrSqr to work is shared with any third party.</p>"
+        },
+        "disclaimer": {
+          "heading": "Disclaimer",
+          "body": "<p>ThrSqr is a private project, created by Marc Hermann for his football and field hockey teams. It is provided as is with no guarantee for availability or data integrity. Marc takes no responsibility for loss of data.</p>"
+        },
+        "imprint": {
+          "heading": "Imprint",
+          "body": "<p>ThrSqr was made by<br/>Marc Hermann<br/>Onkel-Tom-Str. 65<br/>14169 Berlin<br/>thrsqr@marchermann.net</p>"
+        }
+      },
       "newEventHeading": "Set up a new event",
       "nextTime": "Next time",
       "pleaseNote": "Please note:",
@@ -66,6 +81,21 @@
       "goToEvent": "Zur Veranstaltung.",
       "howToRemove": "Zum Löschen eines Eintrags den Namen in der Liste klicken.",
       "illBe": "Ich bin...",
+      "legal": {
+        "link": "Datenschutz & Impressum",
+        "privacy": {
+          "heading": "Datenschutz",
+          "body": "<p>ThrSqr benötigt und verwendet genau ein \"Cookie\". Dessen Zweck ist, sich die eingestellte Sprache und den Namen zu merken, mit dem Sie zuletzt einer Veranstaltung zu- oder abgesagt haben. Diese Informationen sind auf dem ThrSqr-Server gespeichert. Diese Daten können mit dem Link auf jeder Seite zurückgesetzt werden.</p><p>Wenn Sie eine neue Veranstaltung einrichten, werden deren Details auf dem ThrSqr-Server gespeichert. Veranstaltunen werden nach dreimonatiger Inaktivität gelöscht. Wenn Sie einer Veranstaltung zu- oder absagen werden name und Kommentar auf dem ThrSqr-Server gespeichert. Teilnehmerdaten werden nach sechsmonatiger Inaktivität gelöscht.</p><p>Wenn Sie ein eigenes Logo für eine Veranstaltung hochladen, wird dieses bei Amazon Web Services (AWS) gespeichert. Beim Besuch einer Veranstaltungsseite mit eigenem Logo werden die IP-Adresse und anonyme Informationen über den Browseran AWS gesendet.</p><p>Wenn Sie Browser-Benachrichtigungen aktivieren, speichert ThrSqr eine anonyme Identifikation Ihres Browsers auf dem ThrSqr-Server, um eine Benachrichtigung and diesen Browser verschicken zu können.</p><p>ThrSqr wird derzeit bei Heroku auf einem US-Server bereitgestellt. Keine der Daten, die für den Betrieb von ThrSqr gespeichert werden, werden and Dritte weitergegeben.</p>"
+        },
+        "disclaimer": {
+          "heading": "Haftungsausschluss",
+          "body": "<p>ThrSqr ist ein privates Projekt, von Marc Hermann für seine Fußball- und Hockey-Mannschaften programmiert. Es wird ohne Garantien für Verfügbarkeit oder Daten-Integrität zur bereitgestellt. Marc übernimmt keine Haftung für den Verlust von Daten.</p>"
+        },
+        "imprint": {
+          "heading": "Impressum",
+          "body": "<p>ThrSqr wurde programmiert von<br/>Marc Hermann<br/>Onkel-Tom-Str. 65<br/>14169 Berlin<br/>thrsqr@marchermann.net</p>"
+        }
+      },
       "newEventHeading": "Neue Veranstaltung",
       "nextTime": "Das nächste Mal",
       "pleaseNote": "Bitte beachten:",

@@ -1,0 +1,15 @@
+extends header-footer
+
+append stylesheet 
+  link(rel="stylesheet" href="/stylesheets/welcome.css")
+
+block main
+  main 
+    h2= TEXTS.legal.privacy.heading
+    div!= TEXTS.legal.privacy.body
+
+    h2= TEXTS.legal.disclaimer.heading
+    div!= TEXTS.legal.disclaimer.body
+
+    h2= TEXTS.legal.imprint.heading
+    div!= TEXTS.legal.imprint.body
