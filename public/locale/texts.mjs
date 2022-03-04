@@ -11,7 +11,7 @@ const texts = {
   de: {
     subscribeEvent: "Benachrichtigungen einschalten",
     unsubscribeEvent: "Benachrichtigungen ausschalten",
-    unsubscribeAll: "Alle Benachrichtigungen ausschalten",
+    unsubscribeAll: "Alle Benachrichtigungen aus",
     confirmRemoveResponse: "Möchten Sie diesen Eintrag wirklich löschen?",
     today: "heute",
     on: "am"
