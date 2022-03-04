@@ -8,6 +8,10 @@ router.get("/", (_req, res) => {
   res.render("welcome");
 });
 
+router.get("/legal", (_req, res) => {
+  res.render("legal");
+});
+
 // Delete user session data
 router.get("/reset/user", (req, res) => {
   delete req.session.superuser;
