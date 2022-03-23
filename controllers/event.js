@@ -47,13 +47,13 @@ module.exports = {
       throw new Error("Requested event not found.");
     } else {
       // if latest update is older than last previous event reset responses.
-      let previousEventTime = getPrevious(event.eventtime, event.dayofweek, event.utcoffset);
+      let previousEventTime = getPrevious(event.eventtime, event.dayofweek, event.utcoffset).valueOf();
       let lastUpdate = new Date(event.lastupdate);
 
       let now = new Date();
 
-      if ( (now.valueOf() > (previousEventTime.valueOf() + WAIT_TIME_IN_MS)) &&
-           (lastUpdate.valueOf() < (previousEventTime.valueOf() + WAIT_TIME_IN_MS)) ) {
+      if ( (now.valueOf() > (previousEventTime + WAIT_TIME_IN_MS)) &&
+           (lastUpdate.valueOf() < (previousEventTime + WAIT_TIME_IN_MS)) ) {
         console.log("Resetting responses.");
         await store.resetResponses(eventId);
       }
