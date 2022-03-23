@@ -19,17 +19,17 @@ async function replaceTimeDate() {
   const SIXDAYS23HOURSINMS = ((6 * 24) + 23) * 60 * 60 * 1000;
 
   let locale = document.body.dataset.language === "de" ? "de-DE" : "en-GB";
-  let previousDateSpan = document.getElementById("previousDate");
+  let nextDateSpan = document.getElementById("nextDate");
 
-  if (previousDateSpan) {
+  if (nextDateSpan) {
     let eventTimeSpan = document.getElementById("eventTime");
     let eventDaySpan = document.getElementById("eventDay");
 
-    let previousEventTime = previousDateSpan.parentElement.dataset.previouseventtime;
+    let previousEventTime = nextDateSpan.parentElement.dataset.previouseventtime;
     let previousDate = new Date(Number(previousEventTime));
     let nextDate = getNext(previousDate);
-    let dstDifference = previousDate.getHours - nextDate.getHours;
-    nextDate = new Date(nextDate.valueOf + (dstDifference * 3600000));
+    let dstDifference = previousDate.getHours() - nextDate.getHours();
+    nextDate = new Date(nextDate.valueOf() + (dstDifference * 3600000));
     let now = new Date();
 
     eventTimeSpan.innerHTML = nextDate.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
@@ -38,9 +38,9 @@ async function replaceTimeDate() {
     if ( (nextDate.getUTCDay() === now.getUTCDay()) &&
          ( (nextDate.valueOf() - now.valueOf() < ONEDAYINMS) ||
            (nextDate.valueOf() - now.valueOf() > SIXDAYS23HOURSINMS) ) ) {
-      previousDateSpan.innerHTML = TEXTS.today;
+      nextDateSpan.innerHTML = TEXTS.today;
     } else {
-      previousDateSpan.innerHTML = TEXTS.on + " " + nextDate.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+      nextDateSpan.innerHTML = TEXTS.on + " " + nextDate.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
     }
 
     if (lang === "en") {
