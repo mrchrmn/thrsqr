@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 "use strict";
@@ -7,30 +8,39 @@ import { texts } from "/locale/texts.mjs";
 let lang;
 let TEXTS;
 
+function getNext(date) {
+  let nextDate = new Date (date.valueOf());
+  nextDate.setUTCDate(nextDate.getUTCDate() + 7);
+  return nextDate;
+}
+
 async function replaceTimeDate() {
   const ONEDAYINMS = 24 * 60 * 60 * 1000;
   const SIXDAYS23HOURSINMS = ((6 * 24) + 23) * 60 * 60 * 1000;
 
   let locale = document.body.dataset.language === "de" ? "de-DE" : "en-GB";
-  let nextDateSpan = document.getElementById("nextDate");
+  let previousDateSpan = document.getElementById("previousDate");
 
-  if (nextDateSpan) {
+  if (previousDateSpan) {
     let eventTimeSpan = document.getElementById("eventTime");
     let eventDaySpan = document.getElementById("eventDay");
 
-    let nextEventTime = nextDateSpan.parentElement.dataset.nexteventtime;
-    let date = new Date(Number(nextEventTime));
+    let previousEventTime = previousDateSpan.parentElement.dataset.previouseventtime;
+    let previousDate = new Date(Number(previousEventTime));
+    let nextDate = getNext(previousDate);
+    let dstDifference = previousDate.getHours - nextDate.getHours;
+    nextDate = new Date(nextDate.valueOf + (dstDifference * 3600000));
     let now = new Date();
 
-    eventTimeSpan.innerHTML = date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
-    eventDaySpan.innerHTML = date.toLocaleDateString(locale, { weekday: "long" });
+    eventTimeSpan.innerHTML = nextDate.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
+    eventDaySpan.innerHTML = nextDate.toLocaleDateString(locale, { weekday: "long" });
 
-    if ( (date.getUTCDay() === now.getUTCDay()) &&
-         ( (date.valueOf() - now.valueOf() < ONEDAYINMS) ||
-           (date.valueOf() - now.valueOf() > SIXDAYS23HOURSINMS) ) ) {
-      nextDateSpan.innerHTML = TEXTS.today;
+    if ( (nextDate.getUTCDay() === now.getUTCDay()) &&
+         ( (nextDate.valueOf() - now.valueOf() < ONEDAYINMS) ||
+           (nextDate.valueOf() - now.valueOf() > SIXDAYS23HOURSINMS) ) ) {
+      previousDateSpan.innerHTML = TEXTS.today;
     } else {
-      nextDateSpan.innerHTML = TEXTS.on + " " + date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+      previousDateSpan.innerHTML = TEXTS.on + " " + nextDate.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
     }
 
     if (lang === "en") {

@@ -2,7 +2,7 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 
-const { getPrevious, countGoing, getNext, capitalize, getResizedLogoURL } = require("../lib/thrsqr");
+const { getPrevious, countGoing, /*getNext,*/ capitalize, getResizedLogoURL } = require("../lib/thrsqr");
 const { notifySubscribers } = require("../lib/webpush");
 const config = require("../lib/config");
 
@@ -47,13 +47,13 @@ module.exports = {
       throw new Error("Requested event not found.");
     } else {
       // if latest update is older than last previous event reset responses.
-      let previous = getPrevious(event.eventtime, event.dayofweek, event.utcoffset);
+      let previousEventTime = getPrevious(event.eventtime, event.dayofweek, event.utcoffset);
       let lastUpdate = new Date(event.lastupdate);
 
       let now = new Date();
 
-      if ( (now.valueOf() > (previous.valueOf() + WAIT_TIME_IN_MS)) &&
-           (lastUpdate.valueOf() < (previous.valueOf() + WAIT_TIME_IN_MS)) ) {
+      if ( (now.valueOf() > (previousEventTime.valueOf() + WAIT_TIME_IN_MS)) &&
+           (lastUpdate.valueOf() < (previousEventTime.valueOf() + WAIT_TIME_IN_MS)) ) {
         console.log("Resetting responses.");
         await store.resetResponses(eventId);
       }
@@ -63,7 +63,7 @@ module.exports = {
         response.username = capitalize(response.username);
       });
 
-      let nextEventTime = getNext(previous).valueOf();
+      // let nextEventTime = getNext(previousEventTime).valueOf();
       let going = countGoing(responses);
       let notGoing = responses.length - going;
       let icons = {
@@ -92,7 +92,8 @@ module.exports = {
         responses,
         going,
         notGoing,
-        nextEventTime
+        // nextEventTime,
+        previousEventTime,
       });
     }
   },
