@@ -25,12 +25,14 @@ async function replaceTimeDate() {
     let eventTimeSpan = document.getElementById("eventTime");
     let eventDaySpan = document.getElementById("eventDay");
 
+    let now = new Date();
+
     let previousEventTime = nextDateSpan.parentElement.dataset.previouseventtime;
     let previousDate = new Date(Number(previousEventTime));
     let nextDate = getNext(previousDate);
-    let dstDifference = previousDate.getHours() - nextDate.getHours();
-    nextDate = new Date(nextDate.valueOf() + (dstDifference * 3600000));
-    let now = new Date();
+
+    let dstDifference = now.getTimezoneOffset() - nextDate.getTimezoneOffset();
+    nextDate = new Date(nextDate.valueOf() - (dstDifference * 60 * 1000));
 
     eventTimeSpan.innerHTML = nextDate.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
     eventDaySpan.innerHTML = nextDate.toLocaleDateString(locale, { weekday: "long" });
