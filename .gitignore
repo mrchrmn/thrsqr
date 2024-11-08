@@ -10,3 +10,4 @@ model/sql/temp.sql
 .vscode
 .env
 temp
+.idea
